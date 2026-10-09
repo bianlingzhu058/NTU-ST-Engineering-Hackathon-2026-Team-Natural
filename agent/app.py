@@ -30,7 +30,7 @@ def build_app(root: Path | None = None, dry_run: bool = False, seed: int | None 
 
 
 def run_desktop() -> None:
-    """Entry point suitable for a packaged double-click launcher."""
+    """Programmatic entry point for running a configured desktop scenario."""
     import logging
     logging.basicConfig(level=logging.INFO)
     config, _, runner, _ = build_app()

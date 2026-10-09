@@ -1,7 +1,6 @@
 # Operator interface
 
-- Intended to contain a small local interface for choosing a scenario and duration.
-- The interface should call the existing `agent` runtime rather than reimplementing execution.
-- Show run ID, scenario, status, and errors; provide clear start and stop controls.
-- Keep desktop execution explicit and label runs as synthetic and auditable.
-- No UI framework or executable interface is implemented yet.
+- `__main__.py` — Tkinter entry point; launch with `python -m ui`.
+- Defaults to dry-run mode. Real desktop input requires explicit opt-in and VM authorization acknowledgement.
+- Shows the active run ID and status, and requests stop using the runner's configured stop file.
+- Delegates scenario execution to `agent.app.build_app()` rather than duplicating skill logic.

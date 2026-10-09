@@ -1,4 +1,7 @@
-"""Thin development CLI for the synthetic activity harness."""
+"""Development CLI for listing, previewing, and troubleshooting scenarios.
+
+The operator-facing desktop application is in the ``ui`` package.
+"""
 import argparse
 import logging
 from .app import build_app

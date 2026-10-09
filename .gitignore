@@ -4,7 +4,8 @@ __pycache__/
 .venv/
 .venv*/
 config/config.local.*
-logs/
+logs/*.jsonl
+logs/*.log
 reports/generated/
 dist/
 build/

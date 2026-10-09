@@ -1,10 +1,10 @@
 # Synthetic Desktop Activity Harness
 
-- Runs labeled desktop scenarios in an authorized test VM.
+- Desktop application for running labeled scenarios in an authorized test VM.
 - Writes synthetic run and action records to `logs/actions.jsonl` for monitoring validation.
 - Uses a fake input backend for dry runs; Windows desktop runs use PyAutoGUI.
 
-## How to run the code
+## Start the desktop application
 
 1. Install Python 3.11 or newer.
 2. From the project folder, install dependencies:
@@ -13,29 +13,29 @@
    pip install -r requirements.txt
    ```
 
-3. List the available objectives:
+3. Start the operator interface:
 
    ```sh
-   python -m agent list-objectives
+   python -m ui
    ```
 
-4. Preview one objective without controlling the desktop:
+4. Select a scenario and duration. The interface starts in dry-run mode. To control the desktop, disable dry-run and confirm that the VM is authorized and unlocked.
 
-   ```sh
-   python -m agent dry-run --objective research_topic
-   ```
+5. Use **Stop run** to request a clean stop. Review `logs/actions.jsonl` or generate Markdown run summaries with `python -m reports`.
 
-5. On Windows, run an objective in an unlocked test VM:
+The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop runs.
 
-   ```sh
-   python -m agent run --objective research_topic --minutes 15
-   ```
+## Development commands
 
-   Omit `--objective` to choose among objectives by weight. Add `--seed N` for repeatable development runs.
+The following CLI commands are retained for development and troubleshooting:
 
-6. Stop a running session by creating the configured stop file (default: `.agent-stop`). Review the recorded actions in `logs/actions.jsonl`.
+- List scenarios: `python -m agent list-objectives`
+- Preview without desktop input: `python -m agent dry-run --objective research_topic`
+- Run from a terminal in an unlocked Windows test VM: `python -m agent run --objective research_topic --minutes 15`
+- Omit `--objective` to choose among scenarios by weight. Add `--seed N` for repeatable development runs.
+- Stop a CLI run by creating the configured stop file (default: `.agent-stop`).
 
-The CLI is for development. `agent.app.run_desktop()` is the entry point to package behind a double-click launcher.
+To summarize the action log independently, run `python -m reports` or pass a JSONL file path.
 
 ## How to add an objective
 
@@ -61,11 +61,11 @@ Skills should avoid direct timing calls and must not import PyAutoGUI. Keep test
 
 Short handoff notes for the files currently in the project:
 
-- `README.md` — setup, CLI workflow, authoring notes, monitoring notes, and this file map.
+- `README.md` — desktop app startup, development commands, authoring notes, monitoring notes, and this file map.
 - `requirements.txt` — Python packages needed to run and develop the harness.
 - `.gitignore` — local environments, generated logs/reports, caches, and build output excluded from Git.
 - `agent/__init__.py` — marks `agent` as an importable Python package.
-- `agent/__main__.py` — CLI entry point for listing, previewing, and running objectives.
+- `agent/__main__.py` — development CLI entry point for listing, previewing, and running objectives.
 - `agent/app.py` — composition root that builds runtime components and exposes the desktop entry point.
 - `agent/config.py` — typed settings/objective data and YAML loading helpers.
 - `agent/interfaces.py` — interfaces shared by input backends and runtime components.
@@ -96,15 +96,20 @@ Short handoff notes for the files currently in the project:
 - `tests/test_typing.py` — checks keyboard typing behavior.
 - `tools/sysmon_parent_checker.py` — reviews process creation records and parent images.
 - `tools/timing_analyzer.py` — analyzes observed action timing data.
-- `ui/README.md` — scope and intended responsibilities for the future operator interface.
+- `logs/README.md` — describes the generated action log and handling of run data.
+- `ui/README.md` — scope and usage notes for the operator interface.
+- `ui/__main__.py` — local Tkinter operator interface for selecting, starting, and stopping runs.
 - `docs/operator-guide.md` — operator setup, execution, stop, and review workflow.
 - `docs/scenario-authoring.md` — guidance for adding bounded, auditable scenarios.
+- `docs/team-handoff.md` — detailed implemented/not-yet-implemented status and teammate file map.
 - `reports/README.md` — explains where generated run summaries belong and how they are handled.
+- `reports/__main__.py` — generates one Markdown summary per run from action JSONL.
 
-## Planned operator-facing structure
+## Operator-facing structure
 
-- `ui/` — thin operator interface that will call the existing runner, show scenario/run status, and expose start/stop controls.
+- `ui/` — primary operator interface that calls the existing runner, shows scenario/run status, and exposes start/stop controls.
 - `docs/` — handoff and operating documentation.
+- `logs/actions.jsonl` — generated per-action records with run IDs; created on the first logged action.
 - `reports/` — location for reviewed/exported run summaries; generated reports should include a run ID for telemetry correlation.
 
-The UI and report generation are not implemented yet; these folders establish ownership and documentation boundaries without duplicating the runner.
+The interface and report generation are intentionally small; scenario execution remains in the existing runner.
