@@ -1,0 +1,14 @@
+name: office_worker
+weight: 1
+params:
+  title: Meeting notes
+  body: "TODO: replace with harmless sample text for the test VM."
+  path: "%USERPROFILE%\\Documents\\meeting-notes.txt"
+plan:
+  - skill: open_app
+    args: {name: notepad}
+  - skill: type_document
+    args: {title: "{title}", body: "{body}"}
+  - skill: save_file
+    args: {path: "{path}"}
+  - skill: close_app

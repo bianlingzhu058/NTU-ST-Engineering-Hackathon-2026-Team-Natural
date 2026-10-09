@@ -1,0 +1,20 @@
+timing:
+  lognormal_mu: -0.4
+  lognormal_sigma: 0.65
+  long_pause_probability: 0.04
+  long_pause_seconds: [2.0, 7.0]
+  micro_seconds: [0.03, 0.14]
+  step_seconds: [0.12, 0.65]
+  read_seconds: [1.0, 4.0]
+typing:
+  typo_rate: 0.02
+mouse:
+  steps: 14
+scroll:
+  burst_size: 4
+runner:
+  minutes: 15
+  gap_seconds: [8.0, 25.0]
+  stop_file: .agent-stop
+logging:
+  path: logs/actions.jsonl
