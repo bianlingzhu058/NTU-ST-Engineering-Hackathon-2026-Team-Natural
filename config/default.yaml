@@ -4,8 +4,9 @@ timing:
   kinds:
     micro: {median: 0.09, sigma: 0.45}                                           # between keys and mouse steps
     step:  {median: 0.45, sigma: 0.55, long_probability: 0.03, long_seconds: [1.5, 4.0]}   # between UI actions
-    read:  {median: 2.5,  sigma: 0.60, long_probability: 0.15, long_seconds: [4.0, 9.0]}   # after a page loads
-    think: {median: 1.2,  sigma: 0.60, long_probability: 0.10, long_seconds: [3.0, 8.0]}   # before starting something
+    read:  {median: 3.5,  sigma: 0.60, long_probability: 0.15, long_seconds: [5.0, 10.0]}  # after a page loads / app opens (raised for slower VM)
+    think: {median: 1.8,  sigma: 0.60, long_probability: 0.10, long_seconds: [3.0, 8.0]}   # before starting something (raised for slower VM)
+    settle: {median: 2.2, sigma: 0.45, long_probability: 0.05, long_seconds: [3.0, 5.0]}   # NEW: wait for a fresh window/dialog to take focus before typing into it
     gap:   {median: 14.0, sigma: 0.50, long_probability: 0.10, long_seconds: [25.0, 50.0]} # between tasks
 typing:
   typo_rate: 0.02
