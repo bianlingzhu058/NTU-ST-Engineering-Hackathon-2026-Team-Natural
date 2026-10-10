@@ -14,6 +14,7 @@ class TypeDocumentSkill(BaseSkill):
         paragraphs = args.get("paragraphs") or [args.get("body", "")]
         if paragraphs and isinstance(paragraphs[0], list):
             paragraphs = context.rng.choice(paragraphs) if context.rng else paragraphs[0]
+        context.pacer.wait("settle")  # FIX: ensure the just-opened editor window has focus (slower VM)
         context.pacer.wait("think")
         if args.get("title"):
             context.typer.type_text(str(args["title"]))
@@ -41,7 +42,8 @@ class SaveFileSkill(BaseSkill):
         args["filename"] = name
         context.pacer.wait("think")
         context.backend.hotkey("ctrl", "s")
-        context.pacer.wait("read")  # the save pane takes a moment
+        context.pacer.wait("read")    # the save pane takes a moment to appear
+        context.pacer.wait("settle")  # FIX: let the dialog take focus before typing (slower VM)
         context.typer.type_text(name)
         context.pacer.wait("step")
         context.backend.press("enter")
