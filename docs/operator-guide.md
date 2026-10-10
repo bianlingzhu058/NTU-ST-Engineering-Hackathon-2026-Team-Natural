@@ -8,6 +8,8 @@
 - Choose a scenario and duration in the interface, then use **Start run**.
 - For desktop input, turn off dry-run and confirm the authorized, unlocked test VM prompt.
 - Use **Stop run** to request a clean stop; the interface supports durations up to 120 minutes.
+- Keyboard controls: **Ctrl+Alt+F9** starts a run while the operator window is open; **Ctrl+Alt+F10** requests a clean stop. The stop shortcut also works for the bundled CLI runtime.
+- To start the bundled app while it is closed, set **Ctrl+Alt+F9** as the Windows desktop shortcut's **Shortcut key** in its Properties dialog.
 - Run only in an authorized, unlocked test VM and review `logs/actions.jsonl` afterward.
 - Generate a Markdown summary with `python -m reports`.
 - Correlate action records with VM telemetry using the run ID and timestamps.

@@ -13,6 +13,7 @@ from pathlib import Path
 from tkinter import messagebox, ttk
 
 from agent.app import build_app
+from agent.hotkeys import GlobalHotkeys
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -27,6 +28,8 @@ class OperatorApp:
         self.events: queue.Queue[tuple[str, str]] = queue.Queue()
         self.worker: threading.Thread | None = None
         self.stop_path: Path | None = None
+        self.hotkeys = GlobalHotkeys(on_start=lambda: self.window.after(0, self.start),
+                                     on_stop=lambda: self.window.after(0, self.stop))
 
         _, _, _, objectives = build_app(dry_run=True)
         self.objective = tk.StringVar(value=objectives[0].name if objectives else "")
@@ -36,6 +39,7 @@ class OperatorApp:
         self.status = tk.StringVar(value="Ready - dry run is selected")
         self.run_id = tk.StringVar(value="No run yet")
         self.window.protocol("WM_DELETE_WINDOW", self.close)
+        hotkeys_registered = self.hotkeys.start()
 
         panel = ttk.Frame(window, padding=16)
         panel.pack(fill="both", expand=True)
@@ -59,6 +63,9 @@ class OperatorApp:
         self.stop_button = ttk.Button(actions, text="Stop run", command=self.stop, state="disabled")
         self.stop_button.pack(side="left", padx=8)
         ttk.Label(panel, textvariable=self.status, wraplength=500).pack(anchor="w", pady=(4, 2))
+        ttk.Label(panel, text="Shortcuts: Ctrl+Alt+F9 start · Ctrl+Alt+F10 stop").pack(anchor="w")
+        if not hotkeys_registered:
+            self.status.set("Global shortcuts unavailable (unsupported platform or shortcut already in use)")
         ttk.Label(panel, text="Run ID:").pack(anchor="w", pady=(8, 0))
         ttk.Label(panel, textvariable=self.run_id, wraplength=500).pack(anchor="w")
         self.window.after(150, self._drain_events)
@@ -115,6 +122,7 @@ class OperatorApp:
 
     def close(self) -> None:
         """Request a clean stop before closing the operator window."""
+        self.hotkeys.stop()
         if self.worker and self.worker.is_alive():
             self.stop()
             self.status.set("Stopping the run before closing...")

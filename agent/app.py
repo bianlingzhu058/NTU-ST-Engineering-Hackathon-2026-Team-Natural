@@ -9,6 +9,7 @@ from .input.mouse import HumanMouse
 from .input.scroll import HumanScroller
 from .logger import JsonlActionLogger
 from .runner import Runner
+from .hotkeys import GlobalHotkeys
 from .timing import HumanPacer
 from .skills.base import SkillContext
 from . import skills  # noqa: F401  registers the built-in skills
@@ -44,5 +45,15 @@ def run_desktop(objective: str | None = None, minutes: float | None = None) -> N
     """Entry point for the double-clicked run: objective and minutes default to config/default.yaml."""
     config, _, runner, _ = build_app()
     settings = config.section("runner")
-    runner.run(float(minutes if minutes is not None else settings.get("minutes", 15)),
-               objective if objective is not None else settings.get("objective") or None)
+    stop_path = Path(__file__).resolve().parent.parent / settings.get("stop_file", "STOP_AGENT.txt")
+
+    def request_stop() -> None:
+        stop_path.touch(exist_ok=True)
+
+    hotkeys = GlobalHotkeys(on_stop=request_stop)
+    hotkeys.start()
+    try:
+        runner.run(float(minutes if minutes is not None else settings.get("minutes", 15)),
+                   objective if objective is not None else settings.get("objective") or None)
+    finally:
+        hotkeys.stop()

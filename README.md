@@ -25,6 +25,10 @@
 
 5. Use **Stop run** to request a clean stop. Review `logs/actions.jsonl` or generate Markdown run summaries with `python -m reports`.
 
+Keyboard controls: **Ctrl+Alt+F9** starts a run while the operator window is open, and
+**Ctrl+Alt+F10** requests a clean stop. On Windows, assign Ctrl+Alt+F9 to the desktop
+shortcut's **Shortcut key** field to launch the bundled app when it is closed.
+
 The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop runs.
 
 

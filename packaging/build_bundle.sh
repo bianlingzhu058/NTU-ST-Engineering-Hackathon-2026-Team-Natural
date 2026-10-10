@@ -26,8 +26,9 @@ DeskAssist bundle (no installation needed)
        C:\DeskAssist\app
 3. Double-click the shortcut. It runs for the minutes set in app\config\default.yaml (default 15)
    with the objective set there (default web_surfing), then exits on its own.
-4. To stop early: create an empty file named STOP_AGENT.txt inside C:\DeskAssist\app.
-5. Logs: app\logs\actions.jsonl (one line per action, the task timeline) and app\logs\agent.log.
+4. To stop early, press Ctrl+Alt+F10 from any app, or create STOP_AGENT.txt inside C:\DeskAssist\app.
+5. Optional start key: open the shortcut's Properties and set Shortcut key to Ctrl+Alt+F9.
+6. Logs: app\logs\actions.jsonl (one line per action, the task timeline) and app\logs\agent.log.
 
 Before a judged run: roll the VM back to the ready-for-runs snapshot, pin the browser to taskbar
 slot 1 and Word to slot 2, keep your own mouse off the console while it runs.
