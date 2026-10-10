@@ -39,10 +39,21 @@ class HumanMouse:
                 self._pacer.wait("micro")
 
     def click(self, x: float, y: float, radius: int = 4) -> None:
-        """Move to a small random offset and click."""
+        """Move to a small random offset and click with a human press duration.
+
+        FIX (VM): a zero-gap LEFTDOWN+LEFTUP is sometimes ignored by apps / over
+        VNC. Settle after the move so the cursor has arrived, then hold the button
+        briefly before releasing. Falls back to a plain click on backends without
+        separate down/up (e.g. the fake backend used in tests).
+        """
         self.move(x + self._rng.randint(-radius, radius), y + self._rng.randint(-radius, radius))
-        self._pacer.wait("micro")
-        self._backend.click()
+        self._pacer.wait("settle")  # let the cursor arrive / window react before pressing
+        down = getattr(self._backend, "mouse_down", None)
+        up = getattr(self._backend, "mouse_up", None)
+        if callable(down) and callable(up):
+            down(); self._pacer.wait("micro"); up()  # human press-and-release gap
+        else:
+            self._backend.click()
 
     def drift(self) -> None:
         """Small idle movement, as a reader resting a hand on the mouse."""
