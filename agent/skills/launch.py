@@ -7,11 +7,11 @@ from .base import BaseSkill, SkillContext
 class OpenAppSkill(BaseSkill):
     """Open an application through the Windows Start menu UI."""
     def execute(self, context: SkillContext, args: dict) -> None:
-        context.backend.press("win")
+        context.action("press", "win")
         context.pacer.wait("step")
         context.typer.type_text(str(args["name"]))
         context.pacer.wait("step")
-        context.backend.press("enter")
+        context.action("press", "enter")
         context.pacer.wait("read")
 
 
@@ -19,4 +19,4 @@ class OpenAppSkill(BaseSkill):
 class CloseAppSkill(BaseSkill):
     """Close the foreground application using its normal UI shortcut."""
     def execute(self, context: SkillContext, args: dict) -> None:
-        context.backend.hotkey("alt", "f4")
+        context.action("hotkey", "alt", "f4")

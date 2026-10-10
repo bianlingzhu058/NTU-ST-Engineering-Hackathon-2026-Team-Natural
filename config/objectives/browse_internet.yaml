@@ -1,0 +1,12 @@
+name: browse_internet
+weight: 1
+params:
+  query: Python lists tutorial
+plan:
+  - skill: open_app
+    args: {name: edge}
+  - skill: search
+    args: {query: "{query}"}
+  - skill: scroll_and_read
+    args: {bursts: 3}
+  - skill: close_app

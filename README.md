@@ -1,10 +1,10 @@
 # Synthetic Desktop Activity Harness
 
-- Desktop application for running labeled scenarios in an authorized test VM.
+- Local web interface for running labeled scenarios in an authorized test VM.
 - Writes synthetic run and action records to `logs/actions.jsonl` for monitoring validation.
 - Uses a fake input backend for dry runs; Windows desktop runs use PyAutoGUI.
 
-## Start the desktop application
+## Start the web operator interface in the VM
 
 1. Install Python 3.11 or newer.
 2. From the project folder, install dependencies:
@@ -13,17 +13,21 @@
    pip install -r requirements.txt
    ```
 
-3. Start the operator interface:
+3. Start the local web server from a terminal inside the Windows VM:
 
    ```sh
    python -m ui
    ```
 
-4. Select a scenario and duration. The interface starts in dry-run mode. To control the desktop, disable dry-run and confirm that the VM is authorized and unlocked.
+   Leave this terminal open and browse to `http://localhost:4000` from a browser inside that same VM. The server listens only on the VM's loopback interface; starting it on your host computer will not make the page appear at the VM's `localhost`.
+
+4. Select an objective. In dry-run mode, **Start run** simulates it once and reports the action count without opening a browser. To control the desktop, disable dry-run, set the live-run duration, and confirm that the VM is authorized and unlocked.
 
 5. Use **Stop run** to request a clean stop. Review `logs/actions.jsonl` or generate Markdown run summaries with `python -m reports`.
 
-The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop runs.
+The default `browse_internet` objective can run as-is. To customize it, select it and choose **Customize selected...**. Add, configure, reorder, or remove skills in the draft, then save with a new objective name. The app writes the new YAML file under `config/objectives/` and adds it to the objective list. Canceling the editor discards the draft.
+
+The web server runs in the foreground. Keep the Windows test VM unlocked during live desktop runs. The previous Tkinter interface remains available with `python -m ui.desktop`.
 
 ## Development commands
 
@@ -98,7 +102,9 @@ Short handoff notes for the files currently in the project:
 - `tools/timing_analyzer.py` — analyzes observed action timing data.
 - `logs/README.md` — describes the generated action log and handling of run data.
 - `ui/README.md` — scope and usage notes for the operator interface.
-- `ui/__main__.py` — local Tkinter operator interface for selecting, starting, and stopping runs.
+- `ui/__main__.py` — loopback web server entry point, opened at `http://localhost:4000` inside the VM.
+- `ui/web_app.py` and `ui/index.html` — local HTTP API and browser operator interface.
+- `ui/desktop.py` — optional legacy Tkinter operator interface.
 - `docs/operator-guide.md` — operator setup, execution, stop, and review workflow.
 - `docs/scenario-authoring.md` — guidance for adding bounded, auditable scenarios.
 - `docs/team-handoff.md` — detailed implemented/not-yet-implemented status and teammate file map.

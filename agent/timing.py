@@ -42,8 +42,8 @@ class CompositeDelay(DelayDistribution):
 
 class HumanPacer:
     """Chooses configured delay strategies and performs interruptible waits."""
-    def __init__(self, settings: dict, rng: random.Random, sleeper=time.sleep):
-        self._settings, self._rng, self._sleeper = settings, rng, sleeper
+    def __init__(self, settings: dict, rng: random.Random, sleeper=time.sleep, control=None):
+        self._settings, self._rng, self._sleeper, self._control = settings, rng, sleeper, control
         self.samples: list[tuple[str, float]] = []
         base = LognormalDelay(settings.get("lognormal_mu", -0.4), settings.get("lognormal_sigma", 0.65))
         self._read = CompositeDelay(base, settings.get("long_pause_probability", .04), *settings.get("long_pause_seconds", [2., 7.]))
@@ -59,6 +59,8 @@ class HumanPacer:
         remaining = self.duration(kind)
         self.samples.append((kind, remaining))
         while remaining > 0 and not stop_check():
+            if self._control is not None: self._control.checkpoint()
             slice_seconds = min(remaining, self._rng.uniform(.05, .2))
             self._sleeper(slice_seconds)
             remaining -= slice_seconds
+        if self._control is not None: self._control.checkpoint()

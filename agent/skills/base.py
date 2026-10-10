@@ -9,6 +9,9 @@ from ..timing import HumanPacer
 from ..input.keyboard import HumanTyper
 from ..input.mouse import HumanMouse
 from ..input.scroll import HumanScroller
+from ..run_control import RunControl
+from ..run_control import RunStopped
+from typing import Callable
 
 
 class SkillError(RuntimeError):
@@ -25,6 +28,19 @@ class SkillContext:
     scroller: HumanScroller
     logger: JsonlActionLogger
     dry_run: bool = False
+    control: RunControl | None = None
+    progress_callback: Callable[[str, str], None] | None = None
+
+    def action(self, method: str, *args: Any) -> Any:
+        """Perform one backend action at a cooperative run-control boundary."""
+        if self.control is not None: self.control.checkpoint()
+        result = getattr(self.backend, method)(*args)
+        if self.control is not None: self.control.checkpoint()
+        return result
+
+    def report_progress(self, scenario: str, skill: str) -> None:
+        if self.progress_callback is not None:
+            self.progress_callback(scenario, skill)
     def wait(self, kind: str) -> None:
         """Wait through shared timing while respecting runner stop state."""
         self.pacer.wait(kind)
@@ -34,11 +50,16 @@ class BaseSkill(Skill):
     """Logs, times, and wraps failures around a skill's execute method."""
     def run(self, context: SkillContext, args: dict[str, Any]) -> Any:
         name, start = type(self).__name__, time.perf_counter()
+        if context.control is not None: context.control.checkpoint()
         context.logger.log({"event": "skill_start", "skill": name, "args": args})
         try:
             result = self.execute(context, args)
             context.logger.log({"event": "skill_end", "skill": name, "duration_seconds": time.perf_counter() - start})
             return result
+        except RunStopped:
+            context.logger.log({"event": "skill_interrupted", "skill": name,
+                                "duration_seconds": time.perf_counter() - start})
+            raise
         except Exception as exc:
             context.logger.log({"event": "skill_error", "skill": name, "error": str(exc), "duration_seconds": time.perf_counter() - start})
             logging.getLogger(__name__).exception("Skill failed: %s", name)

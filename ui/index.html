@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Synthetic Activity Harness</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", Arial, sans-serif; color: #172033; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { background: #132d4f; color: white; padding: 20px max(22px, calc((100% - 1040px)/2)); }
+    header h1 { margin: 0; font-size: 22px; }
+    header p { margin: 5px 0 0; color: #d5e3f2; font-size: 14px; }
+    main { max-width: 1040px; margin: 22px auto; padding: 0 18px 32px; }
+    .card { background: white; border: 1px solid #dce4ef; border-radius: 10px; padding: 20px; margin-bottom: 16px; box-shadow: 0 2px 8px #142d4f0a; }
+    h2 { margin: 0 0 14px; font-size: 18px; }
+    .grid { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(180px, .7fr); gap: 14px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+    input, select { width: 100%; min-height: 38px; border: 1px solid #aebbd0; border-radius: 6px; padding: 8px 10px; font: inherit; background: white; }
+    input[type="checkbox"] { width: auto; min-height: auto; margin-right: 8px; }
+    .check { display: flex; align-items: center; font-weight: 500; margin: 14px 0 8px; }
+    .hint { color: #52637b; font-size: 13px; margin: 6px 0 0; }
+    .warning { color: #7d4b00; background: #fff4d9; border: 1px solid #eed493; border-radius: 6px; padding: 10px 12px; font-size: 13px; margin-top: 12px; }
+    .actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 16px; }
+    button { border: 0; background: #1769aa; color: white; padding: 10px 15px; border-radius: 6px; font: inherit; font-weight: 600; cursor: pointer; }
+    button:hover { background: #10558e; }
+    button.secondary { color: #183656; background: #e7eef7; }
+    button.secondary:hover { background: #d7e3f1; }
+    button.danger { background: #a83232; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .status { margin: 14px 0 0; padding: 12px; background: #f2f6fb; border-radius: 6px; overflow-wrap: anywhere; }
+    .progress { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 8px; color: #344761; font-size: 14px; }
+    .editor-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .editor-head h2 { margin-bottom: 0; }
+    #editor { margin-top: 16px; border-top: 1px solid #e0e7f0; padding-top: 16px; }
+    .add-row { display: grid; grid-template-columns: 1fr auto; gap: 9px; align-items: end; margin: 14px 0; }
+    .step { border: 1px solid #dce4ef; border-radius: 7px; padding: 13px; margin: 9px 0; }
+    .step-title { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .step-title strong { font-size: 14px; }
+    .step-buttons { display: flex; gap: 5px; }
+    .step-buttons button { padding: 6px 9px; font-size: 12px; }
+    .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .empty { color: #63728a; font-size: 14px; padding: 14px 0; }
+    #error { color: #9c2020; min-height: 20px; margin-top: 8px; }
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } header { padding: 18px; } main { margin-top: 12px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Synthetic Activity Harness</h1>
+    <p>Run or customize bounded browser activity on this Windows VM.</p>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Run an objective</h2>
+      <div class="grid">
+        <div>
+          <label for="objective">Objective</label>
+          <select id="objective"></select>
+        </div>
+        <div>
+          <label for="minutes">Live run duration (minutes, up to 120)</label>
+          <input id="minutes" type="number" min="0.1" max="120" step="0.1" value="15">
+        </div>
+      </div>
+      <label class="check"><input id="dryRun" type="checkbox" checked>Dry-run preview (simulate once; no desktop input)</label>
+      <label class="check" id="authLabel" hidden><input id="authorized" type="checkbox">I confirm this is an authorized, unlocked test VM</label>
+      <p id="modeHint" class="hint">Dry run records simulated actions and does not open a browser.</p>
+      <div id="liveWarning" class="warning" hidden>Live mode controls the VM desktop. Use it only in your authorized, unlocked test VM.</div>
+      <div class="actions">
+        <button id="start">Start run</button>
+        <button id="pause" class="secondary" disabled>Pause</button>
+        <button id="stop" class="danger" disabled>Stop run</button>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite">Connecting to local runner...</div>
+      <div class="progress">
+        <span>Scenario: <strong id="scenario">-</strong></span>
+        <span>Skill: <strong id="skill">-</strong></span>
+        <span>Run ID: <strong id="runId">-</strong></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="editor-head">
+        <h2>Objective draft</h2>
+        <button id="customize" class="secondary">Customize selected...</button>
+      </div>
+      <p class="hint">Changes remain in this page until saved. Saving creates a new YAML objective and leaves the selected source unchanged.</p>
+      <div id="editor" hidden>
+        <div class="grid">
+          <div>
+            <label for="draftName">New objective name</label>
+            <input id="draftName" maxlength="80">
+          </div>
+          <div>
+            <label for="skillChoice">Skill to add</label>
+            <div class="add-row" style="margin:0">
+              <select id="skillChoice"></select>
+              <button id="addSkill">Add skill</button>
+            </div>
+          </div>
+        </div>
+        <div id="steps"></div>
+        <div class="actions">
+          <button id="saveDraft">Save as new objective</button>
+          <button id="discardDraft" class="secondary">Discard draft</button>
+        </div>
+        <div id="error" role="alert"></div>
+      </div>
+    </section>
+    <p class="hint">This page is served only on this VM at localhost. Keep this console window open while using the interface.</p>
+  </main>
+
+  <script>
+    const UI_TOKEN = "__UI_TOKEN__";
+    const $ = (id) => document.getElementById(id);
+    let objectives = [];
+    let skills = [];
+    let draft = null;
+
+    async function api(path, options = {}) {
+      const headers = { ...(options.headers || {}) };
+      if (options.method === "POST") {
+        headers["Content-Type"] = "application/json";
+        headers["X-UI-Token"] = UI_TOKEN;
+      }
+      const response = await fetch(path, { ...options, headers, cache: "no-store" });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || `Request failed (${response.status})`);
+      return payload;
+    }
+
+    function selectedObjective() {
+      return objectives.find((item) => item.name === $("objective").value);
+    }
+
+    async function loadObjectives(selectName = null) {
+      const data = await api("/api/objectives");
+      objectives = data.objectives;
+      skills = data.skills;
+      const select = $("objective");
+      const previous = selectName || select.value;
+      select.replaceChildren();
+      objectives.forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.name;
+        option.textContent = item.name + (item.editable ? "" : " (not editable here)");
+        select.append(option);
+      });
+      if (objectives.some((item) => item.name === previous)) select.value = previous;
+      else if (objectives.some((item) => item.name === "browse_internet")) select.value = "browse_internet";
+      const skillSelect = $("skillChoice");
+      skillSelect.replaceChildren();
+      skills.forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.name;
+        option.textContent = item.label;
+        skillSelect.append(option);
+      });
+    }
+
+    function renderDraft() {
+      const container = $("steps");
+      container.replaceChildren();
+      if (!draft.plan.length) {
+        const empty = document.createElement("p");
+        empty.className = "empty";
+        empty.textContent = "No skills yet. Add at least one skill to this objective.";
+        container.append(empty);
+      }
+      draft.plan.forEach((step, index) => {
+        const definition = skills.find((item) => item.name === step.skill);
+        const card = document.createElement("div");
+        card.className = "step";
+        const heading = document.createElement("div");
+        heading.className = "step-title";
+        const title = document.createElement("strong");
+        title.textContent = `${index + 1}. ${definition.label}`;
+        heading.append(title);
+        const buttons = document.createElement("div");
+        buttons.className = "step-buttons";
+        [["Move up", -1], ["Move down", 1], ["Remove", 0]].forEach(([label, direction]) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.textContent = label;
+          button.className = label === "Remove" ? "danger" : "secondary";
+          button.disabled = (direction === -1 && index === 0) || (direction === 1 && index === draft.plan.length - 1);
+          button.addEventListener("click", () => {
+            if (direction === 0) draft.plan.splice(index, 1);
+            else {
+              const target = index + direction;
+              [draft.plan[index], draft.plan[target]] = [draft.plan[target], draft.plan[index]];
+            }
+            renderDraft();
+          });
+          buttons.append(button);
+        });
+        heading.append(buttons);
+        card.append(heading);
+        const description = document.createElement("p");
+        description.className = "hint";
+        description.textContent = definition.description;
+        card.append(description);
+        if (definition.fields.length) {
+          const fields = document.createElement("div");
+          fields.className = "fields";
+          definition.fields.forEach((field) => {
+            const wrap = document.createElement("div");
+            const label = document.createElement("label");
+            label.textContent = field.label;
+            const input = document.createElement("input");
+            input.type = field.kind === "integer" ? "number" : "text";
+            if (field.kind === "integer") { input.min = "1"; input.max = "20"; input.step = "1"; }
+            input.value = step.args[field.name] ?? field.default;
+            input.addEventListener("input", () => { step.args[field.name] = input.value; });
+            wrap.append(label, input);
+            fields.append(wrap);
+          });
+          card.append(fields);
+        } else {
+          const noFields = document.createElement("p");
+          noFields.className = "hint";
+          noFields.textContent = "This skill has no settings.";
+          card.append(noFields);
+        }
+        container.append(card);
+      });
+    }
+
+    function updateMode() {
+      const dry = $("dryRun").checked;
+      $("authLabel").hidden = dry;
+      $("liveWarning").hidden = dry;
+      $("minutes").disabled = dry;
+      $("modeHint").textContent = dry
+        ? "Dry run simulates the selected objective once, records actions, and does not open or control a browser."
+        : "Live run operates the VM desktop and repeats the objective for the selected duration.";
+    }
+
+    async function refreshState() {
+      try {
+        const state = await api("/api/state");
+        $("status").textContent = state.status;
+        $("scenario").textContent = state.scenario || "-";
+        $("skill").textContent = state.skill || "-";
+        $("runId").textContent = state.run_id || "-";
+        $("start").disabled = state.running;
+        $("customize").disabled = state.running;
+        $("pause").disabled = !state.running;
+        $("pause").textContent = state.paused ? "Resume" : "Pause";
+        $("stop").disabled = !state.running;
+        $("dryRun").disabled = state.running;
+        $("minutes").disabled = state.running || $("dryRun").checked;
+      } catch (error) {
+        $("status").textContent = "Cannot reach the local runner: " + error.message;
+      }
+    }
+
+    $("dryRun").addEventListener("change", updateMode);
+    $("customize").addEventListener("click", () => {
+      const selected = selectedObjective();
+      if (!selected || !selected.editable) {
+        $("error").textContent = "This objective contains a skill that this browsing editor does not support.";
+        $("editor").hidden = false;
+        return;
+      }
+      draft = structuredClone(selected.draft);
+      $("draftName").value = draft.name;
+      $("error").textContent = "";
+      $("editor").hidden = false;
+      renderDraft();
+      $("editor").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    $("addSkill").addEventListener("click", () => {
+      if (!draft) return;
+      const definition = skills.find((item) => item.name === $("skillChoice").value);
+      const args = {};
+      definition.fields.forEach((field) => { args[field.name] = field.default; });
+      draft.plan.push({ skill: definition.name, args });
+      renderDraft();
+    });
+    $("discardDraft").addEventListener("click", () => {
+      draft = null;
+      $("editor").hidden = true;
+      $("error").textContent = "";
+    });
+    $("saveDraft").addEventListener("click", async () => {
+      if (!draft) return;
+      try {
+        const result = await api("/api/objectives", { method: "POST", body: JSON.stringify({ name: $("draftName").value, plan: draft.plan }) });
+        draft = null;
+        $("editor").hidden = true;
+        await loadObjectives($("draftName").value.trim());
+        $("error").textContent = "";
+        $("status").textContent = `Saved new objective ${result.filename}.`;
+      } catch (error) {
+        $("error").textContent = error.message;
+      }
+    });
+    $("start").addEventListener("click", async () => {
+      try {
+        await api("/api/run", { method: "POST", body: JSON.stringify({
+          objective: $("objective").value,
+          minutes: Number($("minutes").value),
+          dry_run: $("dryRun").checked,
+          authorized: $("authorized").checked
+        }) });
+        await refreshState();
+      } catch (error) { $("status").textContent = error.message; }
+    });
+    $("pause").addEventListener("click", async () => {
+      try {
+        const action = $("pause").textContent === "Resume" ? "resume" : "pause";
+        await api("/api/control", { method: "POST", body: JSON.stringify({ action }) });
+        await refreshState();
+      } catch (error) { $("status").textContent = error.message; }
+    });
+    $("stop").addEventListener("click", async () => {
+      try { await api("/api/control", { method: "POST", body: JSON.stringify({ action: "stop" }) }); }
+      catch (error) { $("status").textContent = error.message; }
+    });
+
+    updateMode();
+    loadObjectives().then(refreshState).catch((error) => { $("status").textContent = error.message; });
+    window.setInterval(refreshState, 500);
+  </script>
+</body>
+</html>

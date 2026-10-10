@@ -29,4 +29,5 @@ class YamlObjective(Objective):
             if "{query}" in str(step.get("args", {})) and queries:
                 args["query"] = (rng or __import__("random")).choice(queries)
             skill = create_skill(step["skill"], **self.skill_dependencies)
+            context.report_progress(self.data.name, step["skill"])
             skill.run(context, args)

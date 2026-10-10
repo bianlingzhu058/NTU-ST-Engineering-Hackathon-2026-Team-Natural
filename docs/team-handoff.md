@@ -4,15 +4,17 @@ This document describes what is present in the repository today. It separates im
 
 ## Product status
 
-The project has a small local Tkinter desktop interface and a Python runtime behind it. The desktop interface is the main operator entry point; the `python -m agent` CLI remains available for development and troubleshooting. The interface is a source-code application launched from a terminal, not a packaged installer or standalone executable.
+The project has a local web operator interface and Python runtime. Start the server inside the Windows VM with `python -m ui`, then open `http://localhost:4000` in that VM's browser. The server binds to loopback only. The older Tkinter interface is available with `python -m ui.desktop`; the `python -m agent` CLI remains available for development and troubleshooting. The app is source code launched from a terminal, not a packaged installer or standalone executable.
 
 ## Implemented
 
 - Scenario definitions are loaded from YAML files in `config/objectives/`.
-- The operator interface lists available scenarios, accepts a run duration from greater than 0 up to 120 minutes, and starts or requests a stop for one selected scenario.
-- The interface starts in dry-run mode. Dry runs use the fake input backend and do not send keyboard or pointer input to the desktop.
+- The operator interface lists objectives and starts the selected objective. Live runs accept a duration from greater than 0 up to 120 minutes; dry-run previews execute the selected objective once.
+- The interface starts in dry-run preview mode. It uses the fake input backend, sends no desktop input, and reports the number of simulated actions.
+- The interface shows the current scenario and skill, and pause/resume/stop requests are honored at input-action boundaries.
+- The interface can open a draft of a supported browsing objective, add/reorder/remove skills, configure skill inputs, and save the result as a new YAML objective.
 - Desktop input is an explicit opt-in in the interface, with a checkbox confirming the test VM is authorized and unlocked.
-- The runner checks its time budget and stop file between scenarios, then repeats the selected scenario. A single scenario can make the overall run exceed the requested duration. Stop is cooperative: the current scenario/action sequence may finish before the runner checks the stop condition.
+- The runner checks its time budget between scenarios, then repeats the selected scenario. A single scenario can make the overall run exceed the requested duration. Pause and stop are cooperative and take effect at input-action boundaries.
 - Scenario skills cover opening/closing an application, entering and saving simple document text, navigating/searching a browser, finding text on a page, and scrolling.
 - Keyboard, pointer, scrolling, and reading pauses use shared configurable timing helpers. The fake backend can record these operations for dry runs.
 - Action records are appended to `logs/actions.jsonl`. Records include a UTC timestamp, run ID, and `synthetic: true` marker. The logger creates the directory/file when it writes the first event.
@@ -22,24 +24,24 @@ The project has a small local Tkinter desktop interface and a Python runtime beh
 
 ## Not implemented or not yet complete
 
-- There is no packaged Windows installer, executable, or double-click launcher. Run the desktop interface from the repository with `python -m ui`.
-- The interface has no pause/resume control, progress bar, scenario details/preview pane, run history browser, or report viewer.
+- There is no packaged Windows installer, executable, or double-click launcher. The repository must be present inside the VM for the web UI to control that VM's desktop.
+- The interface has no progress bar, scenario details/preview pane, run history browser, or report viewer.
 - The reports tool summarizes this harness's action log only. It does not collect, parse, or correlate Windows Event Log or Sysmon data automatically.
 - There is no email workflow, file download workflow, or general office-suite integration. The current office example is a basic text-editor scenario.
 - The scenario `office_worker.yaml` still contains placeholder body text. Its `%USERPROFILE%` path is typed literally; the current parameter substitution does not expand Windows environment variables.
 - Browser skills do not identify or click arbitrary page links. Browser interaction is limited to address-bar navigation/search, browser find, and scrolling.
 - App launch and desktop actions depend on the target Windows VM's installed applications, UI language, screen state, and unlocked interactive session. They have not been validated against every VM image.
 - The project does not disguise its automation or implement process-lineage concealment. The UI is launched with Python, and run records are labeled synthetic for authorized monitoring validation.
-- The current tests cover timing, typing, objective loading/runner selection, and a source constraint. They do not cover the Tkinter UI or report-generation module.
-- No tests or live 15-minute VM run are claimed by this handoff document.
+- Tests cover timing, typing, run control, objective loading/runner selection, UI objective storage/validation, and a source constraint. The Tkinter interaction flow and report-generation module are not covered automatically.
+- Automated tests and a browsing dry run pass; no live desktop or 15-minute VM run has been performed.
 
 ## Start and operate
 
 1. Use Python 3.11 or newer and install dependencies with `pip install -r requirements.txt`.
-2. From the repository root, start the desktop interface with `python -m ui`.
-3. Choose a scenario and duration. Leave dry-run selected for a preview that does not control the desktop.
+2. From a terminal inside the VM and the repository root, start the web server with `python -m ui`.
+3. Open `http://localhost:4000` in a browser inside that same VM. Choose an objective; dry-run is a single simulated preview.
 4. For an authorized desktop run, deselect dry-run and confirm that the VM is authorized and unlocked.
-5. Use **Stop run** to request a stop. The current scenario may need to reach a pacing/runner boundary before it exits.
+5. Use **Pause/Resume** or **Stop run**; requests take effect at the next input-action boundary.
 6. Inspect `logs/actions.jsonl`; optionally run `python -m reports` to create summaries.
 7. Correlate run IDs/timestamps with separately collected VM telemetry and restore the VM snapshot after testing.
 
@@ -68,6 +70,7 @@ Development-only CLI examples:
 - `agent/logger.py` — thread-safe JSONL event writer with timestamp, run ID, and synthetic marker.
 - `agent/registry.py` — decorator-based skill registry and skill construction.
 - `agent/runner.py` — weighted scenario selection, duration loop, objective event logging, and stop-file checks.
+- `agent/run_control.py` — thread-safe cooperative pause/stop state checked at input-action boundaries.
 - `agent/timing.py` — delay distributions and the shared pacing/wait implementation.
 
 #### `agent/input/` — input adapters and primitives
@@ -83,6 +86,7 @@ Development-only CLI examples:
 
 - `agent/skills/__init__.py` — imports built-in skill modules so decorators register their skill names.
 - `agent/skills/base.py` — shared `SkillContext`, common logging/error wrapper, and base skill.
+- `agent/skills/catalog.py` — editor labels, descriptions, and input fields for supported browsing skills.
 - `agent/skills/browser.py` — URL navigation, address-bar search, browser find, and page scrolling skills.
 - `agent/skills/launch.py` — opens an app from Windows UI and closes the foreground app.
 - `agent/skills/office.py` — types simple document content and invokes Save As.
@@ -91,11 +95,13 @@ Development-only CLI examples:
 
 - `agent/objectives/__init__.py` — package marker.
 - `agent/objectives/yaml_objective.py` — expands plan parameters and runs registered skills in order.
+- `agent/objectives/storage.py` — validates and saves UI-authored YAML objectives without overwriting existing ones.
 
 ### `config/` — runtime settings and scenario definitions
 
 - `config/default.yaml` — timing ranges, typo rate, pointer/scroll settings, default duration, stop-file path, and action-log path.
 - `config/objectives/` — folder of scenario YAML definitions loaded when the app starts.
+- `config/objectives/browse_internet.yaml` — default directly runnable web-browsing objective.
 - `config/objectives/idle_browse.yaml` — opens Edge, visits `example.com`, scrolls, then closes the app.
 - `config/objectives/office_worker.yaml` — opens Notepad, enters sample document text, attempts Save As, then closes the app; body/path need cleanup as described above.
 - `config/objectives/research_topic.yaml` — opens Edge, searches one configured query, scrolls, then closes the app.
@@ -103,7 +109,11 @@ Development-only CLI examples:
 ### `ui/` — primary operator interface
 
 - `ui/README.md` — UI behavior and launch notes.
-- `ui/__main__.py` — Tkinter desktop window for selecting scenario/duration, enabling dry-run or authorized desktop input, showing run ID/status, stopping, and waiting for a clean stop on window close.
+- `ui/__main__.py` — web server entry point for `python -m ui`.
+- `ui/web_app.py` — loopback HTTP server, run-control API, and objective storage endpoints.
+- `ui/index.html` — browser UI for running objectives and editing drafts.
+- `ui/desktop.py` — optional Tkinter interface.
+- `ui/objective_editor.py` — draft editor for adding, configuring, and reordering supported browsing skills, then saving as a new objective.
 
 ### `logs/` — generated action records
 
@@ -123,6 +133,8 @@ Development-only CLI examples:
 - `docs/scenario-authoring.md` — guidance for adding YAML scenarios and reviewing their actions.
 
 ### `tests/` — automated checks
+
+- `tests/test_run_control.py` — checks pause/resume and stop requests at cooperative checkpoints.
 
 - `tests/test_no_banned_calls.py` — scans runtime sources for selected process launch/kill APIs.
 - `tests/test_runner.py` — checks YAML scenario loading and a zero-duration runner call.
