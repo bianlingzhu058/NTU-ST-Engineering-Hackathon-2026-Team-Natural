@@ -6,11 +6,13 @@
 
 ## Start the desktop application
 
-1. Install Python 3.11 or newer.
+1. Install Python 3.12.10 (64-bit).
 2. From the project folder, install dependencies:
 
-   ```sh
-   pip install -r requirements.txt
+   ```powershell
+   py -3.12 -m venv .venv31210
+   .venv31210\Scripts\Activate.ps1
+   python -m pip install -r requirements.txt
    ```
 
 3. Start the operator interface:
@@ -28,8 +30,8 @@ The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop
 
 ## VM runtime (no installation)
 
-The judged run uses no pip and no installer. `packaging/build_bundle.sh <python-3.11-embed-amd64.zip>`
-produces `dist/DeskAssist.zip`: the Python embeddable runtime with `pythonw.exe` copied to
+The judged run uses no pip and no installer. `packaging/build_bundle.sh <python-3.12.10-embed-amd64.zip>`
+produces `dist/DeskAssist.zip`: the Python 3.12 embeddable runtime with `pythonw.exe` copied to
 `DeskAssist.exe`, plus `app/` (agent, config, vendored yaml, tools). On the VM, a desktop shortcut to
 `runtime\DeskAssist.exe -m agent run` (Start in `app`) runs the objective and minutes set in
 `config/default.yaml`. See `dist/DeskAssist/README_VM.txt` and `docs/kellyn-changes.md`.

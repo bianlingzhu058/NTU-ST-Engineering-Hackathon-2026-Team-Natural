@@ -35,7 +35,8 @@ The project has a small local Tkinter desktop interface and a Python runtime beh
 
 ## Start and operate
 
-1. Use Python 3.11 or newer and install dependencies with `pip install -r requirements.txt`.
+1. Use Python 3.12.10 (64-bit) and create `.venv31210` with `py -3.12 -m venv .venv31210`.
+   Activate the environment, then install dependencies with `python -m pip install -r requirements.txt`.
 2. From the repository root, start the desktop interface with `python -m ui`.
 3. Choose a scenario and duration. Leave dry-run selected for a preview that does not control the desktop.
 4. For an authorized desktop run, deselect dry-run and confirm that the VM is authorized and unlocked.
@@ -136,5 +137,5 @@ Development-only CLI examples:
 
 ### Local-only environment
 
-- `.venv311/` — local Python 3.11 virtual environment when present; ignored by Git and should be recreated per machine rather than committed.
+- `.venv31210/` — local Python 3.12.10 virtual environment when present; ignored by Git and should be recreated per machine rather than committed. Recreate it when changing Python versions.
 - `.git/` — Git's repository metadata; not application source.

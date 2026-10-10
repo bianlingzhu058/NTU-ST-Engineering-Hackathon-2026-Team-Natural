@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 # Build the VM bundle: a folder that runs on Windows with nothing installed.
-#   packaging/build_bundle.sh /path/to/python-3.11.x-embed-amd64.zip
+#   packaging/build_bundle.sh /path/to/python-3.12.10-embed-amd64.zip
 # Produces dist/DeskAssist.zip containing:
 #   DeskAssist/runtime/   the Python embeddable runtime, pythonw.exe copied to DeskAssist.exe
 #   DeskAssist/app/       agent/, config/, vendor/ (pure-Python yaml), tools/, logs/
 #   DeskAssist/README_VM.txt   how to make the desktop shortcut
 set -euo pipefail
-EMBED="${1:?path to python-3.11.x-embed-amd64.zip}"
+EMBED="${1:?path to python-3.12.10-embed-amd64.zip}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/dist/DeskAssist"
 rm -rf "$ROOT/dist"; mkdir -p "$OUT/runtime" "$OUT/app"
 unzip -q "$EMBED" -d "$OUT/runtime"
 cp "$OUT/runtime/pythonw.exe" "$OUT/runtime/DeskAssist.exe"
 # search path for the renamed exe: the stdlib zip, the runtime dir, our app and vendored packages
-printf 'python311.zip\n.\n..\\app\n..\\app\\vendor\n' > "$OUT/runtime/python311._pth"
+printf 'python312.zip\n.\n..\\app\n..\\app\\vendor\n' > "$OUT/runtime/python312._pth"
 cp -r "$ROOT/agent" "$ROOT/config" "$ROOT/vendor" "$ROOT/tools" "$OUT/app/"
 mkdir -p "$OUT/app/logs"; find "$OUT/app" -name __pycache__ -type d -exec rm -rf {} +
 cat > "$OUT/README_VM.txt" <<'TXT'
