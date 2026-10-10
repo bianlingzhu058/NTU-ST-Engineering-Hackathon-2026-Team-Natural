@@ -31,6 +31,7 @@ class GoToUrlSkill(BaseSkill):
     """Navigate the foreground browser to a URL (a list means pick one at random)."""
     def execute(self, context: SkillContext, args: dict) -> None:
         url = str(_pick(context, args["url"])); args["url"] = url
+        context.pacer.wait("settle")  # FIX: ensure the browser window has focus before Ctrl+L (slower VM)
         context.backend.hotkey("ctrl", "l")
         context.pacer.wait("step")
         context.typer.type_text(url)
