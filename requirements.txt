@@ -1,0 +1,5 @@
+# Laptop development only. The VM runtime needs nothing: it runs on the Python embeddable zip
+# with the vendored pure-Python PyYAML (vendor/yaml) and the ctypes SendInput backend.
+PyYAML>=6.0
+pytest>=8.0
+pyautogui>=0.9.54   # optional: only if input.backend is set to pyautogui in config/default.yaml

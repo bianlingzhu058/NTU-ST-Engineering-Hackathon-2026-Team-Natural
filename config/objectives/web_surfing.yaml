@@ -1,0 +1,43 @@
+# Web surfing on the organisers' mock sites (clean TLS list from the technical guide).
+# Each run: open the browser by a random human route, visit a random number of
+# random sites, scroll and read, sometimes follow a link, close with Ctrl+W.
+name: web_surfing
+weight: 3
+params:
+  app_name: edge
+  taskbar_slot: 1
+  run_command: msedge
+  sites:
+    - https://www.apple.com
+    - https://www.samsung.com
+    - https://www.dell.com
+    - https://www.amazon.com
+    - https://aws.amazon.com
+    - https://apnews.com
+    - https://www.coursera.org
+    - https://coinmarketcap.com
+    - https://www.coingecko.com
+    - https://www.coinbase.com
+plan:
+  - skill: open_app
+    args: {name: "{app_name}", taskbar_slot: "{taskbar_slot}", run_command: "{run_command}"}
+  - skill: go_to_url
+    args: {url: "{sites}"}
+  - skill: scroll_and_read
+    args: {bursts_range: [2, 6]}
+  - skill: follow_link
+    chance: 0.6
+    args: {tabs_range: [4, 15], back_probability: 0.3}
+  - skill: scroll_and_read
+    chance: 0.6
+    args: {bursts_range: [1, 4]}
+  - skill: go_to_url
+    repeat: [1, 3]
+    args: {url: "{sites}"}
+  - skill: scroll_and_read
+    args: {bursts_range: [2, 5]}
+  - skill: follow_link
+    chance: 0.4
+    args: {tabs_range: [4, 12], back_probability: 0.4}
+  - skill: close_app
+    args: {method: ctrl_w, tabs: 3}

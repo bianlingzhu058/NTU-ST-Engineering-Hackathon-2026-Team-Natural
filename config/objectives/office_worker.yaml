@@ -1,0 +1,26 @@
+# Office worker: open Word (pinned at taskbar slot 2), type a short note with
+# typos, save under a random filename, close. ASCII text only.
+name: office_worker
+weight: 1
+params:
+  app_name: word
+  taskbar_slot: 2
+  run_command: winword
+  filenames: ["meeting notes {n}", "weekly update {n}", "draft {n}", "todo list {n}"]
+  titles: ["Meeting notes", "Weekly update", "Project status", "Things to do this week"]
+  bodies:
+    - - "Discussed the timeline for the next release. The main risk is the vendor delivery slipping into November."
+      - "Action items: confirm the test schedule with the lab, send the updated budget to finance, and book the review room."
+    - - "This week we finished the first round of user interviews. Most people asked for a simpler login flow."
+      - "Next week: summarise the interviews, update the wireframes, and share them with the design team on Thursday."
+    - - "Reminder to check the supplier quotes before Friday. Two of them are still missing the shipping cost."
+      - "Also need to follow up on the parking pass and the laptop replacement request."
+plan:
+  - skill: open_app
+    args: {name: "{app_name}", taskbar_slot: "{taskbar_slot}", run_command: "{run_command}"}
+  - skill: type_document
+    args: {title: "{titles}", paragraphs: "{bodies}"}
+  - skill: save_file
+    args: {filename: "{filenames}"}
+  - skill: close_app
+    args: {method: alt_f4}
