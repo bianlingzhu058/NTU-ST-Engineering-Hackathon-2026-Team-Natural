@@ -24,6 +24,12 @@ class InputBackend(ABC):
     @abstractmethod
     def scroll(self, amount: int) -> None: ...
 
+    @abstractmethod
+    def position(self) -> tuple[int, int]: ...
+
+    @abstractmethod
+    def screen_size(self) -> tuple[int, int]: ...
+
 
 class DelayDistribution(ABC):
     """Defines a strategy for sampling nonnegative wait durations."""

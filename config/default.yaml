@@ -1,20 +1,23 @@
+# Every pause kind is lognormal (median seconds, sigma) with optional long pauses mixed in.
+# Nothing here is a fixed interval. CV of each kind is enforced above 0.4 by tests/test_timing.py.
 timing:
-  lognormal_mu: -0.4
-  lognormal_sigma: 0.65
-  long_pause_probability: 0.04
-  long_pause_seconds: [2.0, 7.0]
-  micro_seconds: [0.03, 0.14]
-  step_seconds: [0.12, 0.65]
-  read_seconds: [1.0, 4.0]
+  kinds:
+    micro: {median: 0.09, sigma: 0.45}                                           # between keys and mouse steps
+    step:  {median: 0.45, sigma: 0.55, long_probability: 0.03, long_seconds: [1.5, 4.0]}   # between UI actions
+    read:  {median: 2.5,  sigma: 0.60, long_probability: 0.15, long_seconds: [4.0, 9.0]}   # after a page loads
+    think: {median: 1.2,  sigma: 0.60, long_probability: 0.10, long_seconds: [3.0, 8.0]}   # before starting something
+    gap:   {median: 14.0, sigma: 0.50, long_probability: 0.10, long_seconds: [25.0, 50.0]} # between tasks
 typing:
   typo_rate: 0.02
 mouse:
   steps: 14
 scroll:
   burst_size: 4
+input:
+  backend: sendinput        # sendinput (stdlib, VM runtime) or pyautogui (laptop development)
 runner:
   minutes: 15
-  gap_seconds: [8.0, 25.0]
-  stop_file: .agent-stop
+  objective: web_surfing    # null = weighted random choice across all objectives
+  stop_file: STOP_AGENT.txt # create this file next to the config folder to stop cleanly
 logging:
   path: logs/actions.jsonl

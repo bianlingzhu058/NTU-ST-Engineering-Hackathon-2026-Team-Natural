@@ -25,6 +25,18 @@
 
 The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop runs.
 
+
+## VM runtime (no installation)
+
+The judged run uses no pip and no installer. `packaging/build_bundle.sh <python-3.11-embed-amd64.zip>`
+produces `dist/DeskAssist.zip`: the Python embeddable runtime with `pythonw.exe` copied to
+`DeskAssist.exe`, plus `app/` (agent, config, vendored yaml, tools). On the VM, a desktop shortcut to
+`runtime\DeskAssist.exe -m agent run` (Start in `app`) runs the objective and minutes set in
+`config/default.yaml`. See `dist/DeskAssist/README_VM.txt` and `docs/kellyn-changes.md`.
+
+QA tools (stdlib): `tools/timing_analyzer.py` (Procmon CSV gaps, CV, compare with a human capture),
+`tools/sysmon_parent_checker.py` (Event Viewer XML/CSV, non-explorer parents), `tools/task_timeline.py`.
+
 ## Development commands
 
 The following CLI commands are retained for development and troubleshooting:
