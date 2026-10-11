@@ -1,0 +1,28 @@
+# Office worker, document: open OpenOffice Writer from Start search, compose a short note in
+# P-bursts, save it through Writer's own Save As dialog, close. ASCII text only.
+name: office_writer
+weight: 0.35
+params:
+  filenames: ["meeting notes {n}", "weekly update {n}", "project status {n}", "todo list {n}"]
+  documents:
+    - title: "Meeting notes"
+      paragraphs:
+        - "We discussed the timeline for the next release. The main risk is the vendor delivery slipping into November, so we agreed to check in with them on Monday."
+        - "Action items: confirm the test schedule with the lab, send the updated budget to finance, and book the review room for Thursday afternoon."
+    - title: "Weekly update"
+      paragraphs:
+        - "This week we finished the first round of user interviews. Most people asked for a simpler login flow and clearer error messages."
+        - "Next week we will summarise the interviews, update the wireframes, and share them with the design team before the Friday review."
+    - title: "Things to do this week"
+      paragraphs:
+        - "Check the supplier quotes before Friday. Two of them are still missing the shipping cost, and one needs a new delivery date."
+        - "Follow up on the parking pass and the laptop replacement request. Also renew the software licence before it expires at the end of the month."
+plan:
+  - skill: open_app
+    args: {app: writer, name: "openoffice writer", start_center_button: "Text Document", strategies: [start_search], timeout: 30, attempts: 2}
+  - skill: compose_document
+    args: {app: writer, document: "{documents}"}
+  - skill: save_document
+    args: {app: writer, filename: "{*filenames}"}
+  - skill: close_app
+    args: {app: writer, method: alt_f4, timeout: 10}

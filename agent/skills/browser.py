@@ -1,316 +1,314 @@
-"""Browser skills: navigate, read, follow links, recover from what the mock sites actually do.
+"""Browser skills for Chrome on the organisers' mock sites.
 
-Page content is never read from the screen, and no screenshots are taken: that would cost the
-Resource Efficiency criterion for nothing. What the agent does read is the window title, which
-is enough to know whether the page loaded, whether it is the TLS interstitial, or whether the
-host is dead, and to react the way a person would.
+What a visit looks like, and where each choice comes from (behaviour/params.py has the numbers):
 
-This matters on the organisers' environment specifically. Their intermediate CA expired on
-9 Jul 2026, so even the "clean" mock sites currently land on "Your connection isn't private",
-and mirrored pages link to real-world hosts that do not resolve inside the VM. A blind macro
-types the next URL into an interstitial and the whole run is nonsense; this one clears the
-warning like a user, or goes back and tries another site.
+  go_to_site   Ctrl+L, type the bare host (a 2 to 4 letter prefix plus autocomplete when the
+               site was visited before), Enter, then wait for the title to settle. Typing a host
+               is about 12% of navigations in field logs, so it is used to enter a new site only.
+  certificate  the mock sites' certificates expired on 9 Jul 2026, so Chrome shows "Privacy
+               error". A person clicks "Advanced", reads, then clicks "Proceed to ... (unsafe)".
+               The agent does the same with the mouse, finding both by name through UI
+               Automation; typing Chrome's "thisisunsafe" is the fallback.
+  read_page    the page's total dwell is a Weibull draw (shape below 1: many short visits, a few
+               long ones; Liu 2010, Weinreich 2008), spent reading and scrolling (scroll.py).
+  navigate     one move from the measured mix: follow a link (with a new-tab persona), back,
+               switch tab, find on page, reload, forward. Links are chosen from what UI
+               Automation reports, weighted to visible and upper-left links as clicks are in
+               Weinreich 2008, and clicked with the mouse. Without UIA, find-on-page plus Enter
+               opens a link whose text matches what the person was looking for.
 
-Links are followed by keyboard focus (F6 into the page, then Tab, then Enter), which the
-telemetry cannot distinguish from a click, and which does not risk clicking something random.
+Window titles say whether a page loaded, is the certificate warning, or is a dead host; nothing
+reads page pixels.
 """
-from ..perception import ABSENT, PRIVACY_ERROR, READY, UNREACHABLE, NEW_TAB
+import re
+from urllib.parse import urlsplit
+from ..behaviour.dist import clamp, weighted, weibull
+from ..behaviour.params import P
+from ..perception import ABSENT, NEW_TAB, PRIVACY_ERROR, READY, UNREACHABLE, normalise
 from ..registry import register_skill
-from .base import BaseSkill, SkillContext, SkillError
+from .base import BaseSkill, SkillContext, SkillError, require_app
 
-BYPASS_PHRASE = "thisisunsafe"  # Chromium's keyboard bypass for a bad certificate
+BYPASS_PHRASE = "thisisunsafe"
+HOSTNAME = re.compile(r"[a-z0-9-]+(\.[a-z0-9-]+)+")
+PAGE_KINDS = {"apnews.com": "article", "coursera.org": "hub", "aws.amazon.com": "hub", "coinmarketcap.com": "hub",
+              "coingecko.com": "hub", "coinbase.com": "product", "apple.com": "product", "samsung.com": "product",
+              "dell.com": "product", "amazon.com": "product"}
+SKIP_LINK_WORDS = ("sign in", "log in", "login", "sign up", "register", "cart", "bag", "privacy", "cookie",
+                   "terms", "skip to", "accessibility", "javascript", "menu", "close", "search")
 
 
-def _pick(context: SkillContext, value):
-    """Return a random element when given a list, else the value itself."""
-    if isinstance(value, list) and value:
-        return context.rng.choice(value) if context.rng else value[0]
-    return value
+def _host(url: str) -> str:
+    text = url if "://" in url else "https://" + url
+    return (urlsplit(text).hostname or url).lower()
 
 
-def _require_browser(context: SkillContext, app: str = "browser") -> str:
-    """Current page state, raising when the browser is not in front at all."""
-    if not context.desktop.available:
-        return READY
-    title, process, state = context.look(app)
-    if state == ABSENT:
-        context.note_sighting(state)
-        raise SkillError("browser is not the foreground window")
+def _kind(host: str) -> str:
+    bare = host[4:] if host.startswith("www.") else host
+    return PAGE_KINDS.get(bare, "product")
+
+
+def _is_dead(context: SkillContext, title: str, host: str) -> bool:
+    """Chrome titles a DNS-failure page with the bare hostname, so a title equal to the host plus
+    almost no links means the mirror's link pointed at a host that does not exist offline."""
+    state = context.perception.page_state(title, "chrome.exe", "browser")
+    if state == UNREACHABLE: return True
+    page = context.perception.page_name(title)
+    if page and HOSTNAME.fullmatch(page):  # error pages are titled with the failing host, real pages are not
+        if not context.uia.available:  # a site titled with its own domain (e.g. "Amazon.com") is not dead
+            site = ".".join(host.split(".")[-2:])
+            return not page.endswith(site)
+        return len(context.uia.elements(context.desktop.foreground_hwnd(), "hyperlink")) < 3
+    return False
+
+
+def _dead_dwell(context: SkillContext) -> float:
+    shape, scale, low, high = P("nav.dead_page_dwell_s")
+    return clamp(weibull(context.rng, shape, scale), low, high)
+
+
+def read_current_page(context: SkillContext, args: dict, state: str) -> None:
+    """Spend a Weibull page dwell reading and scrolling; results are added to ``args``."""
+    if state in (UNREACHABLE, PRIVACY_ERROR, ABSENT):
+        context.pacer.sleep(_dead_dwell(context))
+        args["read"] = f"skipped_{state}"
+        return
+    kind = context.memory.page_kind
+    shape, scale = P("page.dwell_weibull")[kind]
+    low, high = P("page.dwell_clamp_s")
+    revisit = context.memory.went_back
+    dwell = clamp(weibull(context.rng, shape, scale * (P("page.revisit_factor") if revisit else 1.0)), low, high)
+    dwell = min(dwell, max(2.0, context.time_left() - 20))
+    result = context.scroller.read_page(kind, dwell, context.page_region(), context.stop_check, context.time_left)
+    context.memory.went_back = False
+    args["read"] = result
+
+
+def _settle(context: SkillContext, before: str, host: str, args: dict, timeout: float = 15.0) -> str:
+    """Wait for the page, clear a certificate warning, classify the result, and record it."""
+    title = context.wait_stable_title(before, timeout)
+    state = context.perception.page_state(title, context.desktop.foreground_process(), "browser")
+    if state == PRIVACY_ERROR:
+        state = clear_interstitial(context, args)
+        args["outcome"] = "recovered" if state in (READY, NEW_TAB) else state
+    elif state != ABSENT and _is_dead(context, title, host):
+        args["outcome"] = UNREACHABLE
+        context.pacer.sleep(_dead_dwell(context))
+        context.typer.combo("alt", "left")  # back out of a dead link, as people do
+        context.memory.went_back = True
+        context.wait_stable_title(title, 8.0)
+        state = UNREACHABLE
+    else:
+        args["outcome"] = state
+    context.note_sighting(state)
     return state
 
 
-def _focus_page(context: SkillContext) -> None:
-    """Move keyboard focus out of the address bar and into the page body.
-
-    F6 cycles Chromium's focus zones, which is reliable and cannot click anything by accident.
-    The occasional click is in the left margin band, where pages are almost always empty.
-    """
-    context.backend.hotkey("ctrl", "l"); context.pacer.wait("micro")
-    context.backend.press("escape"); context.pacer.wait("step")
-    context.backend.press("f6"); context.pacer.wait("step")
-    if context.rng and context.rng.random() < 0.3:
-        width, height = context.backend.screen_size()
-        context.mouse.click(context.rng.uniform(width * .03, width * .07), context.rng.uniform(height * .4, height * .7))
-        context.pacer.wait("step")
-
-
-def _focus_interstitial(context: SkillContext) -> None:
-    """Put keyboard focus in the body of a certificate warning page.
-
-    Found in the VM on 11 Oct: from the address bar, Edge's F6 lands on the profile button in the
-    tab strip, so Tab then Enter opened the profile menu instead of "Advanced". The warning page
-    is empty outside its centred text, so one click in the lower-left of the page is safe.
-    Escape first closes any menu a stray Enter opened.
-    """
-    context.backend.press("escape"); context.pacer.wait("step")
-    width, height = context.backend.screen_size()
-    jitter = context.rng.uniform if context.rng else (lambda a, b: (a + b) / 2)
-    context.mouse.click(jitter(width * .08, width * .18), jitter(height * .55, height * .8))
-    context.pacer.wait("step")
-
-
-def _clear_interstitial(context: SkillContext, args: dict, app: str = "browser") -> str:
-    """Get past a certificate warning the way a person does, then fall back to the keyboard bypass.
-
-    First attempt is Advanced then "Continue to the site", reached with Tab and Enter. If the
-    page is still the interstitial, type Chromium's bypass phrase into the page body.
-    """
-    gone = lambda: context.desktop.available and context.look(app)[2] != PRIVACY_ERROR
-    attempts = []
-    # The bypass phrase goes first: it does not depend on the page's Tab order, which differs
-    # between Edge's "Privacy error" and "Clock error" pages.
-    for strategy in (args.get("strategies") or ["bypass_phrase", "advanced_continue"]):
-        attempts.append(strategy)
-        if strategy == "advanced_continue":
-            _focus_interstitial(context)
-            # Two activations: "Advanced", then "Continue to the site". The state is re-read in
-            # between, because pressing Enter again on an already-loaded page would click
-            # whatever happens to be focused there.
-            for press in range(2):
-                context.backend.press("tab"); context.pacer.wait("micro")  # one stop: Advanced, then the Continue link
-                context.pacer.wait("think" if press == 0 else "step")  # reading the warning before deciding
-                context.backend.press("enter"); context.pacer.wait("step")
-                if gone(): break
-        else:
-            _focus_interstitial(context)
-            # Typed literally, not through HumanTyper: Chromium matches this keystroke sequence
-            # contiguously, and a simulated typo plus backspace would never produce a match.
-            for character in BYPASS_PHRASE:
-                context.backend.write(character)
-                context.pacer.wait("micro")
-        context.pacer.wait("read")
-        if not context.desktop.available: break
-        if context.wait_for(lambda: context.look(app)[2] != PRIVACY_ERROR, float(args.get("timeout", 10.0))):
-            args["interstitial"] = "+".join(attempts)
-            return context.look(app)[2]
-    args["interstitial"] = "+".join(attempts) + ":failed"
-    return PRIVACY_ERROR
+def clear_interstitial(context: SkillContext, args: dict) -> str:
+    """Advanced, then Proceed, with the mouse; Chrome's keyboard bypass phrase as the fallback."""
+    hwnd = context.desktop.foreground_hwnd()
+    still_error = lambda: context.look()[2] == PRIVACY_ERROR
+    steps = []
+    advanced = context.uia.find(hwnd, "button", ("advanced",))
+    if advanced:
+        context.wait("M")  # reading the warning
+        context.mouse.click(*advanced.center, advanced.width, advanced.height); steps.append("advanced")
+        context.pacer.sleep(context.pacer.duration("poll") * 2)
+        proceed = None
+        for _ in range(3):
+            proceed = context.uia.find(hwnd, "hyperlink", ("proceed", "continue to"))
+            if proceed: break
+            context.pacer.wait("poll")
+        if proceed:
+            context.wait("M")  # reading the expanded text before deciding
+            context.mouse.click(*proceed.center, proceed.width, proceed.height); steps.append("proceed")
+            title = context.wait_stable_title("", 12.0)
+            if not still_error():
+                args["interstitial"] = "+".join(steps)
+                return context.look()[2]
+    # fallback: click an empty part of the page, then type the bypass phrase exactly
+    left, top, right, bottom = context.page_region()
+    context.mouse.click(left + (right - left) * 0.08, top + (bottom - top) * 0.75, 60, 60)
+    context.typer.type_exact(BYPASS_PHRASE)
+    steps.append("bypass_phrase")
+    context.wait_for(lambda: not still_error(), 10.0)
+    args["interstitial"] = "+".join(steps) + ("" if not still_error() else ":failed")
+    return context.look()[2]
 
 
-@register_skill("dismiss_interstitial")
-class DismissInterstitialSkill(BaseSkill):
-    """Clear a certificate warning if one is showing. args: strategies, timeout."""
+def _type_host(context: SkillContext, url: str, args: dict) -> str:
+    host = _host(url)
+    typed = host[4:] if host.startswith("www.") else host  # people type the bare host
+    p_partial, low, high = P("nav.partial_host")
+    if host in context.memory.visited_hosts and context.rng.random() < p_partial:
+        typed = typed[:context.rng.randint(low, high)]  # Chrome completes the rest inline
+    args.update(url=url, typed=typed)
+    context.typer.combo("ctrl", "l")
+    context.pacer.sleep(context.rng.uniform(*P("nav.after_ctrl_l_s")))
+    context.typer.type_text(typed, ctx="url", familiar=host in context.memory.visited_hosts)
+    context.pacer.sleep(context.pacer.duration("poll"))  # glance at the suggestion
+    context.typer.press("enter")
+    return host
+
+
+@register_skill("go_to_site")
+class GoToSiteSkill(BaseSkill):
+    """Enter a site by typing its host. args: url (string or list), timeout."""
     def execute(self, context: SkillContext, args: dict) -> str:
-        if _require_browser(context) != PRIVACY_ERROR:
-            args["outcome"] = "nothing_to_do"
-            return "nothing_to_do"
-        args["outcome"] = _clear_interstitial(context, args)
-        return args["outcome"]
-
-
-@register_skill("go_to_url")
-class GoToUrlSkill(BaseSkill):
-    """Type a URL into the address bar, press Enter, then confirm what actually came up.
-
-    args: url (string or list, one is picked at random), new_tab_probability, timeout,
-    bare_host_probability (type "apple.com" instead of the full URL, as people do).
-    Outcomes recorded on the log line: ready, recovered (interstitial cleared), unreachable,
-    privacy_error (could not clear), unverified (no desktop introspection).
-    """
-    def execute(self, context: SkillContext, args: dict) -> str:
-        app = args.get("app", "browser")
-        _require_browser(context, app)
-        url = str(_pick(context, args["url"]))
-        before = context.perception.page_name(context.desktop.foreground_title())
-        if context.rng and context.rng.random() < float(args.get("new_tab_probability", 0.25)):
-            context.backend.hotkey("ctrl", "t"); args["new_tab"] = True
-            context.pacer.wait("step")
-        typed = url
-        if context.rng and context.rng.random() < float(args.get("bare_host_probability", 0.45)):
-            typed = url.split("://", 1)[-1].rstrip("/")
-        args.update(url=url, typed=typed)
-        context.backend.hotkey("ctrl", "l")
-        context.pacer.wait("step")
-        context.typer.type_text(typed)
-        context.pacer.wait("step")
-        context.backend.press("enter")
-        context.pacer.wait("read")  # waiting for the page, then first look at it
+        require_app(context, "browser")
+        urls = args["url"] if isinstance(args["url"], list) else [args["url"]]
+        fresh = [u for u in urls if _host(u) not in context.memory.visited_hosts] or urls
+        url = context.rng.choice(fresh) if context.rng else fresh[0]
+        before = context.desktop.foreground_title()
+        context.wait("M")
+        host = _type_host(context, url, args)
+        context.memory.visited_hosts.add(host)
+        context.memory.host, context.memory.page_kind = host, _kind(host)
+        context.memory.history_depth += 1
         if not context.desktop.available:
+            context.pacer.sleep(context.pacer.duration("M") * 2)
             args["outcome"] = "unverified"
             return "unverified"
-        context.wait_for(lambda: context.perception.page_name(context.desktop.foreground_title()) != before,
-                         float(args.get("timeout", 15.0)))
-        state = context.look(app)[2]
-        if state == PRIVACY_ERROR:
-            state = _clear_interstitial(context, args, app)
-            args["outcome"] = "recovered" if state in (READY, NEW_TAB) else state
-        elif state == UNREACHABLE:
-            context.pacer.wait("think")  # staring at the error page
-            if context.rng and context.rng.random() < float(args.get("back_on_dead_page", 0.6)):
-                context.backend.hotkey("alt", "left"); args["went_back"] = True
-                context.pacer.wait("read")
-            args["outcome"] = UNREACHABLE
-        else:
-            args["outcome"] = READY if state == READY else state
-        context.note_sighting(state)
-        return args["outcome"]
-
-
-@register_skill("search")
-class SearchSkill(BaseSkill):
-    """Search from the browser address bar with a supplied query (list means random pick)."""
-    def execute(self, context: SkillContext, args: dict) -> None:
-        _require_browser(context)
-        query = str(_pick(context, args["query"])); args["query"] = query
-        context.backend.hotkey("ctrl", "l")
-        context.pacer.wait("step")
-        context.typer.type_text(query)
-        context.pacer.wait("step")
-        context.backend.press("enter")
-        context.pacer.wait("read")
-
-
-@register_skill("scroll_and_read")
-class ScrollAndReadSkill(BaseSkill):
-    """Scroll the page in bursts with reading pauses and idle mouse drift.
-
-    args: bursts or bursts_range; page_key_probability (use Page Down or End instead of the
-    wheel sometimes); skip_on_error (do not pretend to read a dead page).
-    """
-    def execute(self, context: SkillContext, args: dict) -> int:
-        state = _require_browser(context)
-        if state in (UNREACHABLE, PRIVACY_ERROR) and args.get("skip_on_error", True):
-            context.pacer.wait("think")  # a person looks at the error page before moving on
-            args["outcome"] = f"skipped_{state}"
-            return 0
-        low, high = args.get("bursts_range", [2, 6])
-        bursts = int(args.get("bursts") or (context.rng.randint(int(low), int(high)) if context.rng else low))
-        args["bursts"] = bursts
-        for _ in range(bursts):
-            if context.rng and context.rng.random() < float(args.get("page_key_probability", 0.2)):
-                context.backend.press(context.rng.choice(["pagedown", "pagedown", "end"]))
-                context.pacer.wait("read")
-            else:
-                context.scroller.scroll_bursts(1)
-            if context.rng and context.rng.random() < 0.35:
-                context.mouse.drift()
-            if context.time_left() < 20:
-                break
-        args["outcome"] = "read"
-        return bursts
-
-
-@register_skill("follow_link")
-class FollowLinkSkill(BaseSkill):
-    """Follow a link by focusing the page, Tabbing onto an element and pressing Enter.
-
-    Roughly one attempt in five lands on a button or an input instead of a link and nothing
-    happens: that is a person misclicking, and it is logged as no_change rather than retried.
-    Mirrored pages often link to hosts that do not resolve in the VM, so a dead page is
-    followed by Alt+Left, like a person backing out.
-    args: tabs_range, back_probability, timeout.
-    """
-    def execute(self, context: SkillContext, args: dict) -> str:
-        state = _require_browser(context)
-        if state in (UNREACHABLE, PRIVACY_ERROR):
-            context.pacer.wait("think")
-            args["outcome"] = f"skipped_{state}"
-            return args["outcome"]
-        before = context.perception.page_name(context.desktop.foreground_title())
-        _focus_page(context)
-        low, high = args.get("tabs_range", [4, 15])
-        tabs = context.rng.randint(int(low), int(high)) if context.rng else int(low)
-        args["tabs"] = tabs
-        for _ in range(tabs):
-            context.backend.press("tab")
-            context.pacer.wait("micro")
-        context.pacer.wait("step")
-        context.backend.press("enter")
-        context.pacer.wait("read")
-        if not context.desktop.available:
-            args["outcome"] = "unverified"
-            return "unverified"
-        changed = context.wait_for(
-            lambda: context.perception.page_name(context.desktop.foreground_title()) != before,
-            float(args.get("timeout", 10.0)))
-        state = context.look()[2]
-        if not changed:
-            args["outcome"] = "no_change"
-        elif state == UNREACHABLE:
-            context.pacer.wait("think")
-            context.backend.hotkey("alt", "left"); args["went_back"] = True
-            context.pacer.wait("read")
-            args["outcome"] = "dead_link_back"
-        elif state == PRIVACY_ERROR:
-            cleared = _clear_interstitial(context, args)
-            args["outcome"] = "recovered" if cleared in (READY, NEW_TAB) else cleared
-        else:
-            args["outcome"] = "followed"
-            if context.rng and context.rng.random() < float(args.get("back_probability", 0.35)):
-                context.pacer.wait("read")
-                context.backend.hotkey("alt", "left"); args["went_back"] = True
-                context.pacer.wait("read")
-        context.note_sighting(state)
-        return args["outcome"]
-
-
-@register_skill("go_back")
-class GoBackSkill(BaseSkill):
-    """Press Alt+Left and look at the previous page again."""
-    def execute(self, context: SkillContext, args: dict) -> None:
-        _require_browser(context)
-        context.backend.hotkey("alt", "left")
-        context.pacer.wait("read")
-
-
-@register_skill("reload_page")
-class ReloadPageSkill(BaseSkill):
-    """Press F5, as people do when a page looks wrong or stale."""
-    def execute(self, context: SkillContext, args: dict) -> str:
-        _require_browser(context)
-        context.backend.press("f5")
-        context.pacer.wait("read")
-        if not context.desktop.available:
-            args["outcome"] = "unverified"
-            return "unverified"
-        state = context.look()[2]
-        if state == PRIVACY_ERROR:
-            state = _clear_interstitial(context, args)
-        args["outcome"] = state
+        state = _settle(context, before, host, args, float(args.get("timeout", 15.0)))
+        if args.pop("read_after", True): read_current_page(context, args, state)
         return state
 
 
-@register_skill("close_tab")
-class CloseTabSkill(BaseSkill):
-    """Close the current tab with Ctrl+W, leaving the browser open."""
-    def execute(self, context: SkillContext, args: dict) -> None:
-        _require_browser(context)
-        context.backend.hotkey("ctrl", "w")
-        context.pacer.wait("step")
+@register_skill("read_page")
+class ReadPageSkill(BaseSkill):
+    """Read the current page on its own (the plans read inside go_to_site and navigate instead)."""
+    def execute(self, context: SkillContext, args: dict) -> dict:
+        read_current_page(context, args, require_app(context, "browser"))
+        args["outcome"] = "read"
+        return args
 
 
-@register_skill("find_on_page")
-class FindOnPageSkill(BaseSkill):
-    """Use browser find to locate a phrase (list means random pick), then close the find bar."""
-    def execute(self, context: SkillContext, args: dict) -> None:
-        state = _require_browser(context)
-        if state in (UNREACHABLE, PRIVACY_ERROR):
-            args["outcome"] = f"skipped_{state}"
-            return
-        text = str(_pick(context, args["text"])); args["text"] = text
-        context.backend.hotkey("ctrl", "f")
-        context.pacer.wait("step")
-        context.typer.type_text(text)
-        context.pacer.wait("read")
-        context.backend.press("escape")
-        args["outcome"] = "searched"
+def _link_weight(element, region, vh_bottom: float) -> float:
+    left, top, right, bottom = region
+    x, y = element.center
+    w = P("nav.link_above_fold_w") if y < vh_bottom else 1.0
+    if x - left < 520 and y - top < 400: w *= P("nav.link_upper_left_w")
+    return w
+
+
+def _choose_link(context: SkillContext, interests: list[str]):
+    region = context.page_region()
+    links = [e for e in context.uia.elements(context.desktop.foreground_hwnd(), "hyperlink")
+             if region[0] <= e.center[0] <= region[2] and region[1] <= e.center[1] <= region[3]
+             and len(e.name) >= 3 and not any(word in e.name.lower() for word in SKIP_LINK_WORDS)]
+    if not links: return None
+    weights = []
+    for link in links:
+        w = _link_weight(link, region, region[3])
+        if any(term in link.name.lower() for term in interests): w *= P("nav.interest_weight")
+        weights.append(w)
+    return context.rng.choices(links, weights=weights, k=1)[0]
+
+
+@register_skill("navigate")
+class NavigateSkill(BaseSkill):
+    """One navigation move from the measured mix, then reading the page it leads to.
+
+    One log line per page visit: logging the move and the reading separately made short and long
+    gaps alternate (lag-1 correlation about -0.3), a pattern human logs do not have.
+    args: interests (link words), timeout.
+    """
+    def execute(self, context: SkillContext, args: dict) -> str:
+        read_after = args.pop("read_after", True)
+        state = self._move(context, args)
+        if read_after:
+            current = context.look()[2] if context.desktop.available else READY
+            read_current_page(context, args, current)
+        return state
+
+    def _move(self, context: SkillContext, args: dict) -> str:
+        state = require_app(context, "browser")
+        memory, rng = context.memory, context.rng
+        mix = dict(P("nav.mix"))
+        if memory.history_depth < 2: mix.pop("back", None)
+        if memory.tabs < 2: mix.pop("switch_tab", None)
+        if not memory.went_back: mix.pop("forward", None)
+        mix.pop("typed", None)  # entering a new site is go_to_site's job in the plan
+        if state in (UNREACHABLE, PRIVACY_ERROR): mix = {"back": 1.0}
+        move = weighted(rng, mix)
+        args["move"] = move
+        before = context.desktop.foreground_title()
+        interests = [str(t).lower() for t in (args.get("interests") or [])]
+        context.wait("click" if move == "link" else "M")
+        if move == "link":
+            return self._follow(context, args, before, interests)
+        if move == "back":
+            context.typer.combo("alt", "left"); memory.went_back = True
+            memory.history_depth = max(0, memory.history_depth - 1)
+        elif move == "forward":
+            context.typer.combo("alt", "right"); memory.went_back = False
+        elif move == "switch_tab":
+            context.typer.combo("ctrl", "tab")
+        elif move == "reload":
+            context.typer.press("f5")
+        elif move == "find":
+            return self._find(context, args, interests)
+        if not context.desktop.available:
+            args["outcome"] = "unverified"
+            return "unverified"
+        return _settle(context, before, memory.host, args, float(args.get("timeout", 10.0)))
+
+    def _follow(self, context: SkillContext, args: dict, before: str, interests: list[str]) -> str:
+        memory = context.memory
+        link = _choose_link(context, interests) if context.uia.available else None
+        if link is None:
+            return self._find(context, args, interests, follow=True)
+        args["link"] = link.name[:60]
+        new_tab = memory.tabs < P("nav.max_tabs") and context.rng.random() < context.persona.new_tab_p
+        if new_tab:
+            context.mouse.move(*link.center, link.width, link.height)
+            context.backend.key_event("ctrl", True)
+            context.pacer.tiny(context.rng.uniform(*P("nav.ctrl_click_lead_s")))
+            context.mouse.press_button()
+            context.backend.key_event("ctrl", False)
+            memory.tabs += 1
+            args.update(new_tab=True, outcome="opened_background_tab")
+            return "opened_background_tab"
+        context.mouse.click(*link.center, link.width, link.height)
+        memory.history_depth += 1
+        return _settle(context, before, memory.host, args, float(args.get("timeout", 10.0)))
+
+    def _find(self, context: SkillContext, args: dict, interests: list[str], follow: bool = False) -> str:
+        """Ctrl+F a word the person is looking for; with ``follow``, Escape then Enter opens the
+        matched link (Chromium leaves the match focused), the keyboard way to click it."""
+        term = context.rng.choice(interests) if interests else "more"
+        args.update(find=term, via="find")
+        before = context.desktop.foreground_title()
+        context.typer.combo("ctrl", "f")
+        context.pacer.sleep(context.rng.uniform(*P("nav.after_find_open_s")))
+        context.typer.type_text(term, ctx="query")
+        context.wait("M")  # looking at the highlighted matches
+        context.typer.press("escape")
+        if not follow:
+            args["outcome"] = "searched"
+            return "searched"
+        context.pacer.sleep(context.rng.uniform(*P("nav.after_find_open_s")))
+        context.typer.press("enter")
+        if not context.desktop.available:
+            args["outcome"] = "unverified"
+            return "unverified"
+        title = context.wait_stable_title(before, 6.0)
+        if title == before:
+            args["outcome"] = "no_link_matched"
+            return "no_link_matched"
+        context.memory.history_depth += 1
+        return _settle(context, title, context.memory.host, args, 2.0)
+
+
+@register_skill("close_browser_tabs")
+class CloseTabsSkill(BaseSkill):
+    """Close background tabs first sometimes, then the browser (Alt+F4 closes all tabs in Chrome)."""
+    def execute(self, context: SkillContext, args: dict) -> str:
+        require_app(context, "browser")
+        context.wait("M")
+        closed = 0
+        while context.memory.tabs > 1 and context.rng.random() < P("nav.close_tabs_first_p"):
+            context.typer.combo("ctrl", "w"); context.memory.tabs -= 1; closed += 1
+            context.pacer.sleep(context.rng.uniform(*P("nav.between_tab_close_s")))
+        args["tabs_closed"] = closed
+        args["outcome"] = "done"
+        return "done"

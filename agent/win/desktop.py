@@ -59,6 +59,24 @@ class WindowsDesktop:
         except Exception:
             return ""
 
+    def foreground_hwnd(self) -> int:
+        """Handle of the focused window, or 0."""
+        try:
+            return int(self._u.GetForegroundWindow() or 0)
+        except Exception:
+            return 0
+
+    def foreground_rect(self) -> tuple[int, int, int, int] | None:
+        """Screen rectangle (left, top, right, bottom) of the focused window, or None."""
+        try:
+            handle = self._u.GetForegroundWindow()
+            if not handle: return None
+            rect = wintypes.RECT()
+            if not self._u.GetWindowRect(handle, ctypes.byref(rect)): return None
+            return rect.left, rect.top, rect.right, rect.bottom
+        except Exception:
+            return None
+
     def foreground_process(self) -> str:
         """Image file name of the focused window's process, lower case, or "" on failure.
 
@@ -105,6 +123,26 @@ class WindowsDesktop:
 class BlindDesktop:
     """Stand-in when introspection is off or unavailable: every reading is unknown."""
     available = False
+    def foreground_hwnd(self) -> int: return 0
+    def foreground_rect(self): return None
     def foreground_title(self) -> str: return ""
+    def foreground_hwnd(self) -> int:
+        """Handle of the focused window, or 0."""
+        try:
+            return int(self._u.GetForegroundWindow() or 0)
+        except Exception:
+            return 0
+
+    def foreground_rect(self) -> tuple[int, int, int, int] | None:
+        """Screen rectangle (left, top, right, bottom) of the focused window, or None."""
+        try:
+            handle = self._u.GetForegroundWindow()
+            if not handle: return None
+            rect = wintypes.RECT()
+            if not self._u.GetWindowRect(handle, ctypes.byref(rect)): return None
+            return rect.left, rect.top, rect.right, rect.bottom
+        except Exception:
+            return None
+
     def foreground_process(self) -> str: return ""
     def metrics(self) -> dict[str, float]: return {}

@@ -27,5 +27,14 @@ class FakeInputBackend(InputBackend):
         if x is not None and y is not None: self._pos = (int(x), int(y))
         self._record("click", self._pos)
     def scroll(self, amount: int) -> None: self._record("scroll", amount)
+    def key_event(self, key: str, down: bool) -> None:
+        self._record("key_down" if down else "key_up", key)
+        if down: self._record("press", key)  # the simulated desktop reacts to presses
+    def char_event(self, char: str, down: bool) -> None:
+        self._record("char_down" if down else "char_up", char)
+        if down: self._record("write", char)
+    def button_event(self, down: bool) -> None:
+        self._record("button_down" if down else "button_up", self._pos)
+        if not down: self._record("click", self._pos)
     def position(self) -> tuple[int, int]: return self._pos
     def screen_size(self) -> tuple[int, int]: return self._screen

@@ -23,3 +23,7 @@ class PyAutoGuiBackend(InputBackend):
     def scroll(self, amount: int) -> None: self._gui.scroll(amount)
     def position(self) -> tuple[int, int]: p = self._gui.position(); return (int(p.x), int(p.y))
     def screen_size(self) -> tuple[int, int]: s = self._gui.size(); return (int(s.width), int(s.height))
+    def key_event(self, key: str, down: bool) -> None: (self._gui.keyDown if down else self._gui.keyUp)(key)
+    def char_event(self, char: str, down: bool) -> None:
+        if down: self._gui.write(char, interval=0)  # pyautogui has no separate up for a typed character
+    def button_event(self, down: bool) -> None: (self._gui.mouseDown if down else self._gui.mouseUp)()

@@ -36,3 +36,10 @@ def test_move_and_click_are_mouse_inputs():
 def test_vk_table_covers_keys_the_skills_use():
     for k in ("win", "enter", "escape", "tab", "backspace", "ctrl", "alt", "f4", "l", "w", "s", "r", "f", "left", "1", "2"):
         assert k in VK
+
+
+def test_separate_down_and_up_events():
+    u = FakeUser32(); b = SendInputBackend(u)
+    b.key_event("ctrl", True); b.key_event("ctrl", False); b.char_event("a", True); b.char_event("a", False)
+    b.button_event(True); b.button_event(False)
+    assert len(u.inputs) == 6 and u.inputs[-1][0] == INPUT_MOUSE

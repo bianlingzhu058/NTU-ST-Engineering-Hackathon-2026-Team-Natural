@@ -1,4 +1,4 @@
-"""Thin CLI: run, simulate, verify, selftest, dry-run, list-objectives. No business logic here.
+"""Thin CLI: run, simulate, verify, selftest, dry-run, list-objectives, params, probe.
 
 The double-clicked shortcut on the VM uses `run` (or no arguments at all, through
 sitecustomize.py). Everything else is for proving the rubric offline:
@@ -6,6 +6,8 @@ sitecustomize.py). Everything else is for proving the rubric offline:
   agent simulate --minutes 15     a full-length run on a virtual clock, no Windows needed
   agent verify logs/simulated.jsonl   the rubric scorecard for that log
   agent selftest                  simulate and verify several seeds, exit nonzero on any flag
+  agent params [--guesses]        the behaviour parameters table with sources (for the write-up)
+  agent probe                     on the VM: what window detection and UI Automation can see
 """
 import argparse
 import logging
@@ -41,6 +43,26 @@ def _verify(path: Path, report_path: Path | None, all_runs: bool) -> bool:
     return ok
 
 
+def _probe(delay: float) -> None:
+    """Print what window detection and UI Automation see, for checking on the VM in one go."""
+    from .clock import RealClock
+    from .win.desktop import WindowsDesktop
+    from .win.uia import Uia
+    print(f"Switch to the window to inspect (Chrome on a page, or the warning page). Reading in {delay:g} s...")
+    RealClock().sleep(delay)
+    desktop, uia = WindowsDesktop(), Uia()
+    hwnd = desktop.foreground_hwnd()
+    print(f"title:   {desktop.foreground_title()!r}")
+    print(f"process: {desktop.foreground_process()!r}")
+    print(f"rect:    {desktop.foreground_rect()}")
+    print(f"UI Automation available: {uia.available} {uia.error}")
+    for kind in ("hyperlink", "button"):
+        items = uia.elements(hwnd, kind)
+        print(f"{kind}s visible: {len(items)}")
+        for item in items[:15]:
+            print(f"   {item.name[:50]!r:54} at ({item.left},{item.top})-({item.right},{item.bottom})")
+
+
 def main() -> None:
     """Parse commands and delegate to the composition root."""
     parser = argparse.ArgumentParser(prog="agent")
@@ -60,7 +82,24 @@ def main() -> None:
     self_test = sub.add_parser("selftest", help="simulate several seeds and score every one")
     self_test.add_argument("--runs", type=int, default=3); self_test.add_argument("--minutes", type=float, default=15.0)
     self_test.add_argument("--objective"); self_test.add_argument("--report", type=Path)
+    par = sub.add_parser("params", help="print the behaviour parameters with their sources")
+    par.add_argument("--guesses", action="store_true", help="only design values and unverified ones (D, U)")
+    probe = sub.add_parser("probe", help="on Windows: show what the agent can see of the foreground window")
+    probe.add_argument("--delay", type=float, default=5.0, help="seconds to switch to the window to inspect")
     args = parser.parse_args()
+
+    if args.command == "params":
+        from .behaviour import params
+        rows = [r for r in params.table() if not args.guesses or r[3] in ("D", "U")]
+        print("| Parameter | Value | Source | Confidence |\n|---|---|---|---|")
+        for name, value, source, confidence in rows: print(f"| `{name}` | {value} | {source} | {confidence} |")
+        print(f"\n{len(rows)} parameters. H/M = from published research, L = team computation on a dataset, "
+              "D = design guess, U = unverified.")
+        return
+
+    if args.command == "probe":
+        _probe(args.delay)
+        return
 
     if args.command == "run":
         (ROOT / "logs").mkdir(exist_ok=True)  # pythonw.exe has no console: log to a file, never to a missing stderr
@@ -82,16 +121,23 @@ def main() -> None:
         return
 
     if args.command == "dry-run":
+        (ROOT / "logs" / "dry_run.jsonl").unlink(missing_ok=True)
         _, context, runner, _ = build_app(ROOT, mode="dry", seed=args.seed, log_name="logs/dry_run.jsonl")
         try:
             runner.run_once(args.objective)
         except ValueError as exc:
             parser.error(str(exc))
-        for call in context.backend.calls: logging.info("action: %s", call)
-        total = sum(seconds for _, seconds in context.pacer.samples)
-        logging.info("pacing: %d waits, %.1f s simulated", len(context.pacer.samples), total)
-        for kind in sorted({kind for kind, _ in context.pacer.samples}):
-            logging.info("  %-6s n=%d", kind, sum(1 for k, _ in context.pacer.samples if k == kind))
+        for record in report.load(ROOT / "logs" / "dry_run.jsonl"):
+            if record.get("event") not in ("action", "action_error"): continue
+            a = record.get("args") or {}
+            detail = {k: a[k] for k in ("strategy", "typed", "move", "link", "interstitial", "find", "filename", "words")
+                      if k in a}
+            logging.info("%s %-18s %-20s %s", record["timestamp"][11:19], record["skill"], a.get("outcome", ""), detail)
+        keys = sum(1 for c in context.backend.calls if c[0] in ("key_down", "char_down"))
+        moves = sum(1 for c in context.backend.calls if c[0] == "move_to")
+        logging.info("input: %d key presses, %d mouse move events, %d clicks, %d wheel notches", keys, moves,
+                     sum(1 for c in context.backend.calls if c[0] == "button_down"),
+                     sum(1 for c in context.backend.calls if c[0] == "scroll"))
         return
 
     if args.command == "simulate":

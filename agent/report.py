@@ -20,8 +20,10 @@ import json
 import math
 from pathlib import Path
 
+from .behaviour.dist import gap_stats
+from .behaviour.params import P
+
 GUI_STRATEGIES = {"taskbar", "start_search", "run_dialog"}
-TARGET_CV = 0.4
 
 
 def load(path: Path) -> list[dict]:
@@ -52,7 +54,9 @@ def stats(values: list[float]) -> dict:
     bins = Counter(round(v, 1) for v in ordered)
     mode = bins.most_common(1)[0][0]
     near_mode = sum(1 for v in ordered if abs(v - mode) <= 0.1 * max(mode, 0.1)) / n
+    shape = gap_stats(values)
     return {"n": n, "mean": mean, "std": sd, "cv": sd / mean if mean else 0.0, "min": ordered[0],
+            "B": shape.get("B", 0.0), "mem": shape.get("mem", 0.0),
             "p25": quantile(.25), "median": quantile(.5), "p75": quantile(.75), "p95": quantile(.95),
             "max": ordered[-1], "share_over_2s": sum(v > 2 for v in ordered) / n,
             "share_over_5s": sum(v > 5 for v in ordered) / n, "near_mode_share": near_mode, "mode": mode}
@@ -74,7 +78,7 @@ def summarise(items: list[dict]) -> dict:
     actions = [r for r in items if r.get("event") in ("action", "action_error")]
     gaps = [b - a for a, b in zip([_seconds(r) for r in actions], [_seconds(r) for r in actions[1:]])]
     launches = [r for r in actions if r.get("skill") == "OpenAppSkill"]
-    navigations = [r for r in actions if r.get("skill") in ("GoToUrlSkill", "FollowLinkSkill", "ReloadPageSkill")]
+    navigations = [r for r in actions if r.get("skill") in ("GoToSiteSkill", "NavigateSkill")]
     memory = [float(r["working_set_mb"]) for r in items if r.get("working_set_mb") is not None]
     cpu = [float(r["cpu_seconds"]) for r in items if r.get("cpu_seconds") is not None]
     elapsed = (_seconds(items[-1]) - _seconds(items[0])) if len(items) > 1 else 0.0
@@ -97,7 +101,9 @@ def summarise(items: list[dict]) -> dict:
         "launch_outcomes": Counter(str((r.get("args") or {}).get("outcome", "unknown")) for r in launches),
         "navigation_outcomes": Counter(str((r.get("args") or {}).get("outcome", "unknown")) for r in navigations),
         "interstitials": sum(1 for r in navigations if (r.get("args") or {}).get("interstitial")),
-        "attention": Counter(r.get("attention") for r in actions if r.get("attention")),
+        "persona": start.get("persona", {}), "uia": start.get("uia"),
+        "moves": Counter(str((r.get("args") or {}).get("move")) for r in navigations if (r.get("args") or {}).get("move")),
+        "saved": sum(1 for r in actions if r.get("skill") == "SaveDocumentSkill" and (r.get("args") or {}).get("outcome") == "saved"),
         "memory_mb": {"min": min(memory), "max": max(memory), "mean": sum(memory) / len(memory)} if memory else {},
         "cpu_seconds": max(cpu) if cpu else None,
         "cpu_percent": (max(cpu) / elapsed * 100) if cpu and elapsed else None,
@@ -108,22 +114,30 @@ def verdicts(summary: dict) -> list[tuple[str, str, str, str]]:
     """One (criterion, weight, verdict, evidence) row per rubric line."""
     gap, rows = summary["gap_stats"], []
     bad_launch = {k: v for k, v in summary["launch_outcomes"].items() if k == "not_opened"}
-    off_shell = {k: v for k, v in summary["launch_strategies"].items() if k not in GUI_STRATEGIES | {"unknown"}}
+    off_shell = {k: v for k, v in summary["launch_strategies"].items()
+                 if k.split("+")[0] not in GUI_STRATEGIES | {"unknown"}}
     rows.append(("Process Telemetry Authenticity", "30%", "PASS" if not off_shell and not bad_launch else "WARN",
                  f"{sum(summary['launch_strategies'].values())} launches, all via the Windows shell "
                  f"({dict(summary['launch_strategies'])}); outcomes {dict(summary['launch_outcomes'])}. "
                  "No process API is reachable from the agent (enforced by tests/test_no_banned_calls.py), so every "
                  "application's ParentImage is explorer.exe. Confirm on the VM with tools/sysmon_parent_checker.py."))
     timing_flags = []
+    targets = P("gap.targets")
     if gap.get("n", 0) < 5: timing_flags.append("not enough actions to judge")
     else:
-        if gap["cv"] < TARGET_CV: timing_flags.append(f"CV {gap['cv']:.2f} below {TARGET_CV}")
+        low, high = targets["cv"]
+        if not low <= gap["cv"] <= high: timing_flags.append(f"CV {gap['cv']:.2f} outside {low} to {high}")
+        b_low, b_high = targets["B"]
+        if not b_low - 0.05 <= gap["B"] <= b_high + 0.05: timing_flags.append(f"burstiness B {gap['B']:.2f} outside {b_low} to {b_high}")
+        noise = 2 / max(1, gap["n"]) ** 0.5  # 95% band for a zero correlation with n gaps
+        if abs(gap["mem"]) > max(targets["mem"], noise):
+            timing_flags.append(f"memory {gap['mem']:.2f} beyond {max(targets['mem'], noise):.2f}")
         if gap["near_mode_share"] > 0.30: timing_flags.append(f"{gap['near_mode_share']:.0%} of gaps near {gap['mode']}s")
-        if gap["share_over_2s"] < 0.05: timing_flags.append("no reading pauses over 2 s")
     rows.append(("Human Entropy and Timing", "30%", "PASS" if not timing_flags else "WARN",
-                 (f"CV {gap['cv']:.2f} over {gap['n']} inter-action gaps, median {gap['median']:.2f}s, "
-                  f"p95 {gap['p95']:.1f}s, max {gap['max']:.1f}s, {gap['share_over_2s']:.0%} over 2 s. "
-                  f"Attention states seen: {dict(summary['attention'])}." if gap.get("n", 0) >= 2 else "no gaps")
+                 (f"CV {gap['cv']:.2f}, burstiness B {gap['B']:.2f}, lag-1 memory {gap['mem']:.2f} over {gap['n']} gaps "
+                  f"(human targets: CV 1 to 2, B 0 to 0.33, memory under 0.15; Goh and Barabasi 2008). "
+                  f"Median {gap['median']:.1f}s, p95 {gap['p95']:.0f}s, max {gap['max']:.0f}s. "
+                  f"Persona: {summary['persona']}." if gap.get("n", 0) >= 3 else "no gaps")
                  + ("" if not timing_flags else " Flags: " + "; ".join(timing_flags))))
     memory, cpu_percent = summary["memory_mb"], summary["cpu_percent"]
     resource_flags = []
@@ -133,14 +147,15 @@ def verdicts(summary: dict) -> list[tuple[str, str, str, str]]:
                  (f"agent CPU {cpu_percent:.2f}% of one core over the run ({summary['cpu_seconds']:.1f} s), "
                   f"working set {memory['min']:.0f} to {memory['max']:.0f} MB"
                   if cpu_percent is not None and memory else "no resource counters in this log (run on Windows)")
-                 + ". The agent sleeps between actions and takes no screenshots; the browser is what grows and "
-                   "releases memory, so capture Process Explorer with msedge.exe columns too."))
-    evidence_flags = [] if summary["tasks"] else ["no task timeline"]
-    rows.append(("Evidence and completion", "20% unknown", "PASS" if not evidence_flags else "WARN",
-                 f"{len(summary['tasks'])} task(s) with start, end and duration; {summary['actions']} actions, "
-                 f"{summary['errors']} errors; ended with reason '{summary['end_reason']}'. "
-                 f"Navigation outcomes {dict(summary['navigation_outcomes'])}, "
-                 f"{summary['interstitials']} certificate interstitial(s) handled."))
+                 + ". The agent sleeps between actions and takes no screenshots; capture Process Explorer with "
+                   "chrome.exe and soffice.bin columns too, since the apps are what use memory."))
+    done = sorted({t["task"] for t in summary["tasks"] if t["status"] == "completed"})
+    evidence_flags = [] if done else ["no task completed"]
+    rows.append(("Action Complexity", "20%", "PASS" if not evidence_flags else "WARN",
+                 f"{len(summary['tasks'])} task(s), completed kinds {done}; {summary['saved']} file(s) saved by the "
+                 f"office app's own dialog; navigation moves {dict(summary['moves'])}; outcomes "
+                 f"{dict(summary['navigation_outcomes'])}; {summary['interstitials']} certificate warning(s) cleared; "
+                 f"{summary['actions']} actions, {summary['errors']} errors, ended '{summary['end_reason']}'."))
     return rows
 
 
@@ -161,6 +176,7 @@ def render(summary: dict) -> str:
         lines += [f"n {gap['n']}, mean {gap['mean']:.2f}s, std {gap['std']:.2f}s, **CV {gap['cv']:.2f}**, "
                   f"min {gap['min']:.2f}s, p25 {gap['p25']:.2f}s, median {gap['median']:.2f}s, "
                   f"p75 {gap['p75']:.2f}s, p95 {gap['p95']:.1f}s, max {gap['max']:.1f}s", "",
+                  f"burstiness B {gap['B']:.2f}, lag-1 memory {gap['mem']:.2f}, "
                   f"over 2 s: {gap['share_over_2s']:.0%}, over 5 s: {gap['share_over_5s']:.0%}, "
                   f"within 10% of the commonest value ({gap['mode']}s): {gap['near_mode_share']:.0%}", "",
                   "```"] + histogram(summary["gaps"]) + ["```", ""]

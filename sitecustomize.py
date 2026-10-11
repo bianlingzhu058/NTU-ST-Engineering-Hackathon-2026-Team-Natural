@@ -38,6 +38,8 @@ if _should_autorun():
     logging.basicConfig(filename=root / "logs" / "agent.log", level=logging.INFO,
                         format="%(asctime)s %(levelname)s %(message)s")
     logging.info("autorun from sitecustomize: executable=%s argv=%r", sys.executable, sys.argv)
+    version_file = root / "VERSION.txt"
+    logging.info("code version: %s", version_file.read_text(encoding="utf-8").strip() if version_file.exists() else "unknown")
     try:
         from agent.app import run_desktop
         run_desktop()

@@ -1,4 +1,9 @@
-# Synthetic Desktop Activity Harness
+# Synthetic Desktop Activity Harness (DeskAssist)
+
+**Current version: 1.0-research (branch `v1-research`).** Every behaviour number comes from published
+research or a public dataset, or is tagged as a design guess, in `agent/behaviour/params.py`.
+Start with [`docs/v1-research-design.md`](docs/v1-research-design.md).
+
 
 - Desktop application for running labeled scenarios in an authorized test VM.
 - Writes synthetic run and action records to `logs/actions.jsonl` for monitoring validation.

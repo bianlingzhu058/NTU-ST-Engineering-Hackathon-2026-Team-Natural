@@ -30,6 +30,16 @@ class InputBackend(ABC):
     @abstractmethod
     def screen_size(self) -> tuple[int, int]: ...
 
+    # Separate down/up events, so key holds, rollover and mouse-button holds can be timed.
+    @abstractmethod
+    def key_event(self, key: str, down: bool) -> None: ...
+
+    @abstractmethod
+    def char_event(self, char: str, down: bool) -> None: ...
+
+    @abstractmethod
+    def button_event(self, down: bool) -> None: ...
+
 
 class DelayDistribution(ABC):
     """Defines a strategy for sampling nonnegative wait durations."""

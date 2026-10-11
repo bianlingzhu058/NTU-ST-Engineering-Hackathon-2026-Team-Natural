@@ -27,11 +27,15 @@ DEFAULT_PAGE_PATTERNS: list[tuple[str, list[str]]] = [
     (UNREACHABLE, ["can't be reached", "cant be reached", "can't reach this page", "no internet",
                    "page isn't working", "page isnt working", "site can't be reached", "err_name_not_resolved",
                    "err_connection", "404", "not found", "hmmm"]),
-    (NEW_TAB, ["new tab", "start page", "about:blank"]),
+    (NEW_TAB, ["new tab", "start page", "about:blank", "untitled"]),
 ]
 DEFAULT_APPS: dict[str, dict] = {
-    "browser": {"process": "msedge.exe", "markers": ["microsoft edge", "edge", "chrome", "chromium", "firefox"]},
-    "word": {"process": "winword.exe", "markers": ["word"]},
+    # Chrome is the browser on the VM: Edge's expired-certificate page has no way through.
+    "browser": {"process": "chrome.exe", "markers": ["google chrome"]},
+    # Writer and Calc share one process (soffice.bin), so the title decides which one is in front.
+    "writer": {"process": "soffice.bin", "markers": ["openoffice writer"], "title_required": True},
+    "calc": {"process": "soffice.bin", "markers": ["openoffice calc"], "title_required": True},
+    "save_dialog": {"process": "soffice.bin", "markers": ["save as", "save"], "title_required": True},
 }
 
 
@@ -63,10 +67,12 @@ class Perception:
         """
         spec = self.apps.get(app, {})
         expected = str(spec.get("process", "")).lower()
-        if process:
-            return process == expected if expected else True
         clean = normalise(title)
-        return any(marker in clean for marker in spec.get("markers", [])) if clean else False
+        title_ok = any(marker in clean for marker in spec.get("markers", [])) if clean else False
+        if process:
+            if expected and process != expected: return False
+            return title_ok if spec.get("title_required") else True
+        return title_ok
 
     def page_state(self, title: str, process: str = "", app: str = "browser") -> str:
         """Classify the page showing in the foreground window of ``app``."""

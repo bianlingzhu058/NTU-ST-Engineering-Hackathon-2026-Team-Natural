@@ -126,3 +126,21 @@ Written against the rubric line by line. The mapping of criterion to code to pro
   works as a documented fallback.
 - `packaging/build_bundle.sh` now accepts either a python.org embeddable zip or a previously
   built `DeskAssist.zip` (it reuses the runtime), and writes both `._pth` names.
+
+
+## 1.0-research (11 Oct 2026, branch v1-research)
+
+Behaviour layer rebuilt from research after the first real VM runs (pause after every ".", Edge
+assumed, Tab-based link following, mood multiplier). Plumbing kept. See docs/v1-research-design.md.
+
+- `agent/behaviour/`: parameters table with sources and confidence tags, persona, samplers.
+- Typing, mouse, scrolling, pacing rewritten to the cited models; separate key/button down and up.
+- Chrome only; certificate warning cleared with the mouse (Advanced, Proceed) via UI Automation.
+- Links chosen from UI Automation and clicked with the mouse; find-on-page fallback.
+- One log line per page visit (move plus reading), per paragraph in Writer.
+- OpenOffice Writer and Calc tasks, saved through the app's own Save As dialog (.odt / .ods).
+- Runner: priority-queue task order, gap mixture between tasks, resumption lag.
+- Scorecard targets CV 1 to 2, burstiness B 0 to 0.33, lag-1 memory within chance.
+- Lin's Ctrl+Alt+F10 stop hotkey (`agent/hotkeys.py`, from lingzhu2).
+- `agent params`, `agent probe`, `packaging/build_update.py` (one-paste VM update).
+- Removed: `agent/session.py` (Markov mood model), `office_worker.yaml` (Word is not on the VM).

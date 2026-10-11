@@ -9,7 +9,7 @@ import re
 
 ROOT = Path(__file__).parents[1] / "agent"
 STDLIB_OK = {"abc", "argparse", "collections", "ctypes", "dataclasses", "datetime", "json", "logging", "math",
-             "os", "pathlib", "random", "re", "sys", "threading", "time", "typing", "uuid", "__future__"}
+             "os", "pathlib", "random", "re", "sys", "threading", "time", "typing", "uuid", "urllib", "__future__"}
 SLEEP_ALLOWED = {"timing.py", "clock.py"}
 
 
@@ -62,5 +62,22 @@ def test_every_launch_strategy_goes_through_the_windows_shell():
     from agent.skills.launch import STRATEGIES
     source = (ROOT / "skills" / "launch.py").read_text(encoding="utf-8")
     assert set(STRATEGIES) == {"taskbar", "start_search", "run_dialog"}
-    for key in ('hotkey("win"', 'press("win")'):
+    for key in ('combo("win"', 'press("win")'):
         assert key in source
+
+
+def test_no_untagged_numbers_in_behaviour_code():
+    """Every behaviour number lives in behaviour/params.py with a source and a confidence tag.
+
+    In the skills and input models, a sleep or random draw may not take a bare numeric literal;
+    it must read the value with P("name"). This keeps guesses visible instead of hidden in code.
+    """
+    pattern = re.compile(r"\b(?:uniform|randint|tiny|sleep|lognormvariate|gauss)\(\s*-?\d")
+    hits = []
+    for folder in ("skills", "input"):
+        for path in (ROOT / folder).glob("*.py"):
+            for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                zero_centred = re.search(r"\(\s*0(?:\.0)?\s*,", line)  # noise around zero is structure, not a value
+                if pattern.search(line) and not zero_centred and "# not behaviour" not in line:
+                    hits.append((path.name, n, line.strip()))
+    assert not hits, "numeric literal in a behaviour draw, move it to params.py: " + repr(hits)

@@ -1,13 +1,9 @@
-# Web surfing on the organisers' mock sites (the clean-TLS list from the technical guide).
-# One task = open the browser by a human route, visit a random number of sites in a random
-# order, read each one, sometimes follow a link, then close the browser. Each site visit is a
-# group so the count varies per run and the closing step always gets to run before the deadline.
+# Web surfing in Chrome on the organisers' clean-TLS mock sites (technical guide, 28 Sep).
+# A block of 4 to 7 minutes visits 3 to 4 sites; on each site the person reads, then makes
+# 1 + Exp(3) navigation moves, each followed by reading. Numbers: agent/behaviour/params.py.
 name: web_surfing
-weight: 3
+weight: 0.45
 params:
-  app_name: edge
-  taskbar_slot: 1
-  run_command: msedge
   sites:
     - https://www.apple.com
     - https://www.samsung.com
@@ -19,34 +15,19 @@ params:
     - https://coinmarketcap.com
     - https://www.coingecko.com
     - https://www.coinbase.com
-  find_terms: ["price", "support", "news", "contact", "learn more", "shipping"]
+  interests: ["price", "support", "news", "deals", "compare", "learn", "shop", "specs", "markets", "courses"]
 plan:
   - skill: open_app
-    args:
-      app: browser
-      name: "{app_name}"
-      taskbar_slot: "{taskbar_slot}"
-      run_command: "{run_command}"
-      strategies: [taskbar, start_search]
-      timeout: 25
-      attempts: 2
+    args: {app: browser, name: "google chrome", taskbar_slot: 1, strategies: [taskbar, start_search], timeout: 20, attempts: 2}
   - group:
-      - skill: go_to_url
-        args: {url: "{sites}", new_tab_probability: 0.25, bare_host_probability: 0.45, timeout: 15}
-      - skill: scroll_and_read
-        args: {bursts_range: [2, 6], page_key_probability: 0.2}
-      - skill: find_on_page
-        chance: 0.18
-        args: {text: "{find_terms}"}
-      - skill: follow_link
-        chance: 0.55
-        args: {tabs_range: [4, 15], back_probability: 0.35, timeout: 10}
-      - skill: scroll_and_read
-        chance: 0.6
-        args: {bursts_range: [1, 4]}
-      - skill: reload_page
-        chance: 0.08
-    repeat: [3, 6]
+      - skill: go_to_site            # type the host, clear the warning, read the page
+        args: {url: "{*sites}", timeout: 15}
+      - skill: navigate              # one move from the measured mix, then read the result
+        args: {interests: "{*interests}", timeout: 10}
+        repeat: {exp_mean: 3, min: 0, max: 8}
+    repeat: [3, 4]
     min_time_left: 70
+    budget_seconds: [240, 420]
+  - skill: close_browser_tabs
   - skill: close_app
-    args: {app: browser, method: ctrl_w, tabs: 8, timeout: 8}
+    args: {app: browser, method: alt_f4, timeout: 8}
