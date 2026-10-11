@@ -36,15 +36,18 @@ class HumanScroller:
         weights = P("scroll.depth_product")
         return rng.choices(range(len(weights)), weights=weights, k=1)[0]
 
-    def _notch_gap(self) -> float:
-        mean, sd, floor = P("scroll.notch_gap_ms")
+    def _notch_gap(self, mode: str) -> float:
+        if mode == "read":  # Hinckley 2002: slow "reading" mode between notches
+            median, sigma, low, high = P("scroll.notch_gap_read_ms")
+            return clamp(ln_median(self._rng, median, sigma), low, high) / 1000.0
+        mean, sd, floor = P("scroll.notch_gap_ms")  # fast "flick" mode while skimming
         return max(floor, self._rng.gauss(mean, sd)) / 1000.0
 
-    def burst(self, notches: int, direction: int) -> None:
+    def burst(self, notches: int, direction: int, mode: str = "skim") -> None:
         """One wheel burst; direction -1 scrolls down (same sign convention as before)."""
         for _ in range(notches):
             self._backend.scroll(direction)
-            self._pacer.tiny(self._notch_gap())
+            self._pacer.tiny(self._notch_gap(mode))
 
     def _hand_on_page(self, region) -> None:
         if not self._mouse or not region: return
@@ -84,7 +87,7 @@ class HumanScroller:
                     covered, keys = covered + 0.875, keys + 1  # Page Down moves about 87.5% of a screen (unverified)
                 else:
                     n = rng.choice(P("scroll.burst_read") if mode == "read" else P("scroll.burst_skim"))
-                    self.burst(n, -1)
+                    self.burst(n, -1, mode)
                     covered += n * per_notch_screens
                     notches_down += n
                 bursts += 1
@@ -92,7 +95,7 @@ class HumanScroller:
                 self._pacer.sleep(clamp(ln_median(rng, median, sigma), low, high))  # glance at the new lines
                 if rng.random() < P("scroll.up_p"):
                     back = rng.randint(*P("scroll.reread_notches"))
-                    self.burst(back, 1)
+                    self.burst(back, 1, "read")
                     covered -= back * per_notch_screens
                     ups += 1
                     median, sigma, low, high = P("scroll.reread_s")

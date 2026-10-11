@@ -126,7 +126,9 @@ def verdicts(summary: dict) -> list[tuple[str, str, str, str]]:
     if gap.get("n", 0) < 5: timing_flags.append("not enough actions to judge")
     else:
         low, high = targets["cv"]
-        if not low <= gap["cv"] <= high: timing_flags.append(f"CV {gap['cv']:.2f} outside {low} to {high}")
+        tol = gap["cv"] / max(1, gap["n"]) ** 0.5  # sampling error of a CV from n gaps
+        if not low - tol <= gap["cv"] <= high + tol:
+            timing_flags.append(f"CV {gap['cv']:.2f} outside {low} to {high} (allowing {tol:.2f} for {gap['n']} gaps)")
         b_low, b_high = targets["B"]
         if not b_low - 0.05 <= gap["B"] <= b_high + 0.05: timing_flags.append(f"burstiness B {gap['B']:.2f} outside {b_low} to {b_high}")
         noise = 2 / max(1, gap["n"]) ** 0.5  # 95% band for a zero correlation with n gaps

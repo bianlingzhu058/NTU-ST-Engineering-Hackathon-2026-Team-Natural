@@ -115,7 +115,8 @@ class HumanTyper:
             ms += ln_mean(rng, base * 2 + (P("typing.sentence_extra_compose_ms") if mode == "compose" else 0),
                           P("typing.sentence_pause_sigma"))
             if mode == "compose" and rng.random() < P("typing.sentence_long_pause_p"):
-                ms += rng.uniform(*P("typing.sentence_long_pause_s")) * 1000
+                median, sigma, low, high = P("typing.sentence_long_pause_s")
+                ms += clamp(ln_median(rng, median, sigma), low, high) * 1000
         return ms
 
     def _hold(self) -> float:

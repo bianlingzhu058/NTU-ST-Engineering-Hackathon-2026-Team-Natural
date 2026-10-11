@@ -70,6 +70,7 @@ class YamlObjective(Objective):
         ends = context.clock.monotonic() + rng.uniform(*budget) if budget else float("inf")
         for index in range(self._count(step.get("repeat", [1, 1]), rng)):
             if context.stop_check(): return
+            if index and context.time_left() < float(step.get("min_time_left", 0)): return
             if "group" in step:
                 if index and (context.time_left() < float(step.get("min_time_left", 60))
                               or context.clock.monotonic() > ends): return

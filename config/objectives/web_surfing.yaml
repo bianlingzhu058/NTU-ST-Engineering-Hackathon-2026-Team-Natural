@@ -25,6 +25,7 @@ plan:
       - skill: navigate              # one move from the measured mix, then read the result
         args: {interests: "{*interests}", timeout: 10}
         repeat: {exp_mean: 3, min: 0, max: 8}
+        min_time_left: 75            # do not start a page that cannot be read before the session ends
     repeat: [3, 4]
     min_time_left: 70
     budget_seconds: [240, 420]

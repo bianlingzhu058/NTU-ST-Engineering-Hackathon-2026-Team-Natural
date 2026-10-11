@@ -77,7 +77,7 @@ def read_current_page(context: SkillContext, args: dict, state: str) -> None:
     low, high = P("page.dwell_clamp_s")
     revisit = context.memory.went_back
     dwell = clamp(weibull(context.rng, shape, scale * (P("page.revisit_factor") if revisit else 1.0)), low, high)
-    dwell = min(dwell, max(2.0, context.time_left() - 20))
+    dwell = min(dwell, max(10.0, context.time_left()))  # only the very last page can be cut short
     result = context.scroller.read_page(kind, dwell, context.page_region(), context.stop_check, context.time_left)
     context.memory.went_back = False
     args["read"] = result

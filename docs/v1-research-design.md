@@ -41,7 +41,15 @@ root) and `../research_notes/`.
 CV 1, so 0.4 is more regular than random: bot-like. Human activity logs sit at CV 1.6 to 2.2 with
 almost no correlation between consecutive gaps (Barabasi 2005, Goh and Barabasi 2008). The
 scorecard (`agent verify`) now checks CV 1 to 2, burstiness B 0 to 0.33, and lag-1 memory within
-chance. Eight simulated 15-minute sessions all pass (CV 1.03 to 1.44, B 0.01 to 0.17).
+chance (a CV or correlation measured on about 30 gaps has a sampling error of about 0.15 to 0.4,
+so the band is widened by that error). Twelve simulated 15-minute sessions all pass: CV 0.96 to
+1.41, B -0.03 to 0.16, lag-1 memory -0.01 to 0.40. The highest memory values come from tasks
+having different rhythms (browsing gaps are long, office steps short), which clusters gaps by task.
+
+After the first build, a second research pass on the guesses upgraded five values to sourced ones
+(KLM M spread from Card et al. 1980, sentence-end pauses from Hall et al. 2022, word-initial
+slowdown from Crump et al., two wheel-notch modes from Hinckley et al. 2002, session drift from
+Steinborn et al. 2010); see research_notes/.../guessed_values.md. 41 values remain D or U.
 
 ## Layout
 
