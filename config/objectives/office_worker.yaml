@@ -17,10 +17,17 @@ params:
       - "Also need to follow up on the parking pass and the laptop replacement request."
 plan:
   - skill: open_app
-    args: {name: "{app_name}", taskbar_slot: "{taskbar_slot}", run_command: "{run_command}"}
+    args:
+      app: word
+      name: "{app_name}"
+      taskbar_slot: "{taskbar_slot}"
+      run_command: "{run_command}"
+      strategies: [taskbar, start_search]
+      timeout: 30
+      attempts: 2
   - skill: type_document
-    args: {title: "{titles}", paragraphs: "{bodies}"}
+    args: {app: word, title: "{titles}", paragraphs: "{bodies}"}
   - skill: save_file
-    args: {filename: "{filenames}"}
+    args: {app: word, filename: "{filenames}"}
   - skill: close_app
-    args: {method: alt_f4}
+    args: {app: word, method: alt_f4, timeout: 8}

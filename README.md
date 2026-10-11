@@ -29,23 +29,37 @@ The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop
 ## VM runtime (no installation)
 
 The judged run uses no pip and no installer. `packaging/build_bundle.sh <python-3.11-embed-amd64.zip>`
-produces `dist/DeskAssist.zip`: the Python embeddable runtime with `pythonw.exe` copied to
-`DeskAssist.exe`, plus `app/` (agent, config, vendored yaml, tools). On the VM, a desktop shortcut to
-`runtime\DeskAssist.exe -m agent run` (Start in `app`) runs the objective and minutes set in
-`config/default.yaml`. See `dist/DeskAssist/README_VM.txt` and `docs/kellyn-changes.md`.
+(or the path of a previously built `DeskAssist.zip`, whose runtime is reused) produces
+`dist/DeskAssist.zip`: the Python embeddable runtime with `pythonw.exe` copied to `DeskAssist.exe`,
+plus `app/` (agent, config, vendored yaml, tools, `sitecustomize.py`).
+
+On the VM the desktop shortcut target is **`runtime\DeskAssist.exe` with no arguments**: the
+bundle's `DeskAssist._pth` ends with `import site`, so `app/sitecustomize.py` starts the run during
+interpreter start-up and the CommandLine field a judge reads in Sysmon is the bare executable path.
+`runtime\DeskAssist.exe -m agent run` (Start in `app`) is the documented fallback. Run length and
+objective come from `config/default.yaml`. See `dist/DeskAssist/README_VM.txt`,
+`docs/rubric-coverage.md` and `docs/kellyn-changes.md`.
 
 QA tools (stdlib): `tools/timing_analyzer.py` (Procmon CSV gaps, CV, compare with a human capture),
 `tools/sysmon_parent_checker.py` (Event Viewer XML/CSV, non-explorer parents), `tools/task_timeline.py`.
 
 ## Development commands
 
-The following CLI commands are retained for development and troubleshooting:
-
 - List scenarios: `python -m agent list-objectives`
-- Preview without desktop input: `python -m agent dry-run --objective research_topic`
-- Run from a terminal in an unlocked Windows test VM: `python -m agent run --objective research_topic --minutes 15`
-- Omit `--objective` to choose among scenarios by weight. Add `--seed N` for repeatable development runs.
-- Stop a CLI run by creating the configured stop file (default: `.agent-stop`).
+- Preview one objective without touching a desktop: `python -m agent dry-run --objective web_surfing`
+- A full-length run on a virtual clock, scored against the rubric, in about a second:
+  `python -m agent simulate --minutes 15 --seed 7`
+- Score any action log (simulated or a real one off the VM):
+  `python -m agent verify logs/actions.jsonl --report logs/scorecard.md`
+- Several seeds at once, non-zero exit on any flagged criterion: `python -m agent selftest --runs 6`
+- The judged run, from a shortcut in an unlocked Windows test VM: `python -m agent run`
+- Omit `--objective` to choose among scenarios by weight. Add `--seed N` for repeatable development
+  runs; leave it out for judged runs, where every run should look different.
+- Stop a run cleanly by creating the configured stop file (default `STOP_AGENT.txt` beside `config/`).
+
+Dry runs and `simulate` answer window queries from a simulated Windows desktop driven by the
+keystrokes the agent sends (`agent/win/fake_desktop.py`), so startup latency, the certificate
+interstitial, dead hosts and misclicks are all exercised off Windows.
 
 To summarize the action log independently, run `python -m reports` or pass a JSONL file path.
 
@@ -79,6 +93,13 @@ Short handoff notes for the files currently in the project:
 - `agent/__init__.py` — marks `agent` as an importable Python package.
 - `agent/__main__.py` — development CLI entry point for listing, previewing, and running objectives.
 - `agent/app.py` — composition root that builds runtime components and exposes the desktop entry point.
+- `agent/clock.py` — real and virtual time sources, injected so a 15 minute run can be replayed offline.
+- `agent/perception.py` — window title and process name to page state (ready, certificate warning, dead host).
+- `agent/session.py` — attention Markov chain, tempo drift and fatigue, which scale every pause.
+- `agent/report.py` — rubric scorecard from an action log: gap CV and histogram, task timeline, resources.
+- `agent/win/desktop.py` — read-only Windows introspection: foreground window, our own CPU and memory.
+- `agent/win/fake_desktop.py` — simulated desktop that reacts to the agent's keystrokes, for offline runs.
+- `sitecustomize.py` — starts the run when `DeskAssist.exe` is launched with no arguments at all.
 - `agent/config.py` — typed settings/objective data and YAML loading helpers.
 - `agent/interfaces.py` — interfaces shared by input backends and runtime components.
 - `agent/logger.py` — writes action/run events to JSON Lines.
@@ -99,13 +120,18 @@ Short handoff notes for the files currently in the project:
 - `agent/skills/launch.py` — application launch actions used by objective plans.
 - `agent/skills/office.py` — office application actions used by objective plans.
 - `config/default.yaml` — default runner, timing, input, and logging settings.
-- `config/objectives/idle_browse.yaml` — bounded idle browsing scenario plan.
+- `config/objectives/web_surfing.yaml` — the primary scenario: open the browser, visit mock sites, read, follow links, close.
 - `config/objectives/office_worker.yaml` — office work scenario plan.
-- `config/objectives/research_topic.yaml` — research browsing scenario plan.
 - `tests/test_no_banned_calls.py` — guards architectural constraints on skill/input code.
 - `tests/test_runner.py` — checks runner behavior and objective execution.
 - `tests/test_timing.py` — checks timing and pacing behavior.
 - `tests/test_typing.py` — checks keyboard typing behavior.
+- `tests/test_perception.py` — window title classification, including Edge's zero-width space.
+- `tests/test_launch.py` — launch verification, retry and refusal to type into a window that never opened.
+- `tests/test_browser_recovery.py` — certificate interstitial, dead hosts, misclicks.
+- `tests/test_session.py` — attention states, fatigue, bounded pause multipliers.
+- `tests/test_plan.py` — plan groups, deadline awareness, clean stop.
+- `tests/test_simulation.py` — end to end: four 15 minute runs scored against the rubric.
 - `tools/sysmon_parent_checker.py` — reviews process creation records and parent images.
 - `tools/timing_analyzer.py` — analyzes observed action timing data.
 - `logs/README.md` — describes the generated action log and handling of run data.
@@ -114,6 +140,8 @@ Short handoff notes for the files currently in the project:
 - `docs/operator-guide.md` — operator setup, execution, stop, and review workflow.
 - `docs/scenario-authoring.md` — guidance for adding bounded, auditable scenarios.
 - `docs/team-handoff.md` — detailed implemented/not-yet-implemented status and teammate file map.
+- `docs/kellyn-changes.md` — what changed on the `kellyn` branch and why.
+- `docs/rubric-coverage.md` — each rubric criterion mapped to the code that implements it and the command that proves it.
 - `reports/README.md` — explains where generated run summaries belong and how they are handled.
 - `reports/__main__.py` — generates one Markdown summary per run from action JSONL.
 

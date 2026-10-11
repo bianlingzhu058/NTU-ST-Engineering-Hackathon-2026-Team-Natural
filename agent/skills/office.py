@@ -1,6 +1,23 @@
-"""Document entry and save skills for harmless sample content (Word, or any editor with Ctrl+S)."""
+"""Document entry and save skills for harmless sample content (Word, or any editor with Ctrl+S).
+
+Both skills check that the editor really is the foreground window first. Typing a paragraph
+into whatever happens to have focus is how an automated run renames files on a desktop or
+fills a browser address bar with prose.
+"""
+from ..perception import ABSENT
 from ..registry import register_skill
-from .base import BaseSkill, SkillContext
+from .base import BaseSkill, SkillContext, SkillError
+
+
+def _require_editor(context: SkillContext, args: dict) -> None:
+    """Raise unless the configured editor is in front, so nothing is typed blindly."""
+    app = args.get("app", "word")
+    if not context.desktop.available:
+        return
+    title, process, state = context.look(app)
+    if state == ABSENT:
+        context.note_sighting(state)
+        raise SkillError(f"{app} is not the foreground window (saw {process or title or 'nothing'!r})")
 
 
 @register_skill("type_document")
@@ -11,6 +28,7 @@ class TypeDocumentSkill(BaseSkill):
     Keep text ASCII only: input is injected as plain key events.
     """
     def execute(self, context: SkillContext, args: dict) -> None:
+        _require_editor(context, args)
         paragraphs = args.get("paragraphs") or [args.get("body", "")]
         if paragraphs and isinstance(paragraphs[0], list):
             paragraphs = context.rng.choice(paragraphs) if context.rng else paragraphs[0]
@@ -35,6 +53,7 @@ class SaveFileSkill(BaseSkill):
     Works for Word's simplified save pane, WordPad and Notepad (Ctrl+S on a new document).
     """
     def execute(self, context: SkillContext, args: dict) -> None:
+        _require_editor(context, args)
         names = args.get("filename", "notes {n}")
         name = str(context.rng.choice(names) if isinstance(names, list) and context.rng else (names[0] if isinstance(names, list) else names))
         name = name.replace("{n}", str(context.rng.randint(100, 9999)) if context.rng else "1")

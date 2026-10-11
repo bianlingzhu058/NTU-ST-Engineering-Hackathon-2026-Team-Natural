@@ -45,6 +45,9 @@ class HumanMouse:
         self._backend.click()
 
     def drift(self) -> None:
-        """Small idle movement, as a reader resting a hand on the mouse."""
+        """Small idle movement, as a reader resting a hand on the mouse, biased back toward the middle."""
         x0, y0 = self._backend.position()
-        self.move(x0 + self._rng.uniform(-120, 120), y0 + self._rng.uniform(-80, 80))
+        width, height = self._backend.screen_size()
+        pull = 0.12  # without this the pointer parks on the clamp edge after a margin click
+        self.move(x0 + (width / 2 - x0) * pull + self._rng.uniform(-120, 120),
+                  y0 + (height / 2 - y0) * pull + self._rng.uniform(-80, 80))

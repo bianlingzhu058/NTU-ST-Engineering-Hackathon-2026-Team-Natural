@@ -1,12 +1,42 @@
-# Every pause kind is lognormal (median seconds, sigma) with optional long pauses mixed in.
-# Nothing here is a fixed interval. CV of each kind is enforced above 0.4 by tests/test_timing.py.
+# Agent settings. Nothing here is a fixed interval and nothing here launches a process.
+# Every pause kind is lognormal (median seconds, sigma) with optional long pauses mixed in and a
+# hard cap so one unlucky draw cannot eat the run budget. tests/test_timing.py asserts the
+# coefficient of variation of every kind is above 0.4; tests/test_simulation.py asserts the same
+# of the end-to-end action timeline, which is what Process Monitor shows the judges.
 timing:
   kinds:
-    micro: {median: 0.09, sigma: 0.45}                                           # between keys and mouse steps
-    step:  {median: 0.45, sigma: 0.55, long_probability: 0.03, long_seconds: [1.5, 4.0]}   # between UI actions
-    read:  {median: 2.5,  sigma: 0.60, long_probability: 0.15, long_seconds: [4.0, 9.0]}   # after a page loads
-    think: {median: 1.2,  sigma: 0.60, long_probability: 0.10, long_seconds: [3.0, 8.0]}   # before starting something
-    gap:   {median: 14.0, sigma: 0.50, long_probability: 0.10, long_seconds: [25.0, 50.0]} # between tasks
+    micro: {median: 0.09, sigma: 0.45, max_seconds: 1.5}                                              # between keys and mouse steps
+    step:  {median: 0.45, sigma: 0.55, long_probability: 0.03, long_seconds: [1.5, 4.0], max_seconds: 10}   # between UI actions
+    read:  {median: 2.5,  sigma: 0.60, long_probability: 0.15, long_seconds: [4.0, 9.0], max_seconds: 30}   # after a page loads
+    think: {median: 1.2,  sigma: 0.60, long_probability: 0.10, long_seconds: [3.0, 8.0], max_seconds: 25}   # before starting something
+    gap:   {median: 14.0, sigma: 0.50, long_probability: 0.10, long_seconds: [25.0, 50.0], max_seconds: 90}  # between tasks
+
+# Attention model: every pause is multiplied by the current state, a drifting tempo and mild
+# fatigue, so the timeline is non-stationary the way a real session is. See agent/session.py.
+session:
+  states: {focused: 0.65, steady: 1.0, reading: 1.7, distracted: 3.1}
+  fatigue_per_hour: 0.35
+  walk_sigma: 0.09
+
+# Window-title and process-name recognition. Turn enabled off to fall back to open-loop
+# behaviour if introspection ever misbehaves on the day.
+perception:
+  enabled: true
+  use_process_lookup: true  # false = recognise windows by title only, issuing no OpenProcess at all
+                            # (results are cached per window handle, so a run makes a handful, not
+                            #  thousands, of Sysmon Event ID 10 ProcessAccess entries)
+  apps:
+    browser: {process: msedge.exe, markers: ["microsoft edge", "edge", "chrome", "chromium", "firefox"]}
+    word: {process: winword.exe, markers: ["word"]}
+
+# Dry runs and `agent simulate` answer window queries from a simulated desktop. Defaults are
+# pessimistic on purpose: the organisers' mock-site certificates are expired, so half the
+# navigations land on the TLS interstitial and the recovery path gets exercised.
+simulation:
+  privacy_error_rate: 0.5
+  unreachable_rate: 0.12
+  startup_polls: 2
+
 typing:
   typo_rate: 0.02
 mouse:
@@ -19,5 +49,7 @@ runner:
   minutes: 15
   objective: web_surfing    # null = weighted random choice across all objectives
   stop_file: STOP_AGENT.txt # create this file next to the config folder to stop cleanly
+  min_objective_seconds: 90 # do not start a task that cannot finish inside the budget
+  max_blind_actions: 3      # consecutive actions with no expected window before the run aborts
 logging:
   path: logs/actions.jsonl
