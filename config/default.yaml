@@ -1,0 +1,36 @@
+# Every pause kind is lognormal (median seconds, sigma) with optional long pauses mixed in.
+# Nothing here is a fixed interval. CV of each kind is enforced above 0.4 by tests/test_timing.py.
+timing:
+  kinds:
+    micro: {median: 0.09, sigma: 0.45}                                           # between keys
+    glide: {median: 0.02, sigma: 0.45}                                           # between mouse-move steps: ~0.4s total move — visible over VNC AND human-speed (0.006 was so fast VNC showed no motion; 0.09 was a 2s slow hover)
+    step:  {median: 0.45, sigma: 0.55, long_probability: 0.03, long_seconds: [1.5, 4.0]}   # between UI actions
+    read:  {median: 1.8,  sigma: 0.55, long_probability: 0.10, long_seconds: [3.5, 6.0]}   # pause while reading (tuned down from 3.5s: pauses felt way too long / AFK)
+    page_load: {median: 2.5, sigma: 0.5, long_probability: 0.08, long_seconds: [4.0, 6.0]} # wait for a page to load before interacting (tuned down from 5s: 30s stalls looked idle/robotic)
+    browser_ready: {median: 2.5, sigma: 0.35, long_probability: 0.08, long_seconds: [4.0, 6.0]} # one-time wait for a fresh-profile browser (Edge Test) to open before the first URL; kept short — the browser is typeable quickly, so a longer wait was just dead air
+    think: {median: 1.8,  sigma: 0.60, long_probability: 0.10, long_seconds: [3.0, 8.0]}   # before starting something (raised for slower VM)
+    burst: {median: 2.5,  sigma: 0.55, long_probability: 0.08, long_seconds: [6.0, 10.0]}  # think-pause between ~8-9 word typing bursts while composing a document (Chenoweth & Hayes 2001; 2-10s)
+    para:  {median: 8.0,  sigma: 0.40, long_probability: 0.08, long_seconds: [12.0, 15.0]} # longer pause at a paragraph break while composing (research: 5-15s)
+    cell:  {median: 0.8,  sigma: 0.55, long_probability: 0.14, long_seconds: [2.0, 4.0]}   # pause moving between spreadsheet cells: slow + irregular, not metronomic
+    keydata: {median: 0.20, sigma: 0.50, long_probability: 0.05, long_seconds: [0.5, 0.9]} # between keys during deliberate numeric/spreadsheet entry (~10-key rate) — slower than prose so digits are visibly keyed, not popped in
+    switch: {median: 10.0, sigma: 0.50, long_probability: 0.10, long_seconds: [25.0, 45.0]} # bounded pause between whole objectives in sequential "all" mode: a person switching apps — flows for a demo (max ~45s), unlike the heavy-tailed "gap" used in the scored mix
+    settle: {median: 2.2, sigma: 0.45, long_probability: 0.05, long_seconds: [3.0, 5.0]}   # NEW: wait for a fresh window/dialog to take focus before typing into it
+    # Between-task gap: research two-component mixture (80% lognormal median 8s + 20% heavy-tailed
+    # idle 20-240s). Gives CV ~1.5 — the human band. A plain lognormal sat at CV ~0.5, MORE regular
+    # than random (Poisson=1.0), which reads as a bot. This is the gap series the judges score.
+    # (Barabasi 2005, Dezso 2006, Halfaker 2015; checked by tests/test_gap_shape.py)
+    gap:   {mixture: true, median: 8.0, sigma: 0.9, idle_weight: 0.20, idle_range: [20.0, 240.0], idle_alpha: 0.2} # between tasks
+typing:
+  typo_rate: 0.02
+mouse:
+  steps: 14
+scroll:
+  burst_size: 4
+input:
+  backend: sendinput        # sendinput (stdlib, VM runtime) or pyautogui (laptop development)
+runner:
+  minutes: 15
+  objective: web_surfing    # null = weighted random choice across all objectives
+  stop_file: STOP_AGENT.txt # create this file next to the config folder to stop cleanly
+logging:
+  path: logs/actions.jsonl
