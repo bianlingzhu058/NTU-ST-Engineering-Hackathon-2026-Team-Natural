@@ -1,133 +1,121 @@
-# Synthetic Desktop Activity Harness
+# Synthetic Human Agent — Team Natural
 
-- Desktop application for running labeled scenarios in an authorized test VM.
-- Writes synthetic run and action records to `logs/actions.jsonl` for monitoring validation.
-- Uses a fake input backend for dry runs; Windows desktop runs use PyAutoGUI.
+A synthetic desktop user that performs real web and office work on a Windows VM while
+looking human in process telemetry (Sysmon / Procmon / Process Explorer). Built for the
+NTU × ST Engineering hackathon.
 
-## Start the desktop application
+It runs **offline, with no pip and no third‑party packages** — the Python standard library
+only (input is driven through `ctypes` + `SendInput`; YAML is parsed by a tiny built‑in
+parser). Every application is opened the way a person opens it (through the Windows shell),
+so each app's parent process is `explorer.exe` and `python.exe` never spawns a child, opens
+a socket, or writes a task file.
 
-1. Install Python 3.12.10 (64-bit).
-2. From the project folder, install dependencies:
+## Objectives
 
-   ```powershell
-   py -3.12 -m venv .venv31210
-   .venv31210\Scripts\Activate.ps1
-   python -m pip install -r requirements.txt
+| Objective        | App                | What it does |
+|------------------|--------------------|--------------|
+| `web_surfing`    | Edge Test (Edge)   | Launch, visit sites, scroll & read, hover the nav bar, Ctrl+F find, follow links, sometimes open/close a new tab, close |
+| `office_writer`  | OpenOffice Writer  | Open Writer, compose a short note in human "P‑bursts", save through the Save As dialog, close |
+| `office_calc`    | OpenOffice Calc    | Open Calc, enter a table, add a `=SUM()` row, bold the header, save as `.ods`, close |
+
+Run a single objective, a weighted random mix, or **all objectives** in sequence.
+
+## How to run on the VM
+
+**Prerequisites (one‑time VM setup):**
+
+1. **Python 3.12** installed (64‑bit). No packages needed — stdlib only.
+2. **Edge Test shortcut** (for `web_surfing`): a desktop shortcut named **"Edge Test"** whose
+   target is
+   `msedge.exe --ignore-certificate-errors --user-data-dir=C:\EdgeTest`
+   (the separate profile is what makes the cert flag apply, so the organisers' mock sites
+   load real content). Copy that shortcut into the Start‑menu programs folder so Windows
+   search resolves it:
+   ```cmd
+   copy "%USERPROFILE%\Desktop\Edge Test.lnk" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Edge Test.lnk"
    ```
+   Confirm: press **Win**, type `Edge Test`, and the Best Match must be **Edge Test**.
+3. **OpenOffice** installed (for `office_writer` / `office_calc`). The agent launches Writer
+   and Calc via `swriter` / `scalc`.
 
-3. Start the operator interface:
+**Run it — operator UI (recommended):**
 
-   ```sh
-   python -m ui
-   ```
+```cmd
+cd <folder containing agent\, config\, ui\>
+python -m ui
+```
 
-4. Select a scenario and duration. The interface starts in dry-run mode. To control the desktop, disable dry-run and confirm that the VM is authorized and unlocked.
+In the **Synthetic Activity Harness** window:
+1. **Scenario** → `all objectives`, `web_surfing`, `office_writer`, or `office_calc`
+2. **Duration** → minutes (e.g. 15 for a full session; ~8 min fits one full "all objectives" cycle)
+3. **Uncheck** ☐ *Dry run (no desktop input)*  ← required to actually drive the desktop
+4. **Check** ☑ *I confirm this is an authorized, unlocked test VM*
+5. **Start run** (or **Ctrl+Alt+F9**). **Stop run** / **Ctrl+Alt+F10** halts within ~0.3 s.
 
-5. Use **Stop run** to request a clean stop. Review `logs/actions.jsonl` or generate Markdown run summaries with `python -m reports`.
+Keep the VM **unlocked** during a run — the agent is driving the real keyboard and mouse.
 
-Keyboard controls: **Ctrl+Alt+F9** starts a run while the operator window is open, and
-**Ctrl+Alt+F10** requests a clean stop. On Windows, assign Ctrl+Alt+F9 to the desktop
-shortcut's **Shortcut key** field to launch the bundled app when it is closed.
+**Run it — command line (no UI):**
 
-The GUI runs in the foreground. Keep the Windows test VM unlocked during desktop runs.
+```cmd
+python -m agent run --objective web_surfing --minutes 3     # one objective
+python -m agent run --objective all --minutes 15            # all objectives, fixed order
+python -m agent run --minutes 15                            # weighted random mix
+```
 
+A CLI run logs to `logs\agent.log` (so the terminal looks idle while it works). Stop it with
+**Ctrl+C**, or create the stop file `STOP_AGENT.txt` next to the `config` folder.
 
-## VM runtime (no installation)
+## What makes it look human (grounded in research)
 
-The judged run uses no pip and no installer. `packaging/build_bundle.sh <python-3.12.10-embed-amd64.zip>`
-produces `dist/DeskAssist.zip`: the Python 3.12 embeddable runtime with `pythonw.exe` copied to
-`DeskAssist.exe`, plus `app/` (agent, config, vendored yaml, tools). On the VM, a desktop shortcut to
-`runtime\DeskAssist.exe -m agent run` (Start in `app`) runs the objective and minutes set in
-`config/default.yaml`. See `dist/DeskAssist/README_VM.txt` and `docs/kellyn-changes.md`.
+- **Session timing.** Gaps between tasks use a heavy‑tailed mixture (coefficient of variation
+  ≈ 1.55 — the human band from Barabási 2005 / Goh & Barabási 2008), not a near‑uniform
+  schedule that reads as a bot.
+- **Writing.** Documents are composed in ~8–9 word bursts with think‑pauses between them and
+  longer pauses at paragraphs (Chenoweth & Hayes 2001; Conijn 2019).
+- **Data entry.** Spreadsheet cells are keyed at a visible ~10‑key pace with irregular
+  between‑cell pauses, not pasted instantly.
+- **Navigation.** URLs typed exactly (no auto‑corrupting typos); links followed and tabs
+  opened/closed as a person browsing would.
+- **Process authenticity.** Apps launched through the shell → parent is `explorer.exe`; files
+  written by `soffice.bin` through its own Save As dialog; `python.exe` stays childless,
+  offline, and silent on disk.
 
-QA tools (stdlib): `tools/timing_analyzer.py` (Procmon CSV gaps, CV, compare with a human capture),
-`tools/sysmon_parent_checker.py` (Event Viewer XML/CSV, non-explorer parents), `tools/task_timeline.py`.
+## Development & verification
 
-## Development commands
+```cmd
+python -m agent list-objectives                 # list the three objectives
+python -m agent dry-run --objective web_surfing # simulate without touching the desktop
+python -m pytest -q                             # 22 unit tests (timing shape, no-banned-calls, etc.)
+```
 
-The following CLI commands are retained for development and troubleshooting:
+**Analysis tools** (stdlib, read the action log or a Procmon/Sysmon export):
+```cmd
+python tools\task_timeline.py logs\actions.jsonl      # per-task timeline (task, start, end, duration, actions)
+python tools\timing_analyzer.py logs\actions.jsonl    # inter-burst gap CV / burstiness (human-ness of timing)
+python tools\sysmon_parent_checker.py <export>        # flags any process whose parent is not explorer.exe
+```
 
-- List scenarios: `python -m agent list-objectives`
-- Preview without desktop input: `python -m agent dry-run --objective research_topic`
-- Run from a terminal in an unlocked Windows test VM: `python -m agent run --objective research_topic --minutes 15`
-- Omit `--objective` to choose among scenarios by weight. Add `--seed N` for repeatable development runs.
-- Stop a CLI run by creating the configured stop file (default: `.agent-stop`).
+## Project layout
 
-To summarize the action log independently, run `python -m reports` or pass a JSONL file path.
+```
+agent/            runtime: runner, timing, config, logging, registry
+  input/          stdlib SendInput backend (VM) + fake backend (dry runs) + optional pyautogui (dev)
+  skills/         launch, browser, office — the actions objective plans call
+  objectives/     loads YAML objective plans
+  mini_yaml.py    tiny stdlib YAML parser (so the VM needs no PyYAML)
+config/
+  default.yaml    timing distributions, input backend, runner/logging settings
+  objectives/     web_surfing.yaml, office_writer.yaml, office_calc.yaml
+ui/               Tkinter operator window (scenario, duration, start/stop)
+tools/            task_timeline, timing_analyzer, sysmon_parent_checker
+tests/            22 unit tests
+```
 
-## How to add an objective
+## Adding an objective
 
-1. Add a YAML file under `config/objectives/`.
-2. Set its `name`, optional `weight` and `params`, and ordered `plan` of skill calls.
-3. Reference parameters with `{param}` placeholders. The runner loads objective files at startup.
-
-## How to add a skill
-
-1. Add a class under `agent/skills/` and decorate it with `@register_skill("name")`.
-2. Implement `execute(context, args)` using the provided primitives.
-3. Add a call to the skill's registered name in an objective YAML plan.
-
-Skills should avoid direct timing calls and must not import PyAutoGUI. Keep test scenarios bounded and use harmless sample data. GUI details may need adjustment for the applications installed in the VM.
-
-## Monitoring notes
-
-- Correlate JSONL run IDs with endpoint telemetry.
-- Keep ordinary process lineage visible and document expected events for each objective.
-- `tools/sysmon_parent_checker.py` lists process creation events and parent images for review.
-
-## Repository map
-
-Short handoff notes for the files currently in the project:
-
-- `README.md` — desktop app startup, development commands, authoring notes, monitoring notes, and this file map.
-- `requirements.txt` — Python packages needed to run and develop the harness.
-- `.gitignore` — local environments, generated logs/reports, caches, and build output excluded from Git.
-- `agent/__init__.py` — marks `agent` as an importable Python package.
-- `agent/__main__.py` — development CLI entry point for listing, previewing, and running objectives.
-- `agent/app.py` — composition root that builds runtime components and exposes the desktop entry point.
-- `agent/config.py` — typed settings/objective data and YAML loading helpers.
-- `agent/interfaces.py` — interfaces shared by input backends and runtime components.
-- `agent/logger.py` — writes action/run events to JSON Lines.
-- `agent/registry.py` — registry for named skills.
-- `agent/runner.py` — executes objective plans and handles run control.
-- `agent/timing.py` — configurable pacing and timing distributions for actions.
-- `agent/input/__init__.py` — package marker for input implementations.
-- `agent/input/fake_backend.py` — records simulated input for safe dry runs.
-- `agent/input/keyboard.py` — keyboard interaction helpers.
-- `agent/input/mouse.py` — mouse movement and click helpers.
-- `agent/input/pyautogui_backend.py` — desktop input adapter backed by PyAutoGUI.
-- `agent/input/scroll.py` — scrolling interaction helpers.
-- `agent/objectives/__init__.py` — package marker for objective support code.
-- `agent/objectives/yaml_objective.py` — loads and represents YAML-defined objective plans.
-- `agent/skills/__init__.py` — imports built-in skills so they register with the skill registry.
-- `agent/skills/base.py` — shared skill context and base skill definitions.
-- `agent/skills/browser.py` — browser-oriented actions used by objective plans.
-- `agent/skills/launch.py` — application launch actions used by objective plans.
-- `agent/skills/office.py` — office application actions used by objective plans.
-- `config/default.yaml` — default runner, timing, input, and logging settings.
-- `config/objectives/idle_browse.yaml` — bounded idle browsing scenario plan.
-- `config/objectives/office_worker.yaml` — office work scenario plan.
-- `config/objectives/research_topic.yaml` — research browsing scenario plan.
-- `tests/test_no_banned_calls.py` — guards architectural constraints on skill/input code.
-- `tests/test_runner.py` — checks runner behavior and objective execution.
-- `tests/test_timing.py` — checks timing and pacing behavior.
-- `tests/test_typing.py` — checks keyboard typing behavior.
-- `tools/sysmon_parent_checker.py` — reviews process creation records and parent images.
-- `tools/timing_analyzer.py` — analyzes observed action timing data.
-- `logs/README.md` — describes the generated action log and handling of run data.
-- `ui/README.md` — scope and usage notes for the operator interface.
-- `ui/__main__.py` — local Tkinter operator interface for selecting, starting, and stopping runs.
-- `docs/operator-guide.md` — operator setup, execution, stop, and review workflow.
-- `docs/scenario-authoring.md` — guidance for adding bounded, auditable scenarios.
-- `docs/team-handoff.md` — detailed implemented/not-yet-implemented status and teammate file map.
-- `reports/README.md` — explains where generated run summaries belong and how they are handled.
-- `reports/__main__.py` — generates one Markdown summary per run from action JSONL.
-
-## Operator-facing structure
-
-- `ui/` — primary operator interface that calls the existing runner, shows scenario/run status, and exposes start/stop controls.
-- `docs/` — handoff and operating documentation.
-- `logs/actions.jsonl` — generated per-action records with run IDs; created on the first logged action.
-- `reports/` — location for reviewed/exported run summaries; generated reports should include a run ID for telemetry correlation.
-
-The interface and report generation are intentionally small; scenario execution remains in the existing runner.
+1. Add a YAML file under `config/objectives/` with a `name`, optional `weight`/`params`, and an
+   ordered `plan` of skill calls (reference params with `{name}` placeholders; `chance:` gates a
+   step probabilistically).
+2. If it needs a new action, add a class under `agent/skills/`, decorate it with
+   `@register_skill("name")`, implement `execute(context, args)`, and call that name in the plan.
+   Skills use the injected primitives and never call timing or input APIs directly.
