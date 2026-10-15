@@ -26,9 +26,31 @@ class SkillContext:
     logger: JsonlActionLogger
     dry_run: bool = False
     rng: Any = None
+    sensor: Any = None   # WindowSensor; None or unavailable => verify_window is a no-op
     def wait(self, kind: str) -> None:
         """Wait through shared timing while respecting runner stop state."""
         self.pacer.wait(kind)
+
+    def verify_window(self, needles: Any, tries: int = 6, wait_kind: str = "settle"):
+        """Wait until the foreground window title matches one of ``needles``, retrying
+        with human pauses between checks.
+
+        Returns True if the window was confirmed in front, False if it never matched
+        within ``tries``, and None if sensing is unavailable (non-Windows / dry run) —
+        in which case the caller should fall back to its usual fixed wait. Never raises:
+        this only makes launches more reliable, it must not make a run fail.
+        """
+        sensor = self.sensor
+        if sensor is None or not getattr(sensor, "available", False):
+            return None
+        for _ in range(max(1, int(tries))):
+            matched = sensor.foreground_matches(needles)
+            if matched is None:
+                return None
+            if matched:
+                return True
+            self.pacer.wait(wait_kind)   # give the window a human beat to appear, then recheck
+        return False
 
 
 class BaseSkill(Skill):

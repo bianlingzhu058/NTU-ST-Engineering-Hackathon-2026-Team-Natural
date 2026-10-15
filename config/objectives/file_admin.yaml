@@ -1,0 +1,34 @@
+# File Explorer admin: open a File Explorer window and browse a few folders, the way a person
+# checks their files between other work. Explorer is explorer.exe itself, so this is natively
+# part of the shell (authentic lineage) and produces the folder/file-read activity a real user
+# generates. READ-ONLY: it navigates and skims only — nothing is created, renamed or deleted.
+# Paths are SINGLE-quoted so the backslashes stay literal (YAML processes escapes only inside
+# double quotes). %USERPROFILE% expands in the Explorer address bar.
+name: file_admin
+weight: 1
+params:
+  paths:
+    - '%USERPROFILE%\Documents'
+    - '%USERPROFILE%\Downloads'
+    - '%USERPROFILE%\Pictures'
+    - '%USERPROFILE%\Desktop'
+    - 'C:\Windows'
+plan:
+  # Open Explorer (Win+E). Title is usually the folder name, so no fixed window to expect.
+  - skill: open_explorer
+  # Skim whatever opened first (Home / Quick access).
+  - skill: browse_items
+    args: {steps_range: [3, 6], enter_chance: 0.4}
+  # Go to a folder and look around.
+  - skill: explorer_navigate
+    args: {path: "{paths}"}
+  - skill: browse_items
+    args: {steps_range: [3, 7], enter_chance: 0.5}
+  # Then another folder.
+  - skill: explorer_navigate
+    args: {path: "{paths}"}
+  - skill: browse_items
+    args: {steps_range: [2, 6], enter_chance: 0.3}
+  # Close the window. No save prompt in Explorer, so no confirming Enter (it could land on the desktop).
+  - skill: close_app
+    args: {method: alt_f4, confirm_close: false}

@@ -36,7 +36,7 @@ plan:
   # Type "Edge Test" into Start search and press Enter -> opens the cert-ignoring
   # Edge shortcut through explorer.exe.
   - skill: open_app
-    args: {name: "{app_name}", strategies: ["start_search"]}
+    args: {name: "{app_name}", strategies: ["start_search"], expect: "Edge"}
   # NOTE: we deliberately do NOT maximize via a keyboard shortcut. Alt+Space/X and Win+Up
   # are unreliable here — when the window is already maximized the system menu stays open
   # and later keystrokes are eaten as menu accelerators, which once leaked a modifier and

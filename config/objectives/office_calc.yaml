@@ -24,7 +24,7 @@ params:
       total_label: "Total"
 plan:
   - skill: open_app
-    args: {name: "{app_name}", run_command: "{run_command}", strategies: ["start_search", "run_dialog"]}
+    args: {name: "{app_name}", run_command: "{run_command}", strategies: ["start_search", "run_dialog"], expect: "Calc"}
   - skill: fill_sheet
     args: {table: "{tables}"}
   - skill: save_file

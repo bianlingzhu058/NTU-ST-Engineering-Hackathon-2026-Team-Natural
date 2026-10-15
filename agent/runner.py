@@ -61,9 +61,9 @@ class Runner:
         while not done():
             if sequential:
                 # One pass through every objective in a fixed, predictable order (web, then
-                # Writer, then Calc) so a demo always runs them the same way. Any objective not
-                # in the preferred list is appended after, in load order.
-                preferred = ["web_surfing", "office_writer", "office_calc"]
+                # Writer, Calc, then the cross-app research flow) so a demo always runs them the
+                # same way. Any objective not in the preferred list is appended after, in load order.
+                preferred = ["web_surfing", "office_writer", "office_calc", "file_admin", "cross_app"]
                 order = sorted(chosen, key=lambda o: preferred.index(o.name) if o.name in preferred else len(preferred))
                 for data in order:
                     if done(): break
@@ -74,9 +74,18 @@ class Runner:
                 self._run_objective(data)
                 if not done(): self._pacer.wait("gap", done)
         self._context.logger.log({"event": "run_end", "stopped_by_file": self._stopped()})
+        self._flush_log()
+
+    def _flush_log(self) -> None:
+        """Write any buffered action log to disk once, after the run (keeps python.exe silent
+        on disk DURING the run; see logger buffered mode)."""
+        flush = getattr(self._context.logger, "flush", None)
+        if callable(flush):
+            flush()
 
     def run_once(self, objective_name: str) -> None:
         """Execute one named objective for a quick development dry run."""
         matches = [item for item in self._objectives if item.name == objective_name]
         if not matches: raise ValueError(f"No matching objective: {objective_name}")
         self._run_objective(matches[0])
+        self._flush_log()

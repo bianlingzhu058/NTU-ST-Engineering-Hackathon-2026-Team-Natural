@@ -20,6 +20,22 @@ def test_every_default_kind_has_cv_above_0_4():
         assert _cv(samples) > .4, kind
 
 
+def test_fatigue_is_off_by_default():
+    pacer = HumanPacer({}, random.Random(0), sleeper=lambda _: None)
+    assert pacer._fatigue_factor() == 1.0
+
+
+def test_fatigue_scales_pauses_up_over_the_session_then_caps():
+    clock = [0.0]
+    pacer = HumanPacer({"fatigue": {"max": 0.2, "rampup_seconds": 100}},
+                       random.Random(0), sleeper=lambda _: None, clock=lambda: clock[0])
+    assert abs(pacer._fatigue_factor() - 1.0) < 1e-9     # session start: no drift (keeps tests stable)
+    clock[0] = 50.0
+    assert abs(pacer._fatigue_factor() - 1.1) < 1e-9     # half the ramp: +10%
+    clock[0] = 10_000.0
+    assert abs(pacer._fatigue_factor() - 1.2) < 1e-9     # capped at +max
+
+
 def test_wait_is_sliced_and_interruptible():
     slept = []
     pacer = HumanPacer({"kinds": {"gap": {"median": 5.0, "sigma": 0.1}}}, random.Random(1), sleeper=slept.append)

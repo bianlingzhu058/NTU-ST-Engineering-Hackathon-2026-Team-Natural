@@ -51,7 +51,20 @@ class OpenAppSkill(BaseSkill):
         # presses into Win+Tab / Win+Ctrl+... (Task View, new virtual desktops).
         if hasattr(context.backend, "release_modifiers"):
             context.backend.release_modifiers()
-        context.pacer.wait("read")  # app start-up and first look
+        # Confirm the app window is actually in front before handing off to the next skill.
+        # `expect` is a title substring (e.g. "Edge", "Writer", "Calc"). With sensing we wait
+        # adaptively for that window (reliable, and avoids typing into the Start menu or a
+        # half-open window — the cause of the URL-in-search and screen-lock failures). Without
+        # sensing (dry run / non-Windows) verify_window returns None and we keep the old fixed
+        # wait, so behaviour is unchanged there. Never hard-fails: an unconfirmed window still
+        # proceeds after a human beat.
+        expect = args.get("expect")
+        confirmed = context.verify_window(expect, tries=int(args.get("expect_tries", 8))) if expect else None
+        args["window_confirmed"] = confirmed
+        if confirmed:
+            context.pacer.wait("step")   # window is up — brief beat, then the next skill acts
+        else:
+            context.pacer.wait("read")   # no sensing, or not confirmed: original app-start pause
 
 
 @register_skill("maximize_window")

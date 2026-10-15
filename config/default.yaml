@@ -20,6 +20,10 @@ timing:
     # than random (Poisson=1.0), which reads as a bot. This is the gap series the judges score.
     # (Barabasi 2005, Dezso 2006, Halfaker 2015; checked by tests/test_gap_shape.py)
     gap:   {mixture: true, median: 8.0, sigma: 0.9, idle_weight: 0.20, idle_range: [20.0, 240.0], idle_alpha: 0.2} # between tasks
+  # Session fatigue: every pause slowly lengthens over the session (people tire), from 1.0 at
+  # start to 1+max after rampup_seconds. Subtle human drift across the whole timeline; adds
+  # entropy without changing any single pause's shape. Set max: 0 to disable.
+  fatigue: {max: 0.12, rampup_seconds: 1200}
 typing:
   typo_rate: 0.02
 mouse:
@@ -34,3 +38,8 @@ runner:
   stop_file: STOP_AGENT.txt # create this file next to the config folder to stop cleanly
 logging:
   path: logs/actions.jsonl
+  # buffered = hold events in memory and write them once at the end, so python.exe does NO
+  # disk I/O during the run (process-authenticity: no steady WriteFile stream to flag). The
+  # full timeline is still saved afterward for the analysis tools. Use "off" for zero disk,
+  # or "append" to write live during development.
+  mode: buffered

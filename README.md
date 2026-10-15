@@ -17,8 +17,15 @@ a socket, or writes a task file.
 | `web_surfing`    | Edge Test (Edge)   | Launch, visit sites, scroll & read, hover the nav bar, Ctrl+F find, follow links, sometimes open/close a new tab, close |
 | `office_writer`  | OpenOffice Writer  | Open Writer, compose a short note in human "P‑bursts", save through the Save As dialog, close |
 | `office_calc`    | OpenOffice Calc    | Open Calc, enter a table, add a `=SUM()` row, bold the header, save as `.ods`, close |
+| `cross_app`      | Edge → Calc        | Browse a site, **copy its URL**, open Calc, enter gathered figures, **paste the source** below the table, save — a real browser→clipboard→spreadsheet data flow |
+| `file_admin`     | File Explorer      | Open Explorer (Win+E), browse a few folders via the address bar, skim and dip into folders — read‑only, and natively part of `explorer.exe` |
 
 Run a single objective, a weighted random mix, or **all objectives** in sequence.
+
+Before typing into a freshly‑launched app, the agent **confirms the right window is actually in
+front** by reading its title through the Win32 accessibility API (`GetForegroundWindow`) — never
+by screenshots or OCR. This makes launches reliable (no more typing a URL into the Start menu)
+without the CPU cost or EDR red flag of screen‑capturing.
 
 ## How to run on the VM
 
@@ -46,7 +53,7 @@ python -m ui
 ```
 
 In the **Synthetic Activity Harness** window:
-1. **Scenario** → `all objectives`, `web_surfing`, `office_writer`, or `office_calc`
+1. **Scenario** → `all objectives`, `web_surfing`, `office_writer`, `office_calc`, `file_admin`, or `cross_app`
 2. **Duration** → minutes (e.g. 15 for a full session; ~8 min fits one full "all objectives" cycle)
 3. **Uncheck** ☐ *Dry run (no desktop input)*  ← required to actually drive the desktop
 4. **Check** ☑ *I confirm this is an authorized, unlocked test VM*
@@ -74,24 +81,38 @@ A CLI run logs to `logs\agent.log` (so the terminal looks idle while it works). 
   longer pauses at paragraphs (Chenoweth & Hayes 2001; Conijn 2019).
 - **Data entry.** Spreadsheet cells are keyed at a visible ~10‑key pace with irregular
   between‑cell pauses, not pasted instantly.
+- **Session fatigue.** Every pause lengthens slowly over the session (1.0 → ~1.12 over ~20 min),
+  the way a person tires — a subtle drift across the whole timeline. Set `timing.fatigue.max: 0`
+  to disable.
+- **Cross‑application work.** The `cross_app` objective moves a real value (a page URL) from the
+  browser into a spreadsheet via the clipboard — the kind of multi‑app action a single‑app bot
+  cannot fake (Action Complexity).
+- **Window‑aware launches.** Reads the foreground window title (accessibility API, not pixels)
+  to confirm the right app is up before acting — reliability without "seeing" the screen.
 - **Navigation.** URLs typed exactly (no auto‑corrupting typos); links followed and tabs
   opened/closed as a person browsing would.
 - **Process authenticity.** Apps launched through the shell → parent is `explorer.exe`; files
   written by `soffice.bin` through its own Save As dialog; `python.exe` stays childless,
   offline, and silent on disk.
+- **Silent on disk during the run.** The action log is **buffered in memory** and written once
+  at the end (`logging.mode: buffered`), so `python.exe` emits no steady stream of `WriteFile`
+  events while it works — the timeline the judges filter to the agent stays clean. Set
+  `logging.mode: off` for zero disk, or `append` for live logs in development.
 
 ## Development & verification
 
 ```cmd
-python -m agent list-objectives                 # list the three objectives
+python -m agent list-objectives                 # list the objectives
 python -m agent dry-run --objective web_surfing # simulate without touching the desktop
-python -m pytest -q                             # 22 unit tests (timing shape, no-banned-calls, etc.)
+python -m pytest -q                             # 35 unit tests (timing shape, window sensor, buffered logging, no-banned-calls, etc.)
 ```
 
-**Analysis tools** (stdlib, read the action log or a Procmon/Sysmon export):
+**Analysis & evidence tools** (stdlib, for the report/demo):
 ```cmd
+python tools\timing_validate.py                       # proves the gap model sits in the human band (CV / burstiness / memory)
+python tools\resource_monitor.py --name DeskAssist.exe --duration 180 --csv usage.csv  # CPU% / RAM footprint during a run (VM only)
 python tools\task_timeline.py logs\actions.jsonl      # per-task timeline (task, start, end, duration, actions)
-python tools\timing_analyzer.py logs\actions.jsonl    # inter-burst gap CV / burstiness (human-ness of timing)
+python tools\timing_analyzer.py logs\actions.jsonl    # inter-burst gap CV / burstiness from a real capture
 python tools\sysmon_parent_checker.py <export>        # flags any process whose parent is not explorer.exe
 ```
 
@@ -99,16 +120,16 @@ python tools\sysmon_parent_checker.py <export>        # flags any process whose 
 
 ```
 agent/            runtime: runner, timing, config, logging, registry
-  input/          stdlib SendInput backend (VM) + fake backend (dry runs) + optional pyautogui (dev)
-  skills/         launch, browser, office — the actions objective plans call
+  input/          stdlib SendInput backend (VM) + fake backend (dry runs) + win_state (window sensor) + optional pyautogui (dev)
+  skills/         launch, browser, office, clipboard, explorer — the actions objective plans call
   objectives/     loads YAML objective plans
   mini_yaml.py    tiny stdlib YAML parser (so the VM needs no PyYAML)
 config/
-  default.yaml    timing distributions, input backend, runner/logging settings
-  objectives/     web_surfing.yaml, office_writer.yaml, office_calc.yaml
+  default.yaml    timing distributions (incl. fatigue), input backend, runner/logging (buffered) settings
+  objectives/     web_surfing, office_writer, office_calc, file_admin, cross_app (.yaml)
 ui/               Tkinter operator window (scenario, duration, start/stop)
-tools/            task_timeline, timing_analyzer, sysmon_parent_checker
-tests/            22 unit tests
+tools/            timing_validate, resource_monitor, task_timeline, timing_analyzer, sysmon_parent_checker
+tests/            35 unit tests
 ```
 
 ## Adding an objective

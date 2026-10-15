@@ -115,10 +115,18 @@ DEFAULT_KINDS = {  # median seconds, sigma, long-pause probability, long-pause r
 
 class HumanPacer:
     """Chooses configured delay strategies and performs interruptible waits."""
-    def __init__(self, settings: dict, rng: random.Random, sleeper=time.sleep):
-        self._rng, self._sleeper = rng, sleeper
+    def __init__(self, settings: dict, rng: random.Random, sleeper=time.sleep, clock=time.monotonic):
+        self._rng, self._sleeper, self._clock = rng, sleeper, clock
         self.samples: list[tuple[str, float]] = []
         self._global_stop = lambda: False   # checked inside EVERY wait so Stop halts mid-skill
+        # Session fatigue: people slow down over a long session. Every sampled pause is scaled
+        # by 1 .. 1+max as wall-clock time passes (peak reached after rampup_seconds), adding a
+        # slow human drift across the whole timeline. It is ~1.0 at session start, so pauses
+        # sampled immediately (the unit tests) are unaffected. max=0 disables it entirely.
+        fat = settings.get("fatigue") or {}
+        self._fatigue_max = max(0.0, float(fat.get("max", 0.0)))
+        self._fatigue_ramp = max(1.0, float(fat.get("rampup_seconds", 1200.0)))
+        self._t0 = clock()
         self._kinds: dict[str, DelayDistribution] = {}
         merged = {**DEFAULT_KINDS, **(settings.get("kinds") or {})}
         for kind, spec in merged.items():
@@ -141,9 +149,16 @@ class HumanPacer:
         objectives."""
         self._global_stop = stop_check or (lambda: False)
 
+    def _fatigue_factor(self) -> float:
+        """1.0 at session start, ramping to 1+max after rampup_seconds of wall-clock time."""
+        if self._fatigue_max <= 0.0:
+            return 1.0
+        elapsed = max(0.0, self._clock() - self._t0)
+        return 1.0 + self._fatigue_max * min(1.0, elapsed / self._fatigue_ramp)
+
     def duration(self, kind: str) -> float:
-        """Sample a duration for a pacing category."""
-        return self._kinds.get(kind, self._kinds["step"]).sample(self._rng)
+        """Sample a duration for a pacing category, scaled by the current session fatigue."""
+        return self._kinds.get(kind, self._kinds["step"]).sample(self._rng) * self._fatigue_factor()
 
     def wait(self, kind: str, stop_check=lambda: False) -> None:
         """Wait in short interruptible slices using sampled durations."""

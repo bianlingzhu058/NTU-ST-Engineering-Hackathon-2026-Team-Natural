@@ -1,0 +1,61 @@
+# Cross-application research flow: browse a site, copy its URL as a "source", open Calc,
+# enter a small table of gathered figures, then paste the source URL below the table and
+# save. This exercises an inter-application data flow (browser -> clipboard -> spreadsheet),
+# the kind of complex, obviously-human action a single-app bot cannot fake. The telemetry
+# shows msedge.exe and soffice.bin both parented to explorer.exe, plus real clipboard use.
+name: cross_app
+weight: 1
+params:
+  browser_name: Edge Test
+  calc_name: scalc
+  run_command: scalc
+  sites:
+    - https://www.apple.com
+    - https://www.samsung.com
+    - https://www.dell.com
+    - https://coinmarketcap.com
+    - https://www.coingecko.com
+  find_terms: ["price", "news", "about", "learn", "buy"]
+  note_label: "Source"
+  filenames: ["research notes {n}", "market scan {n}", "price check {n}", "findings {n}"]
+  tables:
+    - name: price scan
+      headers: ["Item", "Price", "Qty"]
+      rows: [["Monitor", "240", "3"], ["Keyboard", "85", "6"], ["Dock", "145", "2"], ["Cable", "15", "10"]]
+      total_label: "Total"
+    - name: market scan
+      headers: ["Asset", "Low", "High"]
+      rows: [["Alpha", "120", "180"], ["Beta", "64", "92"], ["Gamma", "210", "340"], ["Delta", "33", "51"]]
+      total_label: "Total"
+plan:
+  # 1) Open the browser (confirm the Edge window is actually in front before acting).
+  - skill: open_app
+    args: {name: "{browser_name}", strategies: ["start_search"], expect: "Edge"}
+  # 2) Visit a site and read it, like gathering a figure for the sheet.
+  - skill: go_to_url
+    args: {url: "{sites}", first: true}
+  - skill: scroll_and_read
+    args: {bursts_range: [3, 6]}
+  - skill: find_on_page
+    chance: 0.6
+    args: {text: "{find_terms}"}
+  # 3) Copy the page URL to the clipboard, to cite the source in the sheet.
+  - skill: copy_page_url
+    args: {expect: "Edge"}
+  # 4) Open Calc (a second, separate soffice.bin process under explorer.exe).
+  - skill: open_app
+    args: {name: "{calc_name}", run_command: "{run_command}", strategies: ["start_search", "run_dialog"], expect: "Calc"}
+  # 5) Enter the gathered figures as a table with a SUM row (rows 1..~8).
+  - skill: fill_sheet
+    args: {table: "{tables}"}
+  # 6) Paste the copied source URL into a clear row below the table (A10), labelled "Source".
+  - skill: paste_into_cell
+    args: {label: "{note_label}", down: 9, expect: "Calc"}
+  # 7) Save as .ods and close Calc.
+  - skill: save_file
+    args: {filename: "{filenames}"}
+  - skill: close_app
+    args: {method: alt_f4}
+  # 8) Back on the browser, close it.
+  - skill: close_app
+    args: {method: ctrl_w, tabs: 2}
