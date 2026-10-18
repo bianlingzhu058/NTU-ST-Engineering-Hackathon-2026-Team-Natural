@@ -1,4 +1,4 @@
-# Synthetic Human Agent — Team Natural
+# Synthetic Human Agent: Team Natural
 
 A synthetic desktop user that performs real web and office work on a Windows VM while
 looking human in process telemetry (Sysmon / Procmon / Process Explorer). Built for the
