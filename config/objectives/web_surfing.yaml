@@ -1,0 +1,96 @@
+# Web surfing on the organisers' mock sites (clean TLS list from the technical guide).
+# Each run: open the browser by a random human route, visit a random number of
+# random sites, scroll and read, sometimes follow a link, close with Ctrl+W.
+name: web_surfing
+weight: 3
+params:
+  # ---- EDGE LAUNCH ----
+  # Launch the "Edge Test" shortcut via Start search (it carries the cert flag so
+  # the mock sites load real content). Parents to explorer.exe.
+  app_name: Edge Test
+  # First site visited each run (the one that gets the guaranteed hover_nav / find / follow_link
+  # coverage). Pinned to Dell for the demo: it is on the approved list, loads cleanly, and has a
+  # clear top nav bar so the cursor hover reads well on camera. Sites 2+ stay random, so action
+  # count/order still varies and the scored timing is unaffected. Set to "{sites}" for fully
+  # random first-site selection in a scored run.
+  showcase_site: https://www.dell.com
+  # The organizers' approved clean-TLS list, with ONLY coinmarketcap.com removed (Kellyn confirmed
+  # it was the single site that did not load on the VM; the other crypto sites load fine). Every
+  # remaining site is from their list.
+  sites:
+    - https://www.apple.com
+    - https://www.samsung.com
+    - https://www.dell.com
+    - https://www.amazon.com
+    - https://aws.amazon.com
+    - https://apnews.com
+    - https://www.coursera.org
+    - https://www.coingecko.com
+    - https://www.coinbase.com
+  # Common words a reader might Ctrl+F for — picked at random per find_on_page.
+  # All page-local (no internet needed); works on whatever site is loaded.
+  find_terms:
+    - the
+    - more
+    - about
+    - new
+    - price
+    - learn
+    - home
+    - buy
+    - news
+    - support
+plan:
+  # Type "Edge Test" into Start search and press Enter -> opens the cert-ignoring
+  # Edge shortcut through explorer.exe.
+  - skill: open_app
+    args: {name: "{app_name}", strategies: ["start_search"], expect: "Edge"}
+  # NOTE: we deliberately do NOT maximize via a keyboard shortcut. Alt+Space/X and Win+Up
+  # are unreliable here — when the window is already maximized the system menu stays open
+  # and later keystrokes are eaten as menu accelerators, which once leaked a modifier and
+  # locked the screen (Win+L). The fresh Edge Test profile opens at a consistent size, which
+  # is good enough for the (telemetry-neutral) hover/scroll positions.
+  # Every navigation is paired with its own scroll_and_read so each site is actually read.
+  # Site 1 — first nav after launch (the showcase site, pinned to Dell): wait extra for the browser.
+  - skill: go_to_url
+    args: {url: "{showcase_site}", first: true}
+  # COVERAGE: on the first site, hover_nav / find_on_page / follow_link run unconditionally
+  # (no `chance`), so every distinct action appears at least once per run — important for the
+  # Action Complexity score. Their later occurrences on sites 2/3 stay chance-gated, so how
+  # MANY times each fires, and in what order, still varies run to run (keeps the entropy).
+  - skill: hover_nav
+  - skill: scroll_and_read
+    args: {bursts_range: [3, 7]}
+  # Ctrl+F to find a word on the page, like a person scanning for something.
+  - skill: find_on_page
+    args: {text: "{find_terms}"}
+  - skill: follow_link
+    args: {back_probability: 1.0}
+  # Site 2 — navigate then read.
+  - skill: go_to_url
+    args: {url: "{sites}"}
+  - skill: hover_nav
+    chance: 0.6
+  - skill: scroll_and_read
+    args: {bursts_range: [3, 6]}
+  - skill: find_on_page
+    chance: 0.35
+    args: {text: "{find_terms}"}
+  - skill: follow_link
+    chance: 0.4
+    args: {back_probability: 1.0}
+  # Sometimes open a fresh tab to check another site, then close it and carry on — a real
+  # browsing habit, but not every session (that would itself look robotic). Telemetry-neutral.
+  - skill: open_new_tab
+    chance: 0.6
+    args: {url: "{sites}"}
+  # Site 3 — navigate then read.
+  - skill: go_to_url
+    args: {url: "{sites}"}
+  - skill: scroll_and_read
+    args: {bursts_range: [2, 6]}
+  - skill: find_on_page
+    chance: 0.3
+    args: {text: "{find_terms}"}
+  - skill: close_app
+    args: {method: ctrl_w, tabs: 3}
