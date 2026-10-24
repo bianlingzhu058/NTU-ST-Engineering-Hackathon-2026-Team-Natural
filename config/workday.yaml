@@ -1,0 +1,78 @@
+# Workday mode: the bot writes its own to do list, works through it and updates it.
+# A range operator can change everything here without touching code: the tasks the bot may put on
+# its list (and how it words them), the sites, where files go, and the switches for Writer features
+# that still need a check on the VM. Behaviour numbers (typing, breaks, rates) live in
+# agent/behaviour/params.py with their sources; print them with: python -m agent rules
+
+files:
+  todo_folder: 'Documents\To do'      # under the user's profile; the bot makes it on its first run
+  work_folder: 'Documents'            # where task files (notes, sheets) are saved
+  # How the bot creates the To do folder the first time: "explorer" (Win+E, Ctrl+Shift+N),
+  # or "none" (save the list straight into Documents).
+  make_folder: explorer
+
+todo:
+  title: ["todo {date}", "to do {date}", "To do {day} {date}", "todo for {day}"]
+  file: "todo {date}"
+  # How a done item gets crossed out. "dialog" = select the item text, Format > Character, Font
+  # Effects, Strikethrough (needs the VM check, keys below). "note" = no strikethrough, the note
+  # starts with "done". Kellyn's design: strikethrough if Writer allows it by keyboard, else a note.
+  strike: note
+  strike_keys: ["alt+o", "h", "WAIT", "ctrl+pagedown", "alt+s", "down", "enter"]
+  strike_dialog_title: "Character"
+
+apps:
+  browser: {search: "Edge Test", title: "Edge"}
+  writer: {search: "swriter", title: "Writer"}
+  calc: {search: "scalc", title: "Calc"}
+
+# Items the bot may put on its list. kind: hybrid (web then Writer/Calc), websurf, office, explorer.
+# labels are casual wordings; {coin} and {person} are filled in at random. Each line on a list is
+# unique. "facts" means the task types what the page shows (captured page facts in
+# config/page_facts.json, from the VM 2 dumps of 24 Oct); an item whose facts are missing is skipped.
+# Left out on purpose (24 Oct dumps): cnn (terms pop-up needs a click), arstechnica, aliexpress, binance,
+# cloudflare (blocked on the range), coinmarketcap, bleacherreport (broken), apple, asus, cnet (unreadable).
+# booking is blocked too: kept as one "rare" line so a run now and then shows an honest failure.
+items:
+  # Hybrid: read the site, then work with what it shows (numbers and text from config/page_facts.json)
+  - {task: crypto_prices, kind: hybrid, site: "https://coingecko.com", facts: coingecko, file: ["crypto prices {date}", "coins {date}", "crypto {date}"], labels: ["check {coin} on coingecko", "coingecko prices for {coin}", "update crypto sheet from coingecko", "look up {coin} price on coingecko"]}
+  - {task: crypto_compare, kind: hybrid, site: "https://www.coinbase.com", facts: coinbase, labels: ["compare {coin} coingecko vs coinbase", "{coin} in sgd vs usd", "check sgd crypto prices on coinbase"]}
+  - {task: read_note, kind: hybrid, recipe: news, sites: ["https://apnews.com", "https://www.bbc.com"], facts: apnews, find: ["World Cup", "NATO", "business"], labels: ["news notes for the team", "news round up for {person}", "write up todays headlines"]}
+  - {task: read_note, kind: hybrid, recipe: training, sites: ["https://www.coursera.org"], facts: coursera, find: ["Python", "Excel", "Machine Learning"], labels: ["training ideas for {person}", "find a course for {person} on coursera", "coursera options for the team"]}
+  - {task: read_note, kind: hybrid, recipe: cloud, sites: ["https://aws.amazon.com", "https://cloud.google.com"], facts: aws, find: ["free", "AI"], labels: ["compare aws vs google cloud", "cloud options for the new project"]}
+  - {task: read_note, kind: hybrid, recipe: phone, sites: ["https://www.samsung.com"], facts: samsung, find: ["Galaxy"], labels: ["phone options for {person}", "samsung phone for {person}"]}
+  - {task: read_note, kind: hybrid, recipe: asana, sites: ["https://www.asana.com"], facts: asana, find: ["AI", "teams"], labels: ["look at asana for team tasks", "asana for our project?"]}
+  - {task: laptop_compare, kind: hybrid, site: "https://www.dell.com", labels: ["compare dell laptops", "dell laptop options for the team", "look at dell laptops"]}
+  # Websurf: read, scroll, find a word, follow a link and come back
+  - {task: browse, kind: websurf, site: "https://www.coursera.org", find: ["Python", "data", "AI"], labels: ["look at coursera python courses", "coursera plus price?"]}
+  - {task: browse, kind: websurf, site: "https://apnews.com", find: ["World Cup", "business", "tech"], labels: ["read the news on ap", "skim ap news"]}
+  - {task: browse, kind: websurf, site: "https://www.bbc.com", find: ["World Cup", "business"], labels: ["bbc headlines", "check bbc news"]}
+  - {task: browse, kind: websurf, site: "https://www.amazon.com", find: ["Deals", "Electronics", "Best Sellers"], labels: ["look for a monitor on amazon", "amazon deals for desk stuff"]}
+  - {task: browse, kind: websurf, site: "https://www.coinbase.com", find: ["Bitcoin", "XSGD"], labels: ["see coinbase for crypto news", "coinbase market update"]}
+  - {task: browse, kind: websurf, site: "https://www.arxiv.org", find: ["Computer Science", "Statistics"], labels: ["skim new papers on arxiv", "arxiv for the ml reading group"]}
+  - {task: browse, kind: websurf, site: "https://www.archive.org", find: ["Texts", "Video"], labels: ["find old reports on archive.org"]}
+  - {task: browse, kind: websurf, site: "https://cloud.google.com", find: ["free", "pricing"], labels: ["google cloud free tier?"]}
+  - {task: browse, kind: websurf, site: "https://www.bit.ly", find: ["QR", "links"], labels: ["bitly for the event links"]}
+  - {task: browse, kind: websurf, site: "https://www.booking.com", rare: true, labels: ["look at hotels for the offsite"]}
+  # Office only
+  - {task: writer_note, kind: office, note: meeting, labels: ["write meeting notes", "notes from the {team} meeting", "type up meeting notes"]}
+  - {task: writer_note, kind: office, note: update, labels: ["weekly update", "write weekly update for {person}"]}
+  - {task: writer_note, kind: office, note: email, labels: ["draft email to {person}", "reply {person} about the numbers"]}
+  - {task: writer_note, kind: office, note: plan, labels: ["plan for the offsite", "rough plan for next week"]}
+  - {task: calc_sheet, kind: office, sheet: budget, file: ["budget {mon}", "equipment budget"], labels: ["update budget sheet", "add costs to the budget"]}
+  - {task: calc_sheet, kind: office, sheet: expenses, file: ["expenses {mon}", "claims {mon}"], labels: ["expense claims", "put in my expenses"]}
+  - {task: calc_sheet, kind: office, sheet: timesheet, file: ["timesheet {date}", "hours {mon}"], labels: ["fill in timesheet", "log my hours"]}
+  - {task: tidy_files, kind: explorer, labels: ["tidy up documents", "clean up my files", "sort out documents folder"]}
+
+# Personal lines (0 to 2 per list). break: the kind of break that lets the bot strike them;
+# site: the personal site visited on an on screen break (homepage only, never a login form).
+personal:
+  - {label: "call dentist", break: away, min_s: 120}
+  - {label: "buy lunch", break: away, min_s: 240}
+  - {label: "pay phone bill", break: away, min_s: 90}
+  - {label: "reply {person} on bumble", break: onscreen, site: "https://www.bumble.com"}
+  - {label: "check the world cup score", break: onscreen, site: "https://www.bbc.com"}
+  - {label: "birthday gift for {person}", break: onscreen, site: "https://www.amazon.com"}
+
+# Sites visited on an on screen break when no personal line needs one.
+break_sites: ["https://www.bbc.com", "https://www.amazon.com", "https://apnews.com", "https://www.bumble.com"]

@@ -14,6 +14,21 @@ opens a socket, or writes a task file.
 > operator UI requires an explicit "authorized, unlocked test VM" confirmation before it will
 > drive the desktop.
 
+## Finals: workday mode (branch `finals`, VM test pending)
+
+Scenario **"my workday (own to do list)"** in the operator window (3 to 540 minutes). The bot writes its own
+dated to do list in Writer the messy way a person writes (slips fixed with Backspace, a forgotten word added
+later, a sentence blocked, cut and parked then pasted back, a rewrite attempt, cleaning up), works through it
+(web research into Calc/Writer with the numbers the mock pages show, browsing, office notes and sheets,
+tidying files), takes breaks, crosses items off or notes honest failures, and at the end marks the rest
+"tbc", adds a progress line, saves and closes everything. Every key is a real key down and key up with a
+human hold time.
+
+- Every behaviour number and its source: `python -m agent rules`
+- Run a whole workday on the laptop with a simulated clock: `python -m agent simulate --minutes 15 --seed 3 --show`
+- Tasks, sites and wordings: `config/workday.yaml`; page facts captured from the VM: `config/page_facts.json`
+- Bundle for a VM with Python 3.12: `bash packaging/build_finals.sh`
+
 ## Objectives
 
 | Objective        | App                | What it does |
@@ -52,17 +67,17 @@ without the CPU cost or EDR red flag of screen-capturing.
 ### Launching the agent (DeskAssist shortcut, recommended for scoring)
 
 Starting `python -m ui` from a terminal makes the agent process a child of `cmd.exe` /
-`powershell.exe`, a visible automation artifact in the logs. To give the agent its own
-`explorer.exe` parent (the same lineage as the apps it opens), start it from a desktop shortcut:
+`powershell.exe`, a visible automation artifact in the logs. Start it from a desktop shortcut to the
+**real** `pythonw.exe` instead (finals change: no renamed copy, so Sysmon's Image and OriginalFileName
+agree, and pythonw has no console, so there is no conhost.exe child):
 
-1. Make a console-less copy of the launcher (a renamed `pythonw.exe`):
-   ```cmd
-   copy "C:\Path\To\Python\pythonw.exe" DeskAssist.exe
-   ```
-2. Create a desktop shortcut whose target is `"<agent folder>\DeskAssist.exe" -m ui` and whose
-   **Start in** is the agent folder.
-3. **Double-click the shortcut.** It opens the operator UI (below), and in Process Explorer
-   `DeskAssist.exe` now shows parent `explorer.exe`, as do `msedge.exe` / `soffice.bin`.
+```powershell
+powershell -ExecutionPolicy Bypass -File C:\Finals\app\tools\make_shortcut.ps1
+```
+
+It finds pythonw.exe and puts a **DeskAssist** shortcut on the Desktop: target `pythonw.exe -m ui`,
+Start in the app folder. Double-click it: in Process Explorer `pythonw.exe` shows parent
+`explorer.exe`, as do `msedge.exe` / `soffice.bin`.
 
 For development you can instead launch straight from a terminal (the terminal becomes the parent):
 
@@ -143,7 +158,7 @@ The timing and writing models are grounded in published human-behaviour research
 1. On the VM, start **Sysmon**, **Process Monitor** (filter Operation is `Process Create`), and
    **Process Explorer** (add the **Parent PID** column).
 2. Launch the agent from the **DeskAssist shortcut** and run `all objectives`.
-3. Confirm every `msedge.exe` / `soffice.bin` / `swriter.exe` / `scalc.exe`, and `DeskAssist.exe`
+3. Confirm every `msedge.exe` / `soffice.bin` / `swriter.exe` / `scalc.exe`, and `pythonw.exe` (the agent)
    itself, has **parent `explorer.exe`**, and that no command line carries a scripting flag.
 4. `python tools\sysmon_parent_checker.py <sysmon export>` flags anything whose parent is not
    `explorer.exe`.
@@ -182,7 +197,7 @@ python -m pytest -q                             # 38 unit tests (timing shape, w
 **Analysis & evidence tools** (stdlib, for the report/demo):
 ```cmd
 python tools\timing_validate.py                       # proves the gap model sits in the human band (CV / burstiness / memory)
-python tools\resource_monitor.py --name DeskAssist.exe --duration 180 --csv usage.csv  # CPU% / RAM footprint during a run (VM only)
+python tools\resource_monitor.py --name pythonw.exe --duration 180 --csv usage.csv  # CPU% / RAM footprint during a run (VM only)
 python tools\task_timeline.py logs\actions.jsonl      # per-task timeline (task, start, end, duration, actions)
 python tools\timing_analyzer.py logs\actions.jsonl    # inter-burst gap CV / burstiness from a real capture
 python tools\sysmon_parent_checker.py <export>        # flags any process whose parent is not explorer.exe

@@ -20,7 +20,7 @@ VK = {  # virtual-key codes for the named keys the skills use
     "backspace": 0x08, "tab": 0x09, "enter": 0x0D, "return": 0x0D, "shift": 0x10, "ctrl": 0x11,
     "alt": 0x12, "pause": 0x13, "esc": 0x1B, "escape": 0x1B, "space": 0x20, "pageup": 0x21,
     "pagedown": 0x22, "end": 0x23, "home": 0x24, "left": 0x25, "up": 0x26, "right": 0x27,
-    "down": 0x28, "delete": 0x2E, "win": 0x5B, "winleft": 0x5B, "apps": 0x5D,
+    "down": 0x28, "insert": 0x2D, "delete": 0x2E, "win": 0x5B, "winleft": 0x5B, "apps": 0x5D,
     **{f"f{i}": 0x6F + i for i in range(1, 13)},
     **{str(d): 0x30 + d for d in range(10)}, **{c: 0x41 + i for i, c in enumerate("abcdefghijklmnopqrstuvwxyz")},
 }
@@ -66,11 +66,30 @@ class SendInputBackend(InputBackend):
             inp.u.ki = _KEYBDINPUT(0, ord(char), KEYEVENTF_UNICODE | flag, 0, None)
             self._u.SendInput(1, ctypes.byref(inp), ctypes.sizeof(_INPUT))
 
+    def set_humanizer(self, typer) -> None:
+        """Route press/hotkey through the typing model so every named key and shortcut is held
+        down for a human time (about 116 ms) instead of being released instantly."""
+        self._human = typer
+
+    def key_event(self, key: str, down: bool) -> None:
+        self._key(VK[key.lower()], up=not down)
+
+    def char_event(self, char: str, down: bool) -> None:
+        if char == "\n": return self.key_event("enter", down)
+        if char == "\t": return self.key_event("tab", down)
+        inp = _INPUT(type=INPUT_KEYBOARD)
+        inp.u.ki = _KEYBDINPUT(0, ord(char), KEYEVENTF_UNICODE | (0 if down else KEYEVENTF_KEYUP), 0, None)
+        self._u.SendInput(1, ctypes.byref(inp), ctypes.sizeof(_INPUT))
+
     def press(self, key: str) -> None:
+        human = getattr(self, "_human", None)
+        if human is not None: return human.press(key.lower())
         vk = VK[key.lower()]
         self._key(vk); self._key(vk, up=True)
 
     def hotkey(self, *keys: str) -> None:
+        human = getattr(self, "_human", None)
+        if human is not None: return human.combo(*[k.lower() for k in keys])
         vks = [VK[k.lower()] for k in keys]
         for vk in vks: self._key(vk)
         for vk in reversed(vks): self._key(vk, up=True)

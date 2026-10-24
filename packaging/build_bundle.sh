@@ -2,7 +2,8 @@
 # Build the VM bundle: a folder that runs on Windows with nothing installed.
 #   packaging/build_bundle.sh /path/to/python-3.12.10-embed-amd64.zip
 # Produces dist/DeskAssist.zip containing:
-#   DeskAssist/runtime/   the Python embeddable runtime, pythonw.exe copied to DeskAssist.exe
+#   DeskAssist/runtime/   the Python embeddable runtime (pythonw.exe kept under its real name: a renamed
+#                         copy shows Image != OriginalFileName in Sysmon, judges' feedback 21 Oct)
 #   DeskAssist/app/       agent/, config/, vendor/ (pure-Python yaml), tools/, logs/
 #   DeskAssist/README_VM.txt   how to make the desktop shortcut
 set -euo pipefail
@@ -11,17 +12,16 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/dist/DeskAssist"
 rm -rf "$ROOT/dist"; mkdir -p "$OUT/runtime" "$OUT/app"
 unzip -q "$EMBED" -d "$OUT/runtime"
-cp "$OUT/runtime/pythonw.exe" "$OUT/runtime/DeskAssist.exe"
-# search path for the renamed exe: the stdlib zip, the runtime dir, our app and vendored packages
+# search path: the stdlib zip, the runtime dir, our app and vendored packages
 printf 'python312.zip\n.\n..\\app\n..\\app\\vendor\n' > "$OUT/runtime/python312._pth"
-cp -r "$ROOT/agent" "$ROOT/config" "$ROOT/vendor" "$ROOT/tools" "$OUT/app/"
+cp -r "$ROOT/agent" "$ROOT/config" "$ROOT/ui" "$ROOT/vendor" "$ROOT/tools" "$OUT/app/"
 mkdir -p "$OUT/app/logs"; find "$OUT/app" -name __pycache__ -type d -exec rm -rf {} +
 cat > "$OUT/README_VM.txt" <<'TXT'
 DeskAssist bundle (no installation needed)
 
 1. Copy the whole DeskAssist folder to C:\DeskAssist (any folder works, keep runtime and app together).
 2. Right-click the Desktop > New > Shortcut. Location:
-       C:\DeskAssist\runtime\DeskAssist.exe -m agent run
+       C:\DeskAssist\runtime\pythonw.exe -m ui
    Name it DeskAssist. Then right-click the shortcut > Properties and set "Start in" to:
        C:\DeskAssist\app
 3. Double-click the shortcut. It runs for the minutes set in app\config\default.yaml (default 15)

@@ -174,6 +174,27 @@ class HumanPacer:
         """Sample a duration for a pacing category, scaled by the current session fatigue."""
         return self._kinds.get(kind, self._kinds["step"]).sample(self._rng) * self._fatigue_factor()
 
+    def now(self) -> float:
+        """Current time on the pacer's clock (real monotonic time, or the simulated clock)."""
+        return self._clock()
+
+    def stopped(self) -> bool:
+        return bool(self._global_stop())
+
+    def tiny(self, seconds: float) -> None:
+        """A short timed gap inside an action (key hold, gap between two keys). Not recorded as a
+        pause sample; still honours Stop between slices."""
+        remaining = max(0.0, float(seconds))
+        while remaining > 0 and not self._global_stop():
+            slice_seconds = min(remaining, 0.25)
+            self._sleeper(slice_seconds)
+            remaining -= slice_seconds
+
+    def sleep_for(self, kind: str, seconds: float) -> None:
+        """Wait an exact, already sampled duration (breaks, lunch) under a pause kind name."""
+        self.samples.append((kind, seconds))
+        self.tiny(seconds)
+
     def wait(self, kind: str, stop_check=lambda: False) -> None:
         """Wait in short interruptible slices using sampled durations."""
         remaining = self.duration(kind)
@@ -183,3 +204,16 @@ class HumanPacer:
             slice_seconds = min(remaining, self._rng.uniform(.05, .25))
             self._sleeper(slice_seconds)
             remaining -= slice_seconds
+
+
+class SimClock:
+    """Simulated time for laptop runs: sleeping just moves the clock forward, so a whole workday
+    runs in seconds and every pause is still sampled and counted."""
+    def __init__(self, start: float = 0.0):
+        self.t = start
+
+    def now(self) -> float:
+        return self.t
+
+    def advance(self, seconds: float) -> None:
+        self.t += max(0.0, seconds)

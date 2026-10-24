@@ -35,8 +35,9 @@ class OperatorApp:
         # "all objectives" (shown) maps to the runner's "all" sentinel: every objective once
         # per cycle in a fixed order (see Runner.run). Handy for a demo.
         self._all_label = "all objectives"
-        self._scenario_values = [self._all_label] + [item.name for item in objectives]
-        self.objective = tk.StringVar(value=self._all_label if objectives else "")
+        self._workday_label = "my workday (own to do list)"
+        self._scenario_values = [self._workday_label, self._all_label] + [item.name for item in objectives]
+        self.objective = tk.StringVar(value=self._workday_label)
         self.minutes = tk.StringVar(value="15")
         self.dry_run = tk.BooleanVar(value=True)
         self.authorized = tk.BooleanVar(value=False)
@@ -54,7 +55,7 @@ class OperatorApp:
         ttk.Label(form, text="Scenario").grid(row=0, column=0, sticky="w", pady=4)
         ttk.Combobox(form, textvariable=self.objective, values=self._scenario_values,
                      state="readonly", width=28).grid(row=0, column=1, sticky="w", padx=8, pady=4)
-        ttk.Label(form, text="Duration (minutes, max 120)").grid(row=1, column=0, sticky="w", pady=4)
+        ttk.Label(form, text="Duration (minutes, 3 to 540)").grid(row=1, column=0, sticky="w", pady=4)
         ttk.Entry(form, textvariable=self.minutes, width=10).grid(row=1, column=1, sticky="w", padx=8, pady=4)
         ttk.Checkbutton(panel, text="Dry run (no desktop input)", variable=self.dry_run,
                         command=self._update_status).pack(anchor="w", pady=(10, 2))
@@ -83,10 +84,10 @@ class OperatorApp:
             return
         try:
             minutes = float(self.minutes.get())
-            if not 0 < minutes <= 120:
+            if not 0 < minutes <= 540:
                 raise ValueError
         except ValueError:
-            messagebox.showerror("Invalid duration", "Enter a duration greater than 0 and no more than 120 minutes.")
+            messagebox.showerror("Invalid duration", "Enter a duration from 3 to 540 minutes (a full workday).")
             return
         if not self.objective.get():
             messagebox.showerror("No scenarios", "No objectives were found in config/objectives/.")
@@ -106,10 +107,17 @@ class OperatorApp:
 
     def _run(self, minutes: float, objective: str, dry_run: bool) -> None:
         try:
-            _, context, runner, _ = build_app(root=ROOT, dry_run=dry_run)
+            workday = objective == self._workday_label
+            # a workday dry run uses the simulated clock, so it finishes in seconds
+            _, context, runner, _ = build_app(root=ROOT, dry_run=dry_run, sim=dry_run and workday)
             self.events.put(("run_id", context.logger.run_id))
             self.events.put(("status", "Running synthetic activity..."))
-            runner.run(minutes, "all" if objective == self._all_label else objective)
+            if objective == self._workday_label:
+                from agent.app import run_workday
+                context.pacer.set_stop(lambda: self.stop_path is not None and self.stop_path.exists())
+                run_workday(context, minutes, ROOT, sim=dry_run)
+            else:
+                runner.run(minutes, "all" if objective == self._all_label else objective)
             stopped = self.stop_path is not None and self.stop_path.exists()
             self.events.put(("status", "Run stopped." if stopped else "Run completed."))
         except Exception as exc:

@@ -11,6 +11,11 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
     run = sub.add_parser("run"); run.add_argument("--objective"); run.add_argument("--minutes", type=float); run.add_argument("--seed", type=int)
     sub.add_parser("list-objectives")
+    sim = sub.add_parser("simulate", help="run a whole workday on fake input with a simulated clock")
+    sim.add_argument("--minutes", type=float, default=15); sim.add_argument("--seed", type=int, default=1)
+    sim.add_argument("--show", action="store_true", help="print the event timeline")
+    sim.add_argument("--many", type=int, default=0, help="run this many seeds and print the checks")
+    sub.add_parser("rules", help="print every behaviour rule with its number and source")
     dry = sub.add_parser("dry-run"); dry.add_argument("--objective", required=True); dry.add_argument("--seed", type=int, default=1)
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
@@ -21,6 +26,12 @@ def main() -> None:
         run_desktop(args.objective, args.minutes)
         return
     logging.basicConfig(level=logging.INFO, format="%(message)s")
+    if args.command == "rules":
+        from .behaviour.params import markdown
+        print(markdown()); return
+    if args.command == "simulate":
+        from .day.report import simulate_cli
+        simulate_cli(root, args); return
     if args.command == "list-objectives":
         _, _, _, objectives = build_app(dry_run=True)
         for objective in objectives: logging.info("%s (weight %s)", objective.name, objective.weight)

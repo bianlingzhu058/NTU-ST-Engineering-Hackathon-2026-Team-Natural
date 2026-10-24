@@ -26,11 +26,12 @@ timing:
   # start to 1+max after rampup_seconds. Subtle human drift across the whole timeline; adds
   # entropy without changing any single pause's shape. Set max: 0 to disable.
   fatigue: {max: 0.12, rampup_seconds: 1200}
-typing:
-  # Per-letter chance of a typo that then gets corrected (backspace + retype) — only in prose
-  # (the Writer document), never in URLs/filenames/formulas. Raised a touch so a visible
-  # type-wrong-then-fix moment is more likely to land on camera during the document.
-  typo_rate: 0.035
+typing: {}
+  # Typing (speed, key holds, slips, corrections) now follows agent/behaviour/params.py, where every
+  # number has its source. Print the table with: python -m agent rules
+# Override any behaviour number by name here, for example after measuring it on the VM:
+#   behaviour: {"typing.error_rate_prose": 0.035}
+behaviour: {}
 mouse:
   steps: 14
 scroll:
