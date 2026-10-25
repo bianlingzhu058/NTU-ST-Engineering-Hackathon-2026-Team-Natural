@@ -1,0 +1,319 @@
+=== PAGE: Bitly Connections Platform | Short URLs, QR Codes, and More and 3 more pages - Profile 1 - Microsoft​ Edge
+--- Text : 109
+  294,   84 NEW
+  330,   81 Only 18% of marketers actually know what’s working. Are you one of them?
+   20,  241 PRODUCTS
+   20,  476 FEATURES
+  884,  241 INTEGRATIONS
+  884,  493 DISCOVER MORE
+   20,  241 AI FEATURES
+   20,  476 AI RESOURCES
+  884,  241 WHAT'S NEW
+   20,  241 BY INDUSTRY
+   20,  526 BY TEAM
+  433,  526 BY BUSINESS
+  884,  241 USE CASES
+   20,  241 LEARN MORE
+  440,  241 GET INSPIRED
+   20,  521 FIND ANSWERS
+  884,  241 WHAT'S NEW
+  403, 1026 GREAT CONNECTIONS START WITH A CLICK OR SCAN
+  167, 1070 The Bitly Connections Platform
+  202, 1147 All the products you need to build brand connections, manage links and QR Codes, and connect with au
+  133, 1744 URL Shortener
+   87, 1801 A comprehensive solution to help make every point of connection between your content and your audien
+   87, 1889 Popular URL Shortening Features
+  523, 1744 QR Codes
+  477, 1801 QR Code solutions for every customer, business and brand experience.
+  477, 1889 Popular QR Code Features
+  913, 1744 Landing Pages
+  867, 1801 Bitly Pages helps you create engaging, mobile-optimized landing pages in minutes.
+  867, 1889 Popular Landing Page Features
+  152, 2090 Adopted and loved by millions of users for over a decade
+  108, 2379 600K+
+  108, 2472 Global paying customers
+  383, 2379 256M
+  383, 2472 Links & QR Codes created monthly
+  658, 2379 800+
+  658, 2472 App integrations
+  933, 2379 10B
+  933, 2472 Connections (clicks & scans monthly)
+  207, 2736 What our customers are saying
+  204, 2963 When it came to deciding on a platform to use for generating all of our QR Codes, there was a genera
+  278, 3069 Melody Park
+  278, 3089 Marketing Lead at Smalls
+  204, 2952 When customers receive a status update from us, they can click on our encrypted link through the Bit
+  278, 3080 Phil Gergen
+  278, 3100 Chief Information Officer at Koozie Group
+  239, 2952 When it came to deciding on a platform to use for generating all of our QR Codes, there was a genera
+  335, 3090 Melody Park
+  335, 3116 Marketing Lead at Smalls
+  455, 2952 When customers receive a status update from us, they can click on our encrypted link through the Bit
+  529, 3080 Phil Gergen
+  529, 3100 Chief Information Officer at Koozie Group
+  455, 2963 When it came to deciding on a platform to use for generating all of our QR Codes, there was a genera
+  529, 3069 Melody Park
+  529, 3089 Marketing Lead at Smalls
+  455, 2952 When customers receive a status update from us, they can click on our encrypted link through the Bit
+  529, 3080 Phil Gergen
+  529, 3100 Chief Information Officer at Koozie Group
+   62, 3403 See how other businesses use Bitly
+   86, 3528 RETAIL
+   86, 3557 Attract customers and keep loyal shoppers coming back
+   86, 3653 Whether you’re a brick-and-mortar shop or a major department store, Bitly makes it easy to manage an
+  662, 3528 CONSUMER PACKAGED GOODS
+  662, 3557 Thriving brands start with raving fans and powerful connections
+  662, 3653 Give consumers the power to learn about your products and interact directly with your brand. It’s al
+ 1238, 3528 HOSPITALITY
+ 1238, 3557 Delight your guests and anticipate their every need with easy-to-use digital solutions
+ 1238, 3692 Helping customers feel right at home is your specialty. Ours is making it convenient and easy to con
+ 1814, 3528 MEDIA & ENTERTAINMENT
+ 1814, 3557 Turn newcomers into diehard fans by capturing their attention at the perfect time
+ 1814, 3692 Your audience expects seamless, interactive brand experiences—whether they’re at home, in the theate
+ 2390, 3528 TECHNOLOGY SOFTWARE & HARDWARE
+ 2390, 3557 Give customers infinite ways to click, scan, and connect with your business
+ 2390, 3692 When you provide access to the information customers need right when they need it, customer engageme
+ 2966, 3528 HEALTHCARE
+ 2966, 3557 More effective patient communication, education, and coordination starts here
+ 2966, 3692 Connect with patients in your office, on the go, or at home. From post-surgery care instructions to 
+ 3542, 3528 INSURANCE
+ 3542, 3557 Make every customer interaction as seamless and tailored as the insurance products you offer
+ 3542, 3692 Remove friction (and paper) from your processes, enable easy payments, and let customers connect dir
+ 4118, 3528 FINANCIAL SERVICES
+ 4118, 3557 Streamline transactions and build client relationships with trusted digital tools
+ 4118, 3692 From banks and brokerages to credit unions and investment firms, Bitly makes it easy to securely sha
+ 4694, 3528 PROFESSIONAL SERVICES
+ 4694, 3557 Impress clients and highlight your expertise with perfectly timed communications
+ 4694, 3692 Make your agency, accounting practice, or consulting firm stand out with technology that connects yo
+ 5270, 3528 EDUCATION
+ 5270, 3557 Engage students with the technology they love and give yourself an A+ for innovation
+ 5270, 3692 There’s finally a scalable way to share resources with students and track engagement. Teachers, prof
+   77, 4321 More than a link shortener
+  257, 4404 Knowing how your clicks and scans are performing should be as easy as making them. Track, analyze, a
+   62, 5097 Why Bitly?
+  257, 5097 Products
+  257, 5318 Features
+  452, 5097 Solutions
+  647, 5097 Resources
+  842, 5097 Legal
+ 1037, 5097 Company
+  222, 5681 © 2026 Bitly | Handmade in New York City, Berlin, and all over the world.
+ 1036, 5710 GDPR
+ 1032, 5728 COMPLIANT
+ 1096, 5710 CCPA
+ 1092, 5728 COMPLIANT
+ 1155, 5710 SOC 2
+ 1162, 5728 TYPE 2
+ 1031,  698 Start now:
+  980,  809 Shorten a URL
+  996,  897 Enter your URL destination
+--- Hyperlink : 142
+    4,   70 Skip Navigation  <https://www.bit.ly/#content>
+  851,   81 Read the report →  <https://bitly.com/pages/resources/reports/marketing-visibility-report/>
+   70,  132 Bitly Logo  <https://www.bit.ly/index.html>
+  292,  133 Platform  <https://www.bit.ly/#>
+   36,  282 URL Shortener Customize, share and track links  <https://bitly.com/pages/products/url-shortener>
+  449,  282 QR Code Generator Dynamic solutions to fit every business need  <https://bitly.com/pages/products/qr-codes>
+   36,  367 Analytics A central place to track and analyze performance  <https://bitly.com/pages/products/analytics>
+  449,  367 Pages Mobile-friendly, no-code landing pages  <https://bitly.com/pages/products/pages>
+   36,  517 Link-in-bio Curate and track links and content for social media profiles  <https://bitly.com/pages/features/link-in-bio>
+  449,  517 Branded Links Customize links with your brand’s URL  <https://bitly.com/pages/features/branded-links>
+   36,  602 Mobile Links Short links for SMS messages  <https://bitly.com/pages/features/mobile-links>
+  449,  602 UTM Campaigns Track links and QR Codes with UTM parameters  <https://bitly.com/pages/features/utm-tracking>
+   36,  687 Digital Business Cards Grow your network with virtual business cards  <https://bitly.com/pages/features/digital-business-cards>
+  449,  687 2D Barcodes Add a GS1 Digital Link to QR Codes designed for packaging  <https://bitly.com/pages/products/2d-barcodes>
+  884,  282 Shopify integration Bitly Shopify Integration  <https://bitly.com/pages/marketplace/shopify>
+ 1029,  282 Canva integration Bitly + Canva Integration  <https://bitly.com/pages/marketplace/canva>
+  884,  419 See all integrations  <https://bitly.com/pages/marketplace>
+  884,  538 API & Documentation  <https://www.bit.ly/index.html>
+  884,  566 Trust Center  <https://bitly.com/pages/trust>
+  395,  133 AI  <https://www.bit.ly/#>
+   36,  282 Bitly Assist AI-powered link and QR Code creation and analysis  <https://bitly.com/pages/ai/bitly-assist>
+  456,  282 Bitly LLM Integrations Bring link management to your AI assistant  <https://bitly.com/pages/ai/llm-integrations>
+   36,  367 Bitly MCP Connect to AI agents with the Model Context Protocol  <https://bitly.com/pages/ai/mcp>
+   28,  517 Help Center  <https://support.bitly.com/hc/en-us/articles/44440648181005-What-is-Bitly-Assist>
+  448,  517 Developers  <https://dev.bitly.com/bitly-mcp/>
+   28,  561 Trust Center  <https://bitly.com/pages/trust>
+  448,  561 Integrations Marketplace  <https://bitly.com/pages/marketplace?categories=ai>
+  884,  282 Bitly Assist sample screen BITLY PRODUCTS Introducing Bitly Assist and Weekly Insights: Clearer Insi  <https://bitly.com/blog/introducing-bitly-assist-weekly-insights/>
+  448,  133 Solutions  <https://www.bit.ly/#>
+   28,  282 Retail  <https://bitly.com/pages/solutions/retail>
+  441,  282 Consumer Packaged Goods  <https://bitly.com/pages/solutions/consumer-packaged-goods>
+   28,  326 Hospitality  <https://bitly.com/pages/solutions/hospitality>
+  441,  326 Media & Entertainment  <https://bitly.com/pages/solutions/media>
+   28,  370 Technology Software & Hardware  <https://bitly.com/pages/solutions/technology>
+  441,  370 Healthcare  <https://bitly.com/pages/solutions/healthcare>
+   28,  414 Insurance  <https://bitly.com/pages/solutions/insurance>
+  441,  414 Financial Services  <https://bitly.com/pages/solutions/financial-services>
+   28,  458 Professional Services  <https://bitly.com/pages/solutions/professional-services>
+  441,  458 Education  <https://bitly.com/pages/solutions/education>
+   28,  567 Developers  <https://bitly.com/pages/solutions/for-developers>
+   28,  611 Marketing  <https://bitly.com/pages/solutions/digital-marketing>
+   28,  655 Customer Service  <https://bitly.com/pages/solutions/customer-service>
+  441,  567 Small Business  <https://bitly.com/pages/solutions/small-business>
+  441,  611 Midmarket  <https://bitly.com/pages/solutions/midmarket>
+  441,  655 Enterprise  <https://bitly.com/pages/solutions/enterprise>
+  892,  282 Order Confirmation  <https://bitly.com/pages/use-case/order-confirmation-and-fulfillment>
+  892,  334 Surveys and Feedback  <https://bitly.com/pages/use-case/surveys-and-feedback>
+  892,  386 Product Packaging  <https://bitly.com/pages/use-case/product-packaging>
+  892,  438 Print Advertising  <https://bitly.com/pages/use-case/print-advertising>
+  892,  490 Digital Advertising  <https://bitly.com/pages/use-case/digital-advertising>
+  892,  542 Content Sharing  <https://bitly.com/pages/use-case/content-sharing>
+  557,  133 Pricing  <https://bitly.com/pages/pricing>
+  642,  133 Resources  <https://www.bit.ly/>
+   28,  282 Blog Get the latest trends, tips, and best practices  <https://bitly.com/blog/>
+   28,  347 Guides & eBooks Dig into in-depth resources and expert insights  <https://bitly.com/pages/resources/ebooks/>
+   28,  412 Videos & Webinars Stay ahead with market insights and practical know-how  <https://bitly.com/pages/resources/webinars/>
+  448,  282 Customer Stories Explore success stories from Bitly customers  <https://bitly.com/pages/resources/case-studies/>
+  448,  347 QR Code Inspiration Gallery Check out QR Code examples for every industry  <https://bitly.com/pages/resources/qr-code-inspiration-gallery/>
+   28,  562 Help Center  <https://support.bitly.com/hc/en-us>
+  448,  562 Developers  <https://www.bit.ly/index.html>
+   28,  606 Trust Center  <https://bitly.com/pages/trust>
+  448,  606 Integrations Marketplace  <https://bitly.com/pages/marketplace>
+  884,  282 Read article: The Marketing Visibility Report RESEARCH REPORT 82% of Marketers Can’t See What’s Work  <https://bitly.com/pages/resources/reports/marketing-visibility-report/>
+  808,  139 Current language. Click to open language options  <https://www.bit.ly/#>
+  913,  140 Log in  <https://bitly.com/a/sign_in>
+  986,  139 Get a Quote  <https://bitly.com/pages/discover-enterprise>
+ 1095,  139 Sign up Free  <https://bitly.com/pages/pricing>
+  411, 1268 Get started for free  <https://bitly.com/pages/pricing>
+  678, 1268 Get a quote  <https://bitly.com/pages/landing/discover-enterprise>
+   87, 2075 Start creating short links for free  <https://bitly.com/pages/pricing>
+   87, 2135 Learn more about short links  <https://bitly.com/pages/products/url-shortener>
+  477, 2075 Start creating QR codes for free  <https://bitly.com/pages/pricing>
+  477, 2135 Learn more about QR Codes  <https://bitly.com/pages/products/qr-codes>
+  867, 2075 Start creating mobile-optimized landing pages for free  <https://bitly.com/pages/pricing>
+  867, 2135 Learn more about Bitly pages  <https://bitly.com/pages/products/pages>
+   86, 3814 Read more about retail business solutions  <https://bitly.com/pages/solutions/retail>
+  662, 3814 Read more about consumer packaged goods solutions  <https://bitly.com/pages/solutions/consumer-packaged-goods>
+ 1238, 3814 Read more about solutions for hospitality businesses  <https://bitly.com/pages/solutions/hospitality>
+ 1814, 3814 Read more about solutions for the entertainment industry  <https://bitly.com/pages/solutions/media>
+ 2390, 3814 Read more about solutions for technology industry  <https://bitly.com/pages/solutions/technology>
+ 2966, 3814 Read more about solutions for the healthcare industry and providers  <https://bitly.com/pages/solutions/healthcare>
+ 3542, 3814 Read more about solutions for the insurance industry  <https://bitly.com/pages/solutions/insurance>
+ 4118, 3814 Read more about solutions for financial services  <https://bitly.com/pages/solutions/financial-services>
+ 4694, 3814 Read more about solutions for professional service providers  <https://bitly.com/pages/solutions/professional-services>
+ 5270, 3814 Read more about solutions for the education industry and educators  <https://bitly.com/pages/solutions/education>
+  510, 4506 Get started for free  <https://bitly.com/pages/pricing>
+   62, 5137 Integration Library  <https://bitly.com/solutions/integrations>
+   62, 5170 Enterprise Class  <https://bitly.com/pages/solutions/enterprise>
+   62, 5203 Pricing  <https://bitly.com/pages/pricing>
+  257, 5137 URL Shortener  <https://bitly.com/pages/products/url-shortener>
+  257, 5170 QR Code Generator  <https://bitly.com/pages/products/qr-codes>
+  257, 5203 2D Barcodes  <https://bitly.com/pages/products/2d-barcodes>
+  257, 5236 Analytics  <https://bitly.com/pages/products/analytics>
+  257, 5269 Pages  <https://bitly.com/pages/products/pages>
+  257, 5358 Link-in-bio  <https://bitly.com/pages/features/link-in-bio>
+  257, 5391 Branded Links  <https://bitly.com/pages/features/branded-links>
+  257, 5424 Mobile Links  <https://bitly.com/pages/features/mobile-links>
+  257, 5457 UTM Campaigns  <https://bitly.com/pages/features/utm-tracking>
+  257, 5490 Digital Business Cards  <https://bitly.com/pages/features/digital-business-cards>
+  452, 5137 Retail  <https://bitly.com/pages/solutions/retail>
+  452, 5169 Consumer Packaged Goods  <https://bitly.com/pages/solutions/consumer-packaged-goods>
+  452, 5222 Hospitality  <https://bitly.com/pages/solutions/hospitality>
+  452, 5254 Media & Entertainment  <https://bitly.com/pages/solutions/media>
+  452, 5306 Tech Software & Hardware  <https://bitly.com/pages/solutions/technology>
+  452, 5359 Healthcare  <https://bitly.com/pages/solutions/healthcare>
+  452, 5392 Insurance  <https://bitly.com/pages/solutions/insurance>
+  452, 5425 Financial Services  <https://bitly.com/pages/solutions/financial-services>
+  452, 5458 Professional Services  <https://bitly.com/pages/solutions/professional-services>
+  452, 5491 Education  <https://bitly.com/pages/solutions/education>
+  647, 5137 Blog  <https://bitly.com/blog/>
+  647, 5170 Guides & eBooks  <https://bitly.com/pages/resources/ebooks/>
+  647, 5203 Videos & Webinars  <https://bitly.com/pages/resources/webinars/>
+  647, 5236 Customer Stories  <https://bitly.com/pages/resources/case-studies/>
+  647, 5268 QR Code Inspiration Gallery  <https://bitly.com/pages/resources/qr-code-inspiration-gallery/>
+  647, 5321 Developers  <https://www.bit.ly/index.html>
+  647, 5354 Apps and Integrations  <https://bitly.com/pages/marketplace>
+  647, 5387 Help Center  <https://support.bitly.com/hc/en-us>
+  647, 5420 Trust Center  <https://bitly.com/pages/trust>
+  647, 5453 Security Center  <https://www.bit.ly/index.html>
+  647, 5486 Browser Extension  <https://bitly.com/pages/browser-extension>
+  647, 5519 Mobile App  <https://bitly.com/pages/mobile-app>
+  842, 5137 Privacy Policy  <https://bitly.com/pages/privacy>
+  842, 5170 Cookie Policy  <https://bitly.com/pages/cookies>
+  842, 5203 Terms of Service  <https://bitly.com/pages/terms-of-service>
+  842, 5236 Acceptable Use Policy  <https://bitly.com/pages/acceptable-use>
+  842, 5269 Code of Conduct  <https://bitly.com/pages/code-of-conduct>
+  842, 5302 Transparency Report  <https://bitly.com/pages/transparency-report>
+ 1037, 5137 About Bitly  <https://bitly.com/pages/about>
+ 1037, 5170 Careers  <https://bitly.com/pages/careers>
+ 1037, 5203 Inclusion at Bitly  <https://bitly.com/pages/inclusion>
+ 1037, 5236 Partners  <https://bitly.com/pages/partners>
+ 1037, 5269 Press  <https://bitly.com/pages/press>
+ 1037, 5302 Contact  <https://bitly.com/pages/contact>
+ 1037, 5335 Reviews  <https://bitly.com/pages/reviews>
+ 1037, 5368 Accessibility Report  <https://mkt-static.bitly.com/static/1783353785/pages/wp-content/uploads/2025/06/Bitly-Accessibility-Conformance-Report-2025.pdf>
+ 1037, 5400 Accessibility Statement  <https://bitly.com/pages/website-accessibility-statement>
+  805, 5672 Link to Bitly's Twitter  <https://twitter.com/bitly>
+  852, 5672 Link to Bitly's Instagram  <https://instagram.com/bitly>
+  899, 5672 Link to Bitly's Facebook  <https://facebook.com/bitly>
+  946, 5672 Link to Bitly's LinkedIn  <https://www.linkedin.com/company/552285>
+ 1134,  689 Short Link  <https://www.bit.ly/#link-panel>
+ 1192,  689 QR Code  <https://www.bit.ly/#qr-panel>
+--- Button : 27
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  538,    8 Close tab
+  777,    8 Close tab
+ 1016,    8 Close tab
+ 1044,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+  568, 3210 previous slide
+  640, 3210 next slide
+ 1061, 3400 Previous
+ 1137, 3400 Next
+ 1217,  744 Close popup
+  980, 1040 Shorten URL
+--- Edit : 3
+  145,   38 Address and search bar
+  996,  925 Enter your URL destination
+--- Image : 41
+   70,  132 Bitly Logo
+   28,  288 Url Shortener Icon
+  441,  288 Qr Code Icon
+   28,  373 Analytics Icon
+  441,  373 Link in BIO icon
+   28,  523 Link in BIO icon
+  441,  523 Branded link icon
+   28,  608 Mobile link icon
+  441,  608 UTM icon
+  441,  693 Barcode Icon
+  924,  299 Shopify integration
+ 1076,  299 Canva integration
+  885,  283 Bitly Assist sample screen
+  885,  283 Read article: The Marketing Visibility Report
+   92,  815 Curology Logo
+  277,  815 Novasol Logo
+  462,  815 Rad power Bike logo
+  647,  815 Marriot Bonvoy Logo
+  832,  815 The New York Times Logo
+ 1017,  815 Smalls Logo
+  373, 1752 Upward facing arrow
+  763, 1752 Upward facing arrow
+ 1153, 1752 Upward facing arrow
+ 1079, 3418 Previous image icon
+ 1155, 3418 Next image icon
+   77, 4592 Connections Platform Dashboard
+   62, 5660 Bitly Logo
+ 1030, 5660 GDPR Compliant
+ 1090, 5660 CCPA Compliant
+ 1150, 5660 SOC 2 Compliant
+  997,  697 Bitly logo
+  996,  745 Small Bitly Logo
+ 1117,  744 Create a Short Link
+ 1155,  744 Create a QR Code
+--- DataItem : 0

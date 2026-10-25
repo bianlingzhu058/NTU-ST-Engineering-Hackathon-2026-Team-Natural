@@ -127,7 +127,10 @@ SAVED_NOTE = ["saved in {file}", "in {file}", "notes in {file}", "see {file}"]
 PROGRESS = ["{done} of {total} done, rest tbc", "{done} out of {total} done, rest tomorrow", "done {done} of {total}, rest tbc"]
 
 
-# Notes built from what a page really shows (config/page_facts.json, captured from the VM dumps).
+# Notes built from what the bot just read on the page (agent/day/eyes.py), never from stored text.
+# A note is a short title, one line per item taken off the page (copied or typed), a closing line or
+# two, and a follow up that goes onto the to do list (Kellyn, 25 Oct). The title says the topic once;
+# no first line repeats it. A recipe returns None when the page did not give enough to write about.
 # Each recipe returns (title, [(sentence, second wording)], extras) like note_sentences.
 
 def _pick(rng, items, k):
@@ -135,63 +138,135 @@ def _pick(rng, items, k):
     return rng.sample(items, min(k, len(items)))
 
 
+def _say(rng, *options):
+    return rng.choice(options)
+
+
 def news_note(rng, facts, label):
-    sites = [s for s in ("apnews", "bbc") if s in facts]
-    picks = []
+    sites = [s for s in ("apnews", "bbc") if facts.get(s, {}).get("headlines")]
+    if not sites: return None
+    name = {"apnews": "AP", "bbc": "BBC"}
+    items = []
     for site in sites:
         for h in _pick(rng, facts[site]["headlines"], rng.randint(1, 2)):
-            picks.append((site, h.rstrip(".") if h[-1:] not in "?!" else h))
-    name = {"apnews": "AP", "bbc": "BBC"}
-    sentences = [(f"Quick news round up for the team, {today()}.", f"News notes for the team, {today()}.")]
-    for site, h in picks:
-        end = "" if h[-1:] in "?!" else "."
-        sentences.append((f"{name[site]}: {h}{end}", f"From {name[site]}: {h}{end}"))
-    shared = [w for w in ("World Cup", "NATO", "Iran", "Trump") if all(any(w in h for h in facts[s]["headlines"]) for s in sites)]
-    if shared:
-        topic = rng.choice(shared)
-        sentences.append((f"Both AP and BBC lead with {topic} today.", f"{topic} is on both AP and BBC."))
-    sentences.append((rng.choice(["Nothing that changes our plans.", "Worth a read at lunch.", "Will share the links in the chat."]), ""))
-    return f"news notes {today()}", sentences, ["Check the business pages later."]
+            items.append({"text": h.rstrip("."), "copy": h, "site": site, "prefix": f"{name[site]}: "})
+    outro = []
+    shared = [w for w in ("World Cup", "NATO", "Iran") if all(any(w in h for h in facts[s]["headlines"]) for s in sites)]
+    if len(sites) > 1 and shared:
+        t = rng.choice(shared)
+        outro.append((f"Both AP and BBC lead with {t} today.", f"{t} is on both AP and BBC."))
+    outro.append((_say(rng, "Nothing that changes our plans.", "Worth a read at lunch."), ""))
+    return {"title": f"news notes {today()}", "items": items, "outro": outro,
+            "extras": ["Check the business pages later."],
+            "followup": _say(rng, "send the news links to the team", "share news notes in the chat")}
 
 
 def training_note(rng, facts, label):
-    person = next((p for p in PEOPLE if p in label), rng.choice(PEOPLE)).title()
-    courses = _pick(rng, facts["coursera"]["courses"], rng.randint(2, 3))
-    s = [(f"Training ideas for {person}.", f"Course ideas for {person}.")]
-    for c in courses:
-        why = rng.choice(["good start", "useful for the reports", "for the data work", "if there is time"])
-        s.append((f"{c}, {why}.", ""))
-    s.append((f"Coursera says {facts['coursera']['offer']}.", f"There is a deal: {facts['coursera']['offer']}."))
-    s.append((f"Ask {person} which one first.", f"Let {person} pick one."))
-    return f"training ideas {person.lower()}", s, [f"Also look at {rng.choice(facts['coursera']['courses'])}."]
+    c = facts.get("coursera", {})
+    if len(c.get("courses", [])) < 2: return None
+    person = next((p for p in PEOPLE if p in label), rng.choice(PEOPLE))
+    items = [{"text": x, "copy": x} for x in _pick(rng, c["courses"], rng.randint(2, 3))]
+    outro = [(f"{c['offer'][:1].upper() + c['offer'][1:]}.", "")] if c.get("offer") else []
+    outro.append((_say(rng, "All on Coursera, no exam needed.", "All online, can start anytime."), ""))
+    return {"title": f"Training ideas for {person.title()}", "items": items, "outro": outro,
+            "extras": [f"Also look at {rng.choice(c['courses'])}."],
+            "followup": _say(rng, f"ask {person} which course first", f"check course budget for {person}")}
 
 
 def cloud_note(rng, facts, label):
-    a, g = _pick(rng, facts["aws"]["points"], 2), _pick(rng, facts["googlecloud"]["points"], 2)
-    s = [("Cloud options, quick look.", "Quick comparison of the two clouds."),
-         (f"AWS: {a[0]}.", ""), (f"AWS also has {a[1]}.", ""),
-         (f"Google Cloud: {g[0]}.", ""), (f"Google also gives {g[1]}.", ""),
-         (rng.choice(["The free credit makes Google easier to try first.", "AWS looks bigger, Google cheaper to start."]),
-          "Google is easier to try for free.")]
-    s = [s[0]] + [x for i, x in enumerate(s[1:5]) if i in (0, 2) or rng.random() < 0.5] + [s[5]]
-    return f"cloud options {today()}", s, ["Ask IT what we use now."]
+    a, g = facts.get("aws", {}).get("points", []), facts.get("googlecloud", {}).get("points", [])
+    if not a and not g: return None                         # one cloud is enough to write something
+    items = [{"text": f"AWS: {p}", "copy": p, "prefix": "AWS: "} for p in _pick(rng, a, min(2, len(a)))]
+    items += [{"text": f"Google: {p}", "copy": p, "prefix": "Google: "} for p in _pick(rng, g, min(2, len(g)))]
+    if a and g:
+        outro = [(_say(rng, "Free credit makes Google easier to try first.", "AWS is bigger, Google cheaper to start."),
+                  "Google is easier to try for free.")]
+    else:
+        outro = [(_say(rng, "Only got one side today, compare again later.", "Other site was down, check again."), "")]
+    return {"title": f"Cloud options {today()}", "items": items, "outro": outro, "extras": ["Ask IT what we use now."],
+            "followup": _say(rng, "ask IT about cloud costs", "check what IT uses now")}
 
 
 def phone_note(rng, facts, label):
-    person = next((p for p in PEOPLE if p in label), rng.choice(PEOPLE)).title()
-    models = _pick(rng, facts["samsung"]["models"], rng.randint(2, 3))
-    s = [(f"Phone options for {person}.", f"Samsung options for {person}.")]
-    s += [(f"{m}, on the samsung homepage.", "") for m in models]
-    s.append(("No prices on the homepage, ask the shop.", "Prices not shown online, check in store."))
-    return f"phone options {person.lower()}", s, [f"{facts['samsung']['note']}."]
+    """Phones read off the Samsung homepage. One phone is still a note, and the list says that only that one
+    was there ("only the Galaxy Z Fold7 so far"), then tbc (Kellyn, 25 Oct)."""
+    sm = facts.get("samsung", {})
+    models = sm.get("models", [])
+    if not models: return None
+    person = next((p for p in PEOPLE if p in label), rng.choice(PEOPLE))
+    items = [{"text": m, "copy": m} for m in _pick(rng, models, min(len(models), rng.randint(2, 3)))]
+    outro = [(_say(rng, "All on the Samsung homepage, no prices shown.", "On the homepage, but no prices."), "")]
+    if sm.get("pre_registration"):
+        outro.insert(0, (_say(rng, "Pre-registration is open for a new Galaxy.", "A new Galaxy is up for pre-registration."), ""))
+    made = {"title": f"Phone options for {person.title()}", "items": items, "outro": outro,
+            "extras": ["Check the trade in deal."],
+            "followup": _say(rng, "call samsung, which phone is cheapest", f"ask {person} which phone")}
+    if len(models) == 1:
+        made["partial"] = _say(rng, f"only the {models[0]} so far", f"only {models[0]} on samsung so far")
+    return made
 
 
 def asana_note(rng, facts, label):
-    pts = _pick(rng, facts["asana"]["points"], rng.randint(2, 3))
-    s = [("Asana for the team tasks?", "Notes on Asana for our tasks.")]
-    s += [(f"They have {p}.", "") for p in pts]
-    s.append((rng.choice(["Could replace the shared sheet.", "Maybe try it with two people first."]), ""))
-    return f"asana notes {today()}", s, ["Check the price later."]
+    pts = facts.get("asana", {}).get("points", [])
+    if len(pts) < 2: return None
+    items = [{"text": p, "copy": p} for p in _pick(rng, pts, rng.randint(2, 3))]
+    outro = [(_say(rng, "Could replace our shared sheet.", "Maybe try it with two people first."), "")]
+    return {"title": "Asana for the team?", "items": items, "outro": outro, "extras": ["Check the price later."],
+            "followup": _say(rng, "show asana to the team", "ask about asana price")}
 
 
 RECIPES = {"news": news_note, "training": training_note, "cloud": cloud_note, "phone": phone_note, "asana": asana_note}
+
+
+# What goes on the to do list after a task, chosen from what really happened (the task's record).
+# The wording varies a little, the meaning never does.
+OUTCOME = {
+    "done": ["done", "done", "finished", "ok"],
+    "links_error": ["done but some pages error", "done, but some links did not open", "done, a few pages error"],
+    "site_error": ["{site} page error, try again later", "page error, try again later", "{site} not loading, try again later"],
+    "missing": ["{site} shows no {what}, try later", "no {what} on {site} today, try later"],
+    "goal_down": ["{site} {what} page down, try again later", "{what} page not opening, try again later"],
+    "missing_started": ["{site} shows no {what} yet, started in {file}", "no {what} on {site} yet, started in {file}"],
+    "one_site_error": ["done, {site} page error", "done, {site} was down"],
+    "saved": ["saved in {file}", "in {file}", "see {file}"],
+    "cut": ["started"],
+}
+
+
+def outcome_note(rng, key: str, **kw) -> str:
+    return rng.choice(OUTCOME[key]).format(**kw)
+
+
+def linked_note(rng, link, label: str):
+    """An office note that grows out of the day's hybrid task ("send crypto summary to tom"), written
+    using what that task really found (link.found). If it found nothing, the note says so."""
+    person = next((p for p in PEOPLE if p in label), rng.choice(PEOPLE))
+    found = getattr(link, "found", None) or {}
+    facts, kind, file = found.get("facts", []), found.get("kind", ""), found.get("file", "")
+    hi = _say(rng, f"Hi {person.title()},", f"Hi {person.title()}, quick update.")
+    s = [(hi, "")]
+    spec = getattr(link, "spec", {}) or {}
+    kind = kind or {"crypto_prices": "crypto", "crypto_compare": "fx"}.get(spec.get("task"), spec.get("recipe", ""))
+    topic = {"crypto": "crypto summary", "fx": "crypto rates", "news": "news summary", "training": "course list",
+             "phone": "phone shortlist", "cloud": "cloud summary", "asana": "asana summary"}.get(kind, "update")
+    title = f"{topic} {person}"                          # a clean title and file name (no typo from the list)
+    if not facts:                                         # say what really happened to the source task
+        if getattr(link, "status", "") == "failed":
+            s.append((_say(rng, "The site was down when I checked today, will send it tomorrow.",
+                           "Could not get it today, the page was not working."), ""))
+        else:
+            s.append((_say(rng, "Not finished yet, will send it later.", "Still working on it, more tomorrow."), ""))
+        return title, s, []
+    if kind == "crypto":
+        for name, price, cap in facts[:3]:
+            s.append((f"{name} is at US${price} today.", f"{name} is US${price} on CoinGecko."))
+    elif kind == "fx":
+        for coin, usd, sgd in facts[:3]:
+            s.append((f"{coin} is US${usd}" + (f", S${sgd} on Coinbase." if sgd else ", no SGD price yet."), ""))
+    else:
+        for line in facts[:3]:
+            s.append((line.rstrip(".") + ".", ""))
+    if file:
+        s.append((_say(rng, f"Details are in {file}.", f"It is all in {file}."), ""))
+    s.append((_say(rng, "Let me know if you need more.", "Talk later."), ""))
+    return title, s, ["Will check again tomorrow."]

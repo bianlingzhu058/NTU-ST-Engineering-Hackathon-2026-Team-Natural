@@ -1,0 +1,233 @@
+=== PAGE: Coinbase Singapore - Buy and Sell Bitcoin, Ethereum, and more with Trust - Profile 1 - Microsoft​ Edge
+--- Text : 61
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+   42,  267 The most trusted crypto exchange 🇸🇬
+   42,  357 Coinbase is the most trusted platform in Singapore for buying, selling and trading crypto. Enjoy ins
+   66, 1959 Awarded "Most Trusted Digital Asset Platform" in Singapore by SingSaver
+  664, 1959 Licensed & regulated by Monetary Authority of Singapore
+  648, 2257 XSGD is live on Coinbase
+  648, 2327 XSGD offers 24/7 access to payments and financial services, designed to be pegged and redeemable 1:1
+  648, 2777 Built for Singapore 🇸🇬
+  700, 2863 Instantly top up SGD using PayNow/FAST bank transfers with zero fees
+  700, 2933 Trade XSGD, Singapore’s first stablecoin, now live on Coinbase
+  700, 2979 Easily top up USD using SWIFT transfers & enjoy commission-free exchange to USDC
+  700, 3049 Securely trade 400+ cryptocurrencies
+  700, 3101 Set up your account securely & seamlessly with Singpass
+   42, 3320 Unlock zero trading fees and unlimited USDC rewards with Coinbase One
+   42, 3478 Claim your free trial today and experience it for yourself — cancel anytime.
+   94, 3548 Zero trading fees $10K/month
+   94, 3600 Unlimited 3.50% rewards on your USDC
+   94, 3652 24/7 priority support
+   42, 3898 Explore crypto like Bitcoin, Ethereum, and Dogecoin.
+   42, 3968 Simply and securely buy, sell, and manage hundreds of cryptocurrencies.
+  648, 4878 Coinbase Advanced for Traders
+  648, 4948 Enable advanced features seamlessly
+  700, 4994 Market, Limit, Stop Limit, and Auction Mode orders
+  700, 5040 Charts powered by TradingView with EMA, MA, MACD, RSI and Bollinger Bands
+  700, 5110 Seamlessly switch between Simple and Advanced Trade
+   42, 5406 The most trusted cryptocurrency exchange
+   42, 5536 Millions of users trust us, and so can you. The proof is in our platform:
+   66, 5746 The largest public crypto company in the world
+   66, 5784 We operate with financial transparency.
+  664, 5746 Your assets are protected
+  664, 5784 Our risk management measures are designed to protect your assets.
+   66, 6022 Advanced security features
+   66, 6060 We employ the latest industry best practices to increase the security of our platform.
+  664, 6022 Get the help you need, when you need it
+  664, 6060 You can always contact our support team for quick solutions to common problems.
+  648, 6422 Don’t just take our word for it, listen to what our users have to say
+   42, 6845 Download the Coinbase app
+  644, 6847 Coinbase is available as a mobile app on iOS and Android.
+   42, 7077 Crypto questions, answered
+   42, 7155 Beginner guides, practical tips, and market updates for first-timers, experienced investors, and eve
+   66, 7541 What is Bitcoin?
+   66, 7579 Bitcoin was created by Satoshi Nakamoto, a pseudonymous person or team who outlined the technology i
+  465, 7541 When is the best time to invest in crypto?
+  465, 7607 An introduction to dollar-cost averaging – a long-term investment strategy
+  863, 7541 How to keep your crypto secure?
+  863, 7579 You can dramatically improve your digital security with just a few easy steps.
+   46, 8029 Company
+   46, 8457 Learn
+   46, 8949 Support
+  644, 8029 Individuals
+  644, 8233 Businesses
+  644, 8373 Institutions
+  644, 8609 Developers
+  644, 9293 Asset prices
+  644, 9465 Stock prices
+   42, 9724 ©
+   59, 9724 2026
+  102, 9724 Coinbase
+  184, 9724 •
+  266, 9724 •
+ 1145, 9724 •
+--- Hyperlink : 106
+-9995,  117 Skip to content  <https://www.coinbase.com/#skip-nav-content>
+-9995,  117 Skip to site index  <https://www.coinbase.com/#footer-site-index>
+    4,  117 Sign up as an Accredited Investor and get S$300 Bitcoin on your first crypto →  <https://www.coinbase.com/en-sg/partner/ai-signup-offer>
+   20,  170 Coinbase Logo  <https://www.coinbase.com/index.html>
+   80,  170 Cryptocurrencies  <https://www.coinbase.com/en-sg/explore>
+ 1029,  170 Sign in  <https://www.coinbase.com/signin?locale=en-sg>
+ 1138,  170 Sign up  <https://www.coinbase.com/signup?type=picker>
+   42,  435 Sign up with Singpass  <http://coinbase.com/signup>
+  648, 2433 forwardArrow  <https://www.coinbase.com/en-sg/xsgd>
+   42, 3704 Learn more  <https://www.coinbase.com/en-sg/one>
+   42, 4014 See more assets  <https://www.coinbase.com/en-sg/explore>
+   66, 4210 Bitcoin Bitcoin S$82,726.42 2.12%  <https://www.coinbase.com/en-sg/price/bitcoin>
+   66, 4286 Ethereum Ethereum S$2,319.33 3.20%  <https://www.coinbase.com/en-sg/price/ethereum>
+   66, 4362 Tether Tether S$1.29 0.00%  <https://www.coinbase.com/en-sg/price/tether>
+   66, 4438 BNB BNB S$745.92 1.07%  <https://www.coinbase.com/en-sg/price/bnb>
+   66, 4514 USDC USDC S$1.29 --  <https://www.coinbase.com/en-sg/price/usdc>
+   66, 4590 XRP XRP S$1.43 1.45%  <https://www.coinbase.com/en-sg/price/xrp>
+  648, 5162 Try it now  <https://www.coinbase.com/en-sg/signup>
+  644, 6899 "Download on the App Store" Button  <https://itunes.apple.com/us/app/coinbase-bitcoin-wallet/id886427730>
+  818, 6899 "Get it on Google Play" Button  <https://play.google.com/store/apps/details?id=com.coinbase.android>
+   67, 7266 What is Bitcoin?  <https://www.coinbase.com/en-sg/learn/crypto-basics/what-is-bitcoin>
+  466, 7266 When is the best time to invest in crypto?  <https://www.coinbase.com/en-sg/learn/tips-and-tutorials/dollar-cost-averaging>
+  864, 7266 How to keep your crypto secure?  <https://www.coinbase.com/en-sg/learn/crypto-basics/how-to-secure-crypto>
+   46, 8057 Learn more about the company  <https://www.coinbase.com/en-sg/about>
+   46, 8089 Work at Coinbase  <https://www.coinbase.com/en-sg/careers>
+   46, 8121 Earn money becoming an affiliate  <https://www.coinbase.com/en-sg/affiliates>
+   46, 8153 The Coinbase Blog  <https://www.coinbase.com/en-sg/blog>
+   46, 8185 In the news  <https://www.coinbase.com/en-sg/press>
+   46, 8217 Security  <https://www.coinbase.com/en-sg/security>
+   46, 8249 Investors  <https://www.coinbase.com/index.html>
+   46, 8281 Vendors  <https://www.coinbase.com/en-sg/vendors/vendors-at-coinbase>
+   46, 8313 Our privacy and legal policies  <https://www.coinbase.com/en-sg/legal>
+   46, 8345 Our cookie policy  <https://www.coinbase.com/en-sg/legal/cookie>
+   46, 8377 Cookie preferences  <https://www.coinbase.com/index.html#>
+   46, 8409 Digital Asset Disclosures  <https://www.coinbase.com/en-sg/legal/digital-asset-disclosures>
+   46, 8485 Explore crypto  <https://www.coinbase.com/en-sg/explore>
+   46, 8517 Explore stocks  <https://www.coinbase.com/en-sg/stock/explore>
+   46, 8549 Market statistics  <https://www.coinbase.com/en-sg/market-stats>
+   46, 8581 Coinbase Bytes newsletter  <https://www.coinbase.com/en-sg/bytes>
+   46, 8613 Crypto basics  <https://www.coinbase.com/en-sg/learn/crypto-basics>
+   46, 8645 Tips & tutorials  <https://www.coinbase.com/en-sg/learn/tips-and-tutorials>
+   46, 8677 Crypto glossary  <https://www.coinbase.com/en-sg/learn/crypto-glossary>
+   46, 8709 Market updates  <https://www.coinbase.com/en-sg/learn/market-updates>
+   46, 8741 What is Bitcoin?  <https://www.coinbase.com/en-sg/learn/crypto-basics/what-is-bitcoin>
+   46, 8773 What is crypto?  <https://www.coinbase.com/en-sg/learn/crypto-basics/what-is-cryptocurrency>
+   46, 8805 What is a blockchain?  <https://www.coinbase.com/en-sg/learn/crypto-basics/what-is-a-blockchain>
+   46, 8837 How to set up a crypto wallet?  <https://www.coinbase.com/en-sg/learn/tips-and-tutorials/how-to-set-up-a-crypto-wallet>
+   46, 8869 How to send crypto?  <https://www.coinbase.com/en-sg/learn/tips-and-tutorials/how-to-send-crypto>
+   46, 8901 2019 Crypto Tax Guide  <https://www.coinbase.com/en-sg/learn/crypto-basics/understanding-crypto-taxes>
+   46, 8977 Our help center  <https://www.coinbase.com/index.html>
+   46, 9009 Contact us  <https://help.coinbase.com/contact-us/>
+   46, 9041 Coinbase support article for creating an account  <https://help.coinbase.com/coinbase/getting-started/getting-started-with-coinbase/create-a-coinbase-account/>
+   46, 9073 Coinbase support article for ID verification  <https://help.coinbase.com/coinbase/managing-my-account#identity-verification/#identity-verification/>
+   46, 9105 Coinbase support article for account information  <https://help.coinbase.com/coinbase/managing-my-account/>
+   46, 9137 Coinbase support article for payment methods  <https://help.coinbase.com/coinbase/getting-started#add-a-payment-method/#add-a-payment-method/>
+   46, 9169 Coinbase support article for account access  <https://help.coinbase.com/coinbase/managing-my-account/>
+   46, 9201 Coinbase support article for supported cryptocurrencies  <https://help.coinbase.com/supported-crypto.html>
+   46, 9233 Check the operational status of Coinbase services  <https://www.coinbase.com/index.html>
+  644, 8057 Buy & sell  <https://www.coinbase.com/en-sg/explore>
+  644, 8089 Base App - Post, earn, trade, and chat, all in one place  <https://www.coinbase.com/index.html>
+  644, 8121 Coinbase One  <https://www.coinbase.com/en-sg/one>
+  644, 8153 Debit Card  <https://www.coinbase.com/en-sg/card>
+  644, 8185 Token Sales  <https://www.coinbase.com/en-sg/token-sales>
+  644, 8261 Asset Listings - List your asset on Coinbase  <https://www.coinbase.com/en-sg/listings>
+  644, 8293 Payments - The stablecoin payments stack for commerce platforms  <https://www.coinbase.com/en-sg/payments>
+  644, 8325 Token Manager - The platform for token distributions, vesting, and lockups  <https://www.coinbase.com/en-sg/tokenmanager>
+  644, 8401 Prime - Integrated trading, finance, and custody  <https://www.coinbase.com/en-sg/prime>
+  644, 8433 Staking - Explore staking across our products  <https://www.coinbase.com/en-sg/staking>
+  644, 8465 Coinbase Exchange - Spot markets for high-frequency trading  <https://www.coinbase.com/en-sg/exchange>
+  644, 8497 International Exchange - Access perpetual futures markets  <https://www.coinbase.com/en-sg/international-exchange>
+  644, 8529 Derivatives Exchange - Spot markets for high-frequency trading  <https://www.coinbase.com/derivatives>
+  644, 8561 Verified Pools - Transparent, verified liquidity pools  <https://www.coinbase.com/en-sg/verified-pools>
+  644, 8637 Developer Platform  <https://www.coinbase.com/en-sg/developer-platform>
+  644, 8669 Base  <https://www.coinbase.com/index.html>
+  644, 8701 Server Wallets  <https://www.coinbase.com/en-sg/developer-platform/products/wallets>
+  644, 8733 Embedded Wallets  <https://www.coinbase.com/en-sg/developer-platform/products/embeddedwallets>
+  644, 8765 Base Accounts (Smart Wallets)  <https://www.base.org/build/base-account>
+  644, 8797 Onramp & Offramp  <https://www.coinbase.com/en-sg/developer-platform/products/onramp>
+  644, 8829 x402  <https://www.coinbase.com/index.html>
+  644, 8861 Trade API  <https://www.coinbase.com/en-sg/developer-platform/products/trade-api>
+  644, 8893 Paymaster  <https://www.coinbase.com/en-sg/developer-platform/products/paymaster>
+  644, 8925 OnchainKit  <https://www.base.org/build/onchainkit>
+  644, 8957 Data API  <https://www.coinbase.com/en-sg/developer-platform/products/data-api>
+  644, 8989 Verifications  <https://www.coinbase.com/en-sg/developer-platform/products/verifications>
+  644, 9021 Node  <https://www.coinbase.com/en-sg/developer-platform/products/node>
+  644, 9053 AgentKit  <https://www.coinbase.com/en-sg/developer-platform/products/agentkit>
+  644, 9085 Staking  <https://www.coinbase.com/en-sg/developer-platform/products/staking>
+  644, 9117 Faucet  <https://www.coinbase.com/en-sg/developer-platform/products/faucet>
+  644, 9149 Exchange API  <https://www.coinbase.com/en-sg/developer-platform/products/exchange-api>
+  644, 9181 International Exchange API  <https://docs.cdp.coinbase.com/international-exchange/introduction/welcome>
+  644, 9213 Prime API  <https://docs.cdp.coinbase.com/prime/introduction/welcome>
+  644, 9245 Derivatives API  <https://docs.cdp.coinbase.com/derivatives/introduction/welcome>
+  644, 9321 Bitcoin price  <https://www.coinbase.com/en-sg/price/bitcoin>
+  644, 9353 Ethereum price  <https://www.coinbase.com/en-sg/price/ethereum>
+  644, 9385 Solana price  <https://www.coinbase.com/en-sg/price/solana>
+  644, 9417 XRP price  <https://www.coinbase.com/en-sg/price/xrp>
+  644, 9493 NVIDIA price  <https://www.coinbase.com/en-sg/stock/nvda>
+  644, 9525 Apple price  <https://www.coinbase.com/en-sg/stock/aapl>
+  644, 9557 Microsoft price  <https://www.coinbase.com/en-sg/stock/msft>
+  644, 9589 Amazon price  <https://www.coinbase.com/en-sg/stock/amzn>
+   42, 9645 X logo  <https://x.com/coinbase>
+  106, 9645 LinkedIn logo  <https://www.linkedin.com/company/coinbase>
+  170, 9645 Instagram logo  <https://www.instagram.com/coinbase/>
+  234, 9645 Tiktok logo  <https://www.tiktok.com/@coinbase>
+  199, 9724 Privacy  <https://www.coinbase.com/legal/privacy>
+  281, 9724 Terms & Conditions  <https://www.coinbase.com/legal/user_agreement>
+--- Button : 35
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+  268,  170 Individuals
+  406,  170 Businesses
+  547,  170 Institutions
+  691,  170 Developers
+  832,  170 Company
+  925,  170 search
+  977,  170 open language selector
+   66, 4210 Bitcoin Bitcoin S$82,726.42 2.12%
+   66, 4286 Ethereum Ethereum S$2,319.33 3.20%
+   66, 4362 Tether Tether S$1.29 0.00%
+   66, 4438 BNB BNB S$745.92 1.07%
+   66, 4514 USDC USDC S$1.29 --
+   66, 4590 XRP XRP S$1.43 1.45%
+ 1020, 9721 Open global preferences
+ 1054, 9721 Singapore
+ 1161, 9721 English
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 24
+   20,  170 Coinbase Logo
+   42,  523 Singapore Revised - Hero Media
+   66, 2167 XSGD Logo
+   43, 2724 arrow pointing right converting from S$ to bitcoin
+  649, 3312 card with a blue checkmark indicating you bought 0.05BTC and zero trading fees
+   83, 4232 Bitcoin
+   83, 4308 Ethereum
+   83, 4384 Tether
+   83, 4460 BNB
+   83, 4536 USDC
+   83, 4612 XRP
+   43, 4819 Advanced Trade Mobile UI
+   43, 6259 Customer Quote easy onboarding
+  644, 6899 "Download on the App Store" Button
+  818, 6899 "Get it on Google Play" Button
+   67, 7266 hand holding bitcoin
+  466, 7266 hand holding ethereum
+  864, 7266 security features bitcoin lock and message key
+   42, 7933 Coinbase Logo
+   42, 9649 X logo
+  106, 9649 LinkedIn logo
+  170, 9649 Instagram logo
+  234, 9649 Tiktok logo
+--- DataItem : 0

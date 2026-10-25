@@ -1,0 +1,235 @@
+=== PAGE: AI and Cloud Computing Services | Google Cloud and 6 more pages - Profile 1 - Microsoft​ Edge
+--- Text : 40
+  265,  271 The new way to cloud
+  279,  353 Build with AI. Deploy and scale apps fast. Analyze and secure your data.
+  609,  353 Start now with $300 in free credit.
+   92,  983 Developers
+  216,  983 Business leaders
+  379,  983 Special programs
+   76, 1306 Build with the cloud platform designed for developers and AI
+   76, 1420 Try Google Cloud with free usage of over 20 products, plus new customers get $300 in free credits on
+  656, 1331 AI and machine learning
+  656, 1412 Compute
+  656, 1493 Storage
+  656, 1574 Databases
+  656, 1655 Data analytics
+  656, 1736 Networking
+  656, 1817 Developer tools
+  656, 1898 Security
+   76, 2070 Build and scale generative AI apps and agents with Gemini Enterprise Agent Platform
+  656, 2096 is our fully-managed AI development platform to build and manage AI applications and agents, with ac
+   76, 3104 AI innovation happens on Google Cloud
+  481, 3624 to power its virtual assistant in the myVW app, surfacing helpful information from the owner’s manua
+  481, 3640 Watch video
+  860, 3624 to simplify internal processes, including language translations and writing ad copy
+  860, 3640 Watch video
+ 1239, 3640 Watch video
+ 1727, 3672 and
+ 1619, 3640 Watch video
+   76, 3480 Solve your business problems with our industry solutions
+  644, 3491 From improving retail
+  966, 3491 to detecting
+  644, 3491 , our industry solutions tackle your biggest challenges.
+  168, 4762 Let’s start building your tomorrow, today
+   28, 5224 Why Google
+  274, 5224 Products and pricing
+  521, 5224 Solutions
+  767, 5224 Resources
+ 1014, 5224 Engage
+  120, 5750 |
+  185, 5750 |
+  268, 5750 |
+  804, 5750 |
+--- Hyperlink : 120
+  452,  423 Get started for free  <https://console.cloud.google.com/freetrial>
+  662,  423 Contact sales  <https://cloud.google.com/contact>
+  394,  503 Try Gemini Enterprise app—the front door to AI for every employee  <https://cloud.google.com/index.html>
+ 1652,  611 SECURITY Introducing Google AI Threat Defense to help you outpace the adversary Agentic Defense grap  <https://cloud.google.com/blog/products/identity-security/introducing-google-ai-threat-defense>
+ 2052,  611 PRODUCT ANNOUNCEMENTS Everything Google Cloud customers need to know coming out of Google I/O I/O ic  <https://cloud.google.com/blog/products/ai-machine-learning/innovations-from-google-io-26-on-google-cloud>
+ 2452,  611 AI INFRASTRUCTURE What’s next in Google AI infrastructure: Scaling for the agentic era AI Hypercompu  <https://cloud.google.com/blog/products/compute/ai-infrastructure-at-next26>
+ 2852,  611 GEMINI ENTERPRISE One platform for agent development, orchestration, and governance Gemini Enterpris  <https://cloud.google.com/blog/products/ai-machine-learning/the-new-gemini-enterprise-one-platform-for-agent-development>
+ 3252,  611 DATA CLOUD What’s new in the agentic Data Cloud: Powering the system of action Data Cloud graphic  <https://cloud.google.com/blog/products/data-analytics/whats-new-in-the-agentic-data-cloud>
+   92, 1091 MCP icon GUIDE Build agents with Agent Platform’s fully-managed, remote MCP server  <https://cloud.google.com/blog/products/ai-machine-learning/gemini-enterprise-agent-platform-remote-mcp-server>
+  460, 1091 Gemini icon PRODUCT ANNOUNCEMENT Now available: Gemini Omni Flash and Nano Banana 2 Lite  <https://cloud.google.com/blog/products/ai-machine-learning/nano-banana-2-lite-and-gemini-omni-flash-available>
+  828, 1091 Gemini icon PRODUCT ANNOUNCEMENT Introducing Gemini 3.5: frontier intelligence with action  <https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/>
+   76, 1482 Get started for free  <https://console.cloud.google.com/freetrial>
+  285, 1482 See all 150+ products  <https://cloud.google.com/products>
+  656, 2096 Agent Platform  <https://cloud.google.com/products/gemini-enterprise-agent-platform>
+  657, 2182 Get started for free  <https://console.cloud.google.com/freetrial/?redirectPath=/agent-platform/overview>
+   75, 2626 View more AI products  <https://cloud.google.com/products/ai>
+  956, 2491 Play video  <https://www.youtube.com/watch?v=e8hehBcYU7E>
+   76, 2776 Gemini Enterprise icon Securely share AI agents with your organization Try Gemini Enterprise app  <https://cloud.google.com/index.html>
+  463, 2776 icon Get 35 learning credits at no cost on Google Skills with GEAR Join GEAR  <https://developers.google.com/program/gear/?utm_source=web&utm_medium=cgc&utm_campaign=FY26-Q2-GLOBAL-GOO38926-onlineevent-er-gear-135947-web-AgentPlatform-cgchomepage&utm_content=Next26&utm_term=->
+  850, 2776 icon Access free offers for common AI use cases View 10 free AI tools  <https://cloud.google.com/use-cases/free-ai-tools>
+   78, 3194 Home Depot The Home Depot turns fragmented customer service into seamless journeys with Google Cloud  <https://www.youtube.com/watch?v=c8t_KZeqfVw>
+  457, 3194   <https://www.youtube.com/watch?v=zIzgRazXdUk&>
+  457, 3438 VW logo  <https://www.youtube.com/watch?v=zIzgRazXdUk&>
+  481, 3486   <https://www.youtube.com/watch?v=zIzgRazXdUk&>
+   -1,   -1   <https://www.youtube.com/watch?v=zIzgRazXdUk&>
+  481, 3598 Volkswagen uses  <https://www.youtube.com/watch?v=zIzgRazXdUk&>
+  481, 3624 Gemini  <https://cloud.google.com/generative-ai-studio>
+  836, 3194   <https://www.youtube.com/watch?v=NGIVIACkuvI&>
+  836, 3438 Estee Lauder  <https://www.youtube.com/watch?v=NGIVIACkuvI&>
+  860, 3486   <https://www.youtube.com/watch?v=NGIVIACkuvI&>
+   -1,   -1   <https://www.youtube.com/watch?v=NGIVIACkuvI&>
+  860, 3598 Estée Lauder uses  <https://www.youtube.com/watch?v=NGIVIACkuvI&>
+  860, 3624 Agent Platform and Gemini  <https://cloud.google.com/vertex-ai>
+ 1215, 3194   <https://www.youtube.com/watch?v=428Wj8VcoN8&>
+ 1215, 3438 PODS customer video  <https://www.youtube.com/watch?v=428Wj8VcoN8&>
+ 1239, 3486   <https://www.youtube.com/watch?v=428Wj8VcoN8&>
+   -1,   -1   <https://www.youtube.com/watch?v=428Wj8VcoN8&>
+ 1239, 3598 PODS and their agency partner, Tombras, created a “smart billboard” using a custom model trained on   <https://www.youtube.com/watch?v=428Wj8VcoN8&>
+ 1239, 3672 Agent Platform  <https://cloud.google.com/vertex-ai>
+ 1595, 3194   <https://www.youtube.com/watch?v=9-axJ6ZeFlU&>
+ 1595, 3438 MLB baseball pitcher  <https://www.youtube.com/watch?v=9-axJ6ZeFlU&>
+ 1619, 3486   <https://www.youtube.com/watch?v=9-axJ6ZeFlU&>
+   -1,   -1   <https://www.youtube.com/watch?v=9-axJ6ZeFlU&>
+ 1619, 3598 MLB compares live plays with its Statcast dataset in real time and shares fresh player insights usin  <https://www.youtube.com/watch?v=9-axJ6ZeFlU&>
+ 1619, 3672 Agent Platform  <https://cloud.google.com/vertex-ai>
+ 1761, 3672 BigQuery  <https://cloud.google.com/bigquery>
+  819, 3491 product discovery  <https://cloud.google.com/solutions/retail-product-discovery>
+ 1073, 3491 bank fraud  <https://cloud.google.com/solutions/financial-services>
+  644, 3568 Request a demo  <https://cloud.google.com/contact?direct=true>
+   67, 4262 See all industries  <https://cloud.google.com/solutions#section-2#section-2>
+  455, 3676 best buy boxes 9 / top 10 retail companies trust Google Cloud Bestbuy Best Buy uses Google Cloud gen  <https://cloud.google.com/solutions/retail>
+  532, 4582 See more customers  <https://cloud.google.com/customers>
+  168, 4950 Get started for free  <https://console.cloud.google.com/freetrial>
+  379, 4950 Contact sales  <https://cloud.google.com/contact>
+   20,   95 Google Cloud  <https://cloud.google.com/index.html>
+  183,   70 Overview  <https://cloud.google.com/why-google-cloud>
+  263,   70 Solutions  <https://cloud.google.com/solutions>
+  341,   70 Products  <https://cloud.google.com/products>
+  417,   70 Pricing  <https://cloud.google.com/pricing>
+  480,   70 Resources  <https://cloud.google.com/docs/get-started>
+ 1076,   78 Docs  <https://cloud.google.com/docs>
+ 1129,   78 Support  <https://cloud.google.com/support-hub>
+ 1192,   84 Sign in  <https://accounts.google.com/AccountChooser?continue=https://cloud.google.com/&hl=en-US&prompt=select_account&service=cloudconsole>
+   28, 5254 Choosing Google Cloud  <https://cloud.google.com/why-google-cloud>
+   28, 5286 Trust and security  <https://cloud.google.com/trust-center>
+   28, 5318 Modern Infrastructure Cloud  <https://cloud.google.com/solutions/modern-infrastructure>
+   28, 5350 Multicloud  <https://cloud.google.com/multicloud>
+   28, 5382 Global infrastructure  <https://cloud.google.com/infrastructure>
+   28, 5414 Locations  <https://cloud.google.com/about/locations>
+   28, 5446 Customers and case studies  <https://cloud.google.com/customers>
+   28, 5478 Analyst reports  <https://cloud.google.com/analyst-reports>
+   28, 5510 Whitepapers  <https://cloud.google.com/whitepapers>
+   28, 5542 Blog  <https://cloud.google.com/blog>
+  274, 5254 Google Cloud pricing  <https://cloud.google.com/pricing>
+  274, 5286 Google Workspace pricing  <https://workspace.google.com/pricing.html>
+  274, 5318 See all products  <https://cloud.google.com/products>
+  521, 5254 Infrastructure modernization  <https://cloud.google.com/solutions/infrastructure-modernization/>
+  521, 5286 Databases  <https://cloud.google.com/solutions/databases>
+  521, 5318 Application modernization  <https://cloud.google.com/solutions/application-modernization>
+  521, 5350 Smart analytics  <https://cloud.google.com/solutions/data-analytics-and-ai>
+  521, 5382 Artificial Intelligence  <https://cloud.google.com/solutions/ai>
+  521, 5414 Security  <https://cloud.google.com/solutions/security>
+  521, 5446 Productivity & work transformation  <https://workspace.google.com/enterprise>
+  521, 5478 Industry solutions  <https://cloud.google.com/solutions/#industry-solutions#industry-solutions>
+  521, 5510 DevOps solutions  <https://cloud.google.com/devops>
+  521, 5542 Small business solutions  <https://cloud.google.com/solutions#section-14#section-14>
+  521, 5574 See all solutions  <https://cloud.google.com/solutions>
+  767, 5254 Google Cloud Affiliate Program  <https://cloud.google.com/affiliate-program>
+  767, 5286 Google Cloud documentation  <https://cloud.google.com/index.html>
+  767, 5318 Google Cloud quickstarts  <https://docs.cloud.google.com/docs/get-started/>
+  767, 5350 Google Cloud Marketplace  <https://cloud.google.com/marketplace>
+  767, 5382 Learn about cloud computing  <https://cloud.google.com/discover>
+  767, 5414 Support  <https://cloud.google.com/support-hub>
+  767, 5446 Code samples  <https://docs.cloud.google.com/docs/samples>
+  767, 5478 Cloud Architecture Center  <https://docs.cloud.google.com/architecture>
+  767, 5510 Training  <https://cloud.google.com/learn/training>
+  767, 5542 Certifications  <https://cloud.google.com/learn/certification>
+  767, 5574 Google for Developers  <https://cloud.google.com/index.html>
+  767, 5606 Google Cloud for Startups  <https://cloud.google.com/startup>
+  767, 5638 System status  <https://cloud.google.com/index.html>
+  767, 5670 Release Notes  <https://docs.cloud.google.com/release-notes>
+ 1014, 5254 Contact sales  <https://cloud.google.com/contact>
+ 1014, 5286 Find a Partner  <https://cloud.google.com/partners>
+ 1014, 5318 Become a Partner  <https://cloud.google.com/partners/become-a-partner>
+ 1014, 5350 Events  <https://cloud.google.com/events>
+ 1014, 5382 Podcasts  <https://cloud.google.com/podcasts>
+ 1014, 5414 Developer Center  <https://cloud.google.com/developers>
+ 1014, 5446 Press Corner  <https://cloud.google.com/index.html>
+ 1014, 5478 Google Cloud on YouTube  <https://www.youtube.com/googlecloud>
+ 1014, 5510 Google Cloud Tech on YouTube  <https://www.youtube.com/googlecloudplatform>
+ 1014, 5542 Follow on X  <https://x.com/googlecloud>
+ 1014, 5574 Join User Research  <https://userresearch.google.com/?reserved=1&utm_source=website&Q_Language=en&utm_medium=own_srch&utm_campaign=CloudWebFooter&utm_term=0&utm_content=0&productTag=clou&campaignDate=jul19&pType=devel&referral_code=jk212693>
+ 1014, 5606 We're hiring. Join Google Cloud!  <https://careers.google.com/cloud>
+ 1014, 5638 Community forums  <https://discuss.google.dev/c/google-cloud/14>
+   28, 5751 About Google  <https://cloud.google.com/index.html>
+  132, 5751 Privacy  <https://policies.google.com/privacy>
+  197, 5751 Site terms  <https://policies.google.com/terms>
+  279, 5751 Google Cloud terms  <https://cloud.google.com/product-terms>
+  828, 5751 Our third decade of climate action: join us  <https://cloud.google.com/sustainability>
+  974, 5777 Subscribe  <https://cloud.google.com/newsletter>
+--- Button : 37
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  201,    8 Close tab
+  342,    8 Close tab
+  483,    8 Close tab
+  624,    8 Close tab
+  764,    8 Close tab
+  904,    8 Close tab
+ 1044,    8 Close tab
+ 1072,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+   44,  883 Previous
+   92,  883 Next
+  656, 1306 AI and machine learning keyboard_arrow_down
+  656, 1387 Compute keyboard_arrow_down
+  656, 1468 Storage keyboard_arrow_down
+  656, 1549 Databases keyboard_arrow_down
+  656, 1630 Data analytics keyboard_arrow_down
+  656, 1711 Networking keyboard_arrow_down
+  656, 1792 Developer tools keyboard_arrow_down
+  656, 1873 Security keyboard_arrow_down
+ 1149, 4630 Pause animation
+  866,  664 Send message
+ 1064,   78 Search
+--- Edit : 3
+  145,   38 Address and search bar
+  370,  672 Ask anything about Google Cloud
+--- Image : 29
+  592,  207 Google Cloud logo
+ 1652,  611 Agentic Defense graphic
+ 2052,  611 I/O icons
+ 2452,  611 AI Hypercomputer graphic
+ 2852,  611 Gemini Enterprise Agent Platform graphic
+ 3252,  611 Data Cloud graphic
+  324, 1091 MCP icon
+  692, 1091 Gemini icon
+ 1060, 1091 Gemini icon
+  956, 2491 Screencast of Vertex AI Studio
+  100, 2800 Gemini Enterprise icon
+  487, 2800 icon
+  874, 2800 icon
+   78, 3414 Home Depot
+  457, 3438 VW logo
+  836, 3438 Estee Lauder
+ 1215, 3438 PODS customer video
+   -1,   -1 MLB baseball pitcher
+  468, 3683 best buy boxes
+  810, 4025 Bestbuy
+  113, 4486 PayPal
+  234, 4474 Procter and Gamble
+  391, 4486 Twitter
+  532, 4486 Target
+  652, 4473 Major League Baseball
+  791, 4474 The Home Depot
+  953, 4486 AT&T
+ 1069, 4474 The New York Times
+   20,   95 Google Cloud
+--- DataItem : 0

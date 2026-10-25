@@ -1,0 +1,178 @@
+=== PAGE: Samsung Singapore | Samsung Online Electronic Store and 2 more pages - Profile 1 - Microsoft​ Edge
+--- Text : 38
+   46,  540 Samsung and Cookies
+   46,  569 This site uses cookies to personalise your experience, analyse site traffic and keep track of items 
+ 1177,   92 Log-In
+    4,  134 Samsung
+  667,  297 Galaxy Unpacked
+  667,  376 22 Jul 2026 | 9PM SGT
+  667,  410 Live on samsung.com
+    4, 1023 A ticket is printed out of a small slot. The ticket moves to lay flat, seen in its entirety, with th
+   57, 1021 Built for study
+   57, 1080 and play
+   57, 1157 Answering your passions
+   57, 1392 New term.
+   57, 1451 Fresh inside
+    4, 1898 Recommended for you
+    4, 2095 Explore the Stories
+   25, 2676 Image simulated. Actual UX/UI may differ. Availability of colours may vary by country or carrier. Pr
+   25, 2704 Image simulated. Samsung account login may be required for certain AI features.
+   25, 2732 Image simulated. Actual UX/UI may differ. Availability of colors, sizes, models, and watch bands may
+   25, 2789 Image simulated for illustrative purpose. Actual UX/UI may differ. Colour and model availability may
+   25, 2817 Colour and model availability may vary depending on country or carrier.
+   25, 2844 ~
+   25, 2845 With results based on an internal survey conducted in September 2025 across 30 countries, with final
+   25, 2901 Visual: 2026 BAU DA Feature KV with the model switched to RS90F65D3FSS
+   25, 2929 ~
+   29, 2930 Source – Omdia, For general information only; not an endorsement/certification/recommendation; no li
+    4, 2987 Footer Navigation
+   25, 3001 Shop
+  276, 3001 Product
+  528, 3001 Support
+  779, 3001 Account
+ 1030, 3001 Sustainability
+ 1030, 3238 About Us
+   25, 3568 Copyright© 1995-2026 Samsung. All rights reserved.
+ 1022, 3638 Stay in the Loop?
+--- Hyperlink : 104
+    4,   70 Skip to content  <https://www.samsung.com/#content>
+    4,   70 Skip to accessibility help  <https://www.samsung.com/#accHelp>
+   46,  626 See our Privacy Policy here  <https://www.samsung.com/sg/info/privacy/>
+  192,  668 Accept  <javascript:void(0)>
+   12,   80 Samsung  <https://www.samsung.com/index.html>
+  667,  465 Pre-registration for New Galaxy  <https://www.samsung.com/sg/unpacked/>
+  660,  825 Learn more  <https://www.samsung.com/sg/smartphones/galaxy-s26-ultra/>
+  744,  825 Buy  <https://www.samsung.com/sg/smartphones/galaxy-s26-ultra/buy/>
+    4,  807 Learn more Galaxy Z Fold7 features  <https://www.samsung.com/sg/smartphones/galaxy-z-fold7/>
+  323,  807 Learn more Galaxy Buds4 Pro  <https://www.samsung.com/sg/audio-sound/galaxy-buds/galaxy-buds4-pro-white-sm-r640nzwaasa/>
+  643,  807 Learn more Galaxy Tab S11 Ultra product detail page  <https://www.samsung.com/sg/tablets/galaxy-tab-s/galaxy-tab-s11-ultra-gray-256gb-sm-x930nzaaxsp/>
+  962,  807 Learn more Galaxy Watch8 product detail page  <https://www.samsung.com/sg/watches/galaxy-watch/galaxy-watch8-44mm-silver-bluetooth-sm-l330nzsaasa/>
+   57, 1206 Learn more  <https://www.samsung.com/sg/offer/student-discounts/>
+  141, 1206 Buy  <https://www.samsung.com/sg/monitors/gaming/odyssey-oled-g8-g80sh-27-inch-4k-uhd-240hz-ls27hg802sexxs/>
+    4, 1166 The Movingstyle  <https://www.samsung.com/sg/movable-screens/the-movingstyle/lsm7f-27-inch-ua27lsm7faxxxs/>
+  323, 1166 Standard Product Detail Page of The Frame  <https://www.samsung.com/sg/lifestyle-tvs/the-frame/>
+  643, 1166 Standard Product Detail Page of Q-Series Soundbar  <https://www.samsung.com/sg/audio-devices/all-audio-devices/?q-series-soundbar>
+  962, 1166 Odyssey OLED G8 Gaming Monitor  <https://www.samsung.com/sg/monitors/gaming/odyssey-oled-g8-g80sh-32-inch-4k-uhd-240hz-ls32hg802sexxs/>
+   57, 1553 Learn more  <https://www.samsung.com/sg/offer/student-discounts/>
+  141, 1553 Buy  <https://www.samsung.com/sg/refrigerators/all-refrigerators/>
+    4, 1526 Standard Product Detaile Page of Bespoke AI Refrigerator  <https://www.samsung.com/sg/refrigerators/side-by-side/refrigerator-sbs-rs90f-9-inch-ai-home-615l-black-doi-rs90f65d3fss/>
+  323, 1526 Standard Product Detaile Page of Bespoke AI Laundry  <https://www.samsung.com/sg/washers-and-dryers/dryers/dv9400d-dryer-space-max-ai-dry-smartthings-ai-energy-mode-bespoke-10kg-silver-dv10db94a0gdsp/>
+  643, 1526 Bespoke AI Oven  <https://www.samsung.com/sg/vacuum-cleaners/robot/70w-jet-bot-combo-all-in-one-clean-station-steam-plus-with-steamwash-satin-greige-vr7md96514g-sp/>
+  962, 1526 Air conditioners  <https://www.samsung.com/sg/air-conditioners/all-air-conditioners/>
+   25, 2179 AI Living  <https://www.samsung.com/sg/ai-living/>
+   25, 2476 AI Living  <https://www.samsung.com/sg/ai-living/>
+  307, 2179 Samsung Vision AI  <https://www.samsung.com/sg/tvs/vision-ai-tv/>
+  307, 2476 Samsung Vision AI  <https://www.samsung.com/sg/tvs/vision-ai-tv/>
+  590, 2179 Bespoke AI  <https://www.samsung.com/sg/home-appliances/bespoke-home/>
+  590, 2476 Bespoke AI  <https://www.samsung.com/sg/home-appliances/bespoke-home/>
+  873, 2179 Galaxy AI  <https://www.samsung.com/sg/galaxy-ai/>
+  873, 2476 Galaxy AI  <https://www.samsung.com/sg/galaxy-ai/>
+ 1155, 2179 Buy Direct Get More  <https://www.samsung.com/sg/buy-direct-get-more/>
+ 1155, 2476 Buy Direct Get More  <https://www.samsung.com/sg/buy-direct-get-more/>
+    4, 3037 Shop Home Shop Home  <https://www.samsung.com/sg/offer/>
+    4, 3065 Buy Direct Get More Buy Direct Get More  <https://www.samsung.com/sg/buy-direct-get-more/>
+    4, 3094 Samsung Live Shop Samsung Live Shop  <https://www.samsung.com/sg/offer/samsung-live-shop/>
+    4, 3123 AI Living AI Living  <https://www.samsung.com/sg/ai-living/>
+    4, 3152 SmartThings SmartThings  <https://www.samsung.com/sg/smartthings/>
+    4, 3180 Samsung Care+ Samsung Care+  <https://www.samsung.com/sg/offer/samsung-care-plus/>
+    4, 3209 Samsung Club Affiliates Samsung Club Affiliates  <https://www.samsung.com/sg/offer/samsung-club-affiliates/>
+    4, 3238 Samsung Experience Store Samsung Experience Store  <https://www.samsung.com/sg/samsung-experience-store/about/>
+    4, 3267 In-store Pickup Services In-store Pickup Services  <https://www.samsung.com/sg/store-pickup-and-support/>
+    4, 3296 Education Education  <https://www.samsung.com/sg/education/>
+    4, 3324 Student Offers Student Offers  <https://www.samsung.com/sg/offer/student-discounts/>
+    4, 3353 Corporate Employee Offers Corporate Employee Offers  <https://www.samsung.com/sg/offer/corporate-epp/>
+    4, 3382 Online Shop FAQs Online Shop FAQs  <https://www.samsung.com/sg/shop-faq/>
+    4, 3411 Explore Explore  <https://www.samsung.com/sg/explore/>
+  255, 3037 Galaxy Smartphone Galaxy Smartphone  <https://www.samsung.com/sg/smartphones/all-smartphones/>
+  255, 3065 Galaxy Tab Galaxy Tab  <https://www.samsung.com/sg/tablets/all-tablets/>
+  255, 3094 Galaxy Watch Galaxy Watch  <https://www.samsung.com/sg/watches/all-watches/>
+  255, 3123 Galaxy Buds Galaxy Buds  <https://www.samsung.com/sg/audio-sound/all-audio-sound/>
+  255, 3152 TVs TVs  <https://www.samsung.com/sg/tvs/all-tvs/>
+  255, 3180 Projectors Projectors  <https://www.samsung.com/sg/projectors/all-projectors/>
+  255, 3209 Sound Devices Sound Devices  <https://www.samsung.com/sg/audio-devices/all-audio-devices/>
+  255, 3238 Refrigerators Refrigerators  <https://www.samsung.com/sg/refrigerators/all-refrigerators/>
+  255, 3267 Dishwashers Dishwashers  <https://www.samsung.com/sg/dishwashers/all-dishwashers/>
+  255, 3296 Laundry Laundry  <https://www.samsung.com/sg/washers-and-dryers/all-washers-and-dryers/>
+  255, 3324 Air Conditioners  <https://www.samsung.com/sg/air-conditioners/all-air-conditioners/>
+  255, 3353 Vacuum Cleaners Vacuum Cleaners  <https://www.samsung.com/sg/vacuum-cleaners/all-vacuum-cleaners/>
+  255, 3382 Monitors Monitors  <https://www.samsung.com/sg/monitors/all-monitors/>
+  255, 3411 Memory & Storage Memory & Storage  <https://www.samsung.com/sg/memory-storage/all-memory-storage/>
+  255, 3440 Accessories Accessories  <https://www.samsung.com/sg/accessories/>
+  506, 3037 Support Home Support Home  <https://www.samsung.com/sg/support/>
+  506, 3065 Manual & Software Manual & Software  <https://www.samsung.com/sg/support/user-manuals-and-guide/>
+  506, 3094 Search Support Search Support  <https://www.samsung.com/sg/search/?searchvalue=mobile#support#support>
+  506, 3123 Shop FAQ Shop FAQ  <https://www.samsung.com/sg/shop-faq/>
+  506, 3152 Essential Onboarding Guide Essential Onboarding Guide  <https://www.samsung.com/sg/welcome-to-samsung/>
+  506, 3180 Warranty Information Warranty Information  <https://www.samsung.com/sg/support/warranty/>
+  506, 3209 Service Centre Service Centre  <https://www.samsung.com/sg/support/service-centre/>
+  506, 3238 Book/Track Repair Book/Track Repair  <https://www.samsung.com/sg/mypage/myproducts/>
+  506, 3267 Repair Cost Repair Cost  <https://www.samsung.com/sg/support/repair-cost/>
+  506, 3296 Service Centre Waiting Time Service Centre Waiting Time  <https://www.samsung.com/sg/support/service-centre-wait-time/>
+  506, 3324 Live Chat Live Chat : Open in a New Window  <https://samsung-livechat.sprinklr.com/seao/sg/index.html>
+  506, 3353 WhatsApp Chat WhatsApp Chat : Open in a New Window  <https://spr.ly/SingaporeWhatsapp>
+  506, 3382 Email Email  <https://www.samsung.com/sg/mypage/myproducts/>
+  758, 3037 Why Samsung Account Why Samsung Account  <https://www.samsung.com/sg/why-samsung-account/>
+  758, 3065 Samsung Rewards Samsung Rewards  <https://www.samsung.com/sg/rewards/>
+  758, 3094 Members Members  <https://www.samsung.com/sg/members/>
+  758, 3123 Orders Orders : Open in a New Window  <https://shop.samsung.com/sg/mypage/orders/>
+  758, 3152 My Page My Page  <https://www.samsung.com/sg/mypage/>
+  758, 3180 Product Registration Product Registration  <https://www.samsung.com/sg/mypage/myproducts/>
+ 1009, 3037 Environment Environment  <https://www.samsung.com/sg/sustainability/environment/>
+ 1009, 3065 Security & Privacy Security & Privacy  <https://www.samsung.com/sg/sustainability/security-and-privacy/>
+ 1009, 3094 Accessibility  <https://www.samsung.com/sg/sustainability/accessibility/overview/>
+ 1009, 3123 Inclusive Workplace Inclusive Workplace  <https://www.samsung.com/sg/sustainability/inclusive-workplace/>
+ 1009, 3152 Corporate Citizenship Corporate Citizenship. Together for Tomorrow! Enabling People : Open in a New   <http://csr.samsung.com/en/main.do>
+ 1009, 3180 Corporate Sustainability Corporate Sustainability : Open in a New Window  <https://www.samsung.com/global/sustainability/>
+ 1009, 3273 Company Info Company Info  <https://www.samsung.com/sg/about-us/company-info/>
+ 1009, 3302 Business Area Business Area  <https://www.samsung.com/sg/about-us/business-area/>
+ 1009, 3330 Brand Identity Brand Identity  <https://www.samsung.com/sg/about-us/brand-identity/>
+ 1009, 3359 Careers Careers  <https://www.samsung.com/sg/about-us/careers/>
+ 1009, 3388 Investor Relations Investor Relations : Open in a New Window  <https://www.samsung.com/global/ir/>
+ 1009, 3417 Newsroom Newsroom : Open in a New Window  <https://news.samsung.com/sg>
+ 1009, 3446 Ethics Ethics  <https://www.samsung.com/sg/about-us/ethics/>
+ 1009, 3474 Samsung Design Samsung Design : Open in a New Window  <https://design.samsung.com/global/index.html>
+   25, 3635 Choose your location or language  <https://www.samsung.com/sg/function/ipredirection/ipredirectionLocalList/>
+  156, 3635 Privacy  <https://www.samsung.com/sg/info/privacy/>
+  202, 3635 Legal  <https://www.samsung.com/sg/info/legal/>
+  252, 3635 Sitemap  <https://www.samsung.com/sg/info/sitemap/>
+ 1115, 3635 Facebook : Open in a New Window  <https://www.facebook.com/SamsungSingapore>
+ 1149, 3635 Twitter : Open in a New Window  <https://twitter.com/samsungsg>
+ 1184, 3635 Instagram : Open in a New Window  <https://www.instagram.com/samsungsg/>
+ 1218, 3635 YouTube : Open in a New Window  <https://www.youtube.com/user/SamsungSingapore>
+--- Button : 31
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  538,    8 Close tab
+  777,    8 Close tab
+  805,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+  258,  534 close
+ 1081,   84 Search
+ 1125,   84 Cart
+ 1213,   84 Navigation
+    4,   69 Pre-registration for New Galaxy
+   49,  672 play
+    4,  768 Learn more
+    4, 1127 Learn more
+    4, 1486 Learn more
+  866, 2538 Previous prev
+  912, 2538 Next next
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 14
+   -4,  -69 A ticket is printed out of a small slot. The ticket moves to lay flat, seen in its entirety, with th
+--- DataItem : 0

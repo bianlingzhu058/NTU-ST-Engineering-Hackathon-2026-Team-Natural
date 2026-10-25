@@ -14,6 +14,7 @@ How a string is typed, in two passes (ported from our v1.2 branch):
 
 Every number comes from agent/behaviour/params.py with its source.
 """
+import collections
 import random
 from ..behaviour.dist import clamp, ln_mean, ln_median, weighted
 from ..behaviour.params import P
@@ -42,7 +43,8 @@ class HumanTyper:
         self.wpm = round(wpm if wpm is not None else rng.uniform(*P("typing.wpm_range")), 1)
         self.base_iki_ms = P("typing.iki_per_wpm") / self.wpm
         self.last_plan: list[tuple] = []
-        self.stats = {"keys": 0, "slips": 0, "backspaces": 0, "holds_ms": []}
+        # holds_ms keeps the last 20000 key holds only, so a 9 h run does not grow memory without end
+        self.stats = {"keys": 0, "slips": 0, "backspaces": 0, "holds_ms": collections.deque(maxlen=20000)}
 
     # planning
     def _neighbour(self, char: str) -> str:
@@ -155,10 +157,14 @@ class HumanTyper:
             t += gap
             hold = self.hold_ms()
             if last_up_index is not None and kind == "char" and rng.random() < P("typing.rollover_p"):
-                previous = events[last_up_index]   # rollover: the previous key is still down
-                if previous[1] == "char":
-                    overlap = min(100.0, ln_mean(rng, P("typing.rollover_overlap_ms"), 0.5))
-                    events[last_up_index] = (max(previous[0], t + overlap),) + previous[1:]
+                # Rollover: this key goes down a moment BEFORE the previous one comes up (about 30 ms
+                # overlap, Dhakal 2018). The next key comes early; the previous key's hold stays as
+                # drawn (about 116 ms). Stretching the hold instead made holds about 150 ms (VM 25 Oct).
+                previous_up = events[last_up_index][0]
+                previous_down = events[last_up_index - 1][0]
+                overlap = min(100.0, ln_mean(rng, P("typing.rollover_overlap_ms"), 0.5))
+                if events[last_up_index][1] == "char" and previous_up - overlap > previous_down + P("typing.iki_floor_ms"):
+                    t = min(t, previous_up - overlap)
             events.append((t, kind, key, True))
             events.append((t + hold, kind, key, False))
             last_up_index = len(events) - 1

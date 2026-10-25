@@ -14,10 +14,8 @@ End: open items get ", tbc" (typed once, copied to the rest), started ones ", st
 progress line on runs over 5 min; everything is saved and every app is closed.
 """
 import collections
-from datetime import datetime
 import os
 from pathlib import Path
-import json
 from ..behaviour.dist import clamp, ln_median
 from ..behaviour.params import P
 from ..config import yaml
@@ -40,13 +38,17 @@ class Workday:
         self.first_run = first_run
         self.rng = context.rng
         self.cfg = yaml.safe_load((root / "config" / "workday.yaml").read_text(encoding="utf-8"))
-        facts_path = root / "config" / "page_facts.json"
-        self.facts = json.loads(facts_path.read_text(encoding="utf-8")) if facts_path.exists() else {}
-        self.log_rows: list[dict] = []
+        from .eyes import Eyes, SimEyes
+        self.eyes = SimEyes(root, self.rng) if sim else Eyes()
+        context.eyes = self.eyes
+        # simulator only: older files from an earlier day, for the tidy up task to find
+        self.older_files = ["crypto prices 23 oct", "meeting notes 23 oct", "budget oct", "news notes 23 oct"] if sim else []
+        self.log_rows = collections.deque(maxlen=20000)  # for the simulator report; bounded on long runs
         self.desk = Desk(context, self.cfg, self.log)
         self.todo = TodoList(context, self.desk, self.cfg, self.log)
         self.fail_notes = FAIL_NOTES
         self.paused: list = []
+        self.pending_followups: list[str] = []
         self.moved_files: list[str] = []
         self.app_time: dict[str, float] = {}
         self._app, self._app_since = "harness", None
@@ -91,29 +93,18 @@ class Workday:
         return url.rstrip("/").count("/") > 2 or any(b in url for b in blocked)
 
     def reuse_window(self, topic: str):
+        owned = {id(t.window) for t in self.paused}
         for w in self.desk.mru:
-            if w.extra.get("topic") == topic and w.doc is not None: return w
+            if w.extra.get("topic") == topic and w.doc is not None and id(w) not in owned: return w
         return None
-
-    def saved_work_files(self) -> list[str]:
-        """The bot's own older files in Documents that are not open now (safe to move)."""
-        folder = os.path.join(self.desk.profile, self.cfg["files"]["work_folder"])
-        open_files = {w.file for w in self.desk.mru}
-        try:
-            names = os.listdir(folder)
-        except OSError:
-            return []
-        out = []
-        for n in names:
-            stem, ext = os.path.splitext(n)
-            if ext in (".odt", ".ods") and stem not in open_files and stem not in self.moved_files:
-                out.append(stem)
-        return out
 
     # planning the list
     def _label(self, spec: dict) -> tuple[str, dict]:
         spec = dict(spec)
         label = self.rng.choice(spec["labels"])
+        if isinstance(label, list):                         # [line, word to Ctrl+F, read/open, answer word]
+            label, spec["need"], spec["goal"], *rest = label
+            spec["answer"] = rest[0] if rest else ""
         if "{coin}" in label:
             spec["_coin"] = self.rng.choice(COIN_LABELS)
             label = label.replace("{coin}", spec["_coin"])
@@ -121,7 +112,7 @@ class Workday:
         return label, spec
 
     def _usable(self, spec: dict) -> bool:
-        return not spec.get("facts") or spec["facts"] in self.facts
+        return self.minutes >= spec.get("min_minutes", 0)
 
     @staticmethod
     def _spec_key(spec: dict) -> str:
@@ -148,12 +139,74 @@ class Workday:
             taken.add(label)
             on_list[key] += 1
             out.append(Item(label, spec))
+        if not out and n:
+            # Every item has been on today's list (long runs): look at a site or a sheet again,
+            # worded as such ("skim ap news again"), instead of sitting idle.
+            again = [i for i in self.todo.items if i.spec.get("task") in ("browse", "calc_sheet", "crypto_prices")
+                     and i.status in ("done", "failed")]
+            self.rng.shuffle(again)
+            for old in again:
+                for word in (" again", ", round two", " later on"):
+                    label = old.label.split(" again")[0].split(", round two")[0].split(" later on")[0] + word
+                    if label not in taken and len(label) < 60:
+                        taken.add(label); out.append(Item(label, dict(old.spec))); break
+                if len(out) >= n: break
+        return out
+
+    RELIABLE_HYBRIDS = ("crypto_prices", "crypto_compare", "read_note")   # always end with a sheet or note
+    LINKED = {   # an office task that grows out of the hybrid, written from what the hybrid found
+        "crypto_prices": ["send crypto summary to {person}", "crypto update for {person}"],
+        "crypto_compare": ["send the sgd rates to {person}", "fx note for {person}"],
+        "news": ["email the team about the news", "news summary for {person}"],
+        "training": ["send course list to {person}", "course options email"],
+        "phone": ["message {person} about phones", "phone shortlist for {person}"],
+        "cloud": ["cloud summary for IT", "write cloud note for {person}"],
+        "asana": ["asana pitch for the team", "asana summary for {person}"],
+    }
+
+    def must_haves(self, taken: set[str]) -> list[Item]:
+        """The brief asks for office work and web work in every run (design 25 Oct, Kellyn): one hybrid
+        that ends with a sheet or note, and one office task, both drawn at random from their pools.
+        About 1 run in 3 the office task grows out of the hybrid (written from what it found)."""
+        pool = [s for s in self.cfg["items"] if self._usable(s)]
+        hybrids = [s for s in pool if s.get("task") in self.RELIABLE_HYBRIDS]
+        first = (self.cfg.get("plan") or {}).get("first_task")     # demo: e.g. crypto_prices (web to Calc)
+        if first and any(s.get("task") == first for s in pool):
+            hybrids = [s for s in pool if s.get("task") == first]
+        offices = [s for s in pool if s.get("kind") == "office"]
+        out = []
+        if hybrids:
+            label, spec = self._label(self.rng.choice(hybrids)); taken.add(label)
+            out.append(Item(label, spec))
+        if self.minutes >= 10 and offices:
+            hybrid = out[0] if out else None
+            key = (hybrid.spec.get("recipe") or hybrid.spec.get("task")) if hybrid else None
+            if hybrid and key in self.LINKED and self.rng.random() < P("plan.linked_office_p"):
+                label = self.rng.choice(self.LINKED[key]).replace("{person}", self.rng.choice(PEOPLE))
+                out.append(Item(label, {"task": "writer_note", "kind": "office", "note": "linked", "_link": hybrid}))
+            else:
+                label, spec = self._label(self.rng.choice(offices))
+                out.append(Item(label, spec))
+            taken.add(out[-1].label)
         return out
 
     def plan(self) -> list[Item]:
         for limit, (lo, hi) in P("todo.items_by_minutes"):
             if self.minutes <= limit: break
-        items = self.draw_items(self.rng.randint(lo, hi), set())
+        n = self.rng.randint(lo, hi)
+        taken: set[str] = set()
+        musts = self.must_haves(taken)
+        items = self.draw_items(max(0, n - len(musts)), taken)
+        # the must haves land somewhere in the first 3 or 4 lines, in random order (a linked office task
+        # always after its hybrid)
+        top = min(len(items) + len(musts), self.rng.randint(3, 4))
+        slots = sorted(self.rng.sample(range(top), len(musts))) if len(musts) <= top else list(range(len(musts)))
+        order = list(musts)
+        if not (len(order) == 2 and order[1].spec.get("_link")): self.rng.shuffle(order)
+        if (self.cfg.get("plan") or {}).get("first_task") and musts:
+            slots[0] = 0; order.remove(musts[0]); order.insert(0, musts[0])   # the demo task is line one
+        for slot, item in zip(slots, order):
+            items.insert(slot, item)
         if self.minutes >= P("todo.personal_min_minutes"):
             k = self.rng.randint(*P("todo.personal_items"))
             for spec in self.rng.sample(self.cfg["personal"], k):
@@ -161,7 +214,7 @@ class Workday:
                 items.insert(self.rng.randrange(1, len(items) + 1), Item(label, dict(spec), personal=True))
         if self.minutes >= 10:
             for item in items[1:]:
-                if not item.personal and self.rng.random() < P("todo.delete_p"):
+                if not item.personal and item not in musts and self.rng.random() < P("todo.delete_p"):
                     item.delete_at = self.t0 + self.rng.uniform(0.2, 0.9) * self.minutes * 60
         return items
 
@@ -198,7 +251,7 @@ class Workday:
         self.mark_app("writer")
         report = self.todo.write_new(title, items, self.wait)
         self.compose_reports.append(report)
-        self.desk.save(self.todo.window, folder=folder, name=self.fill(self.cfg["todo"]["file"]))
+        self.safely(self.desk.save, self.todo.window, folder, self.fill(self.cfg["todo"]["file"]))
         try:
             self.loop()
         except Cut:
@@ -214,10 +267,15 @@ class Workday:
         if self.cfg["files"].get("make_folder") != "explorer":
             return self.cfg["files"]["work_folder"]
         parent, name = folder.rsplit("\\", 1)
-        self.desk.explorer(); self.mark_app("explorer")
+        win = self.desk.explorer(); self.mark_app("explorer")
         self.desk._skill("explorer_navigate", {"path": "%USERPROFILE%\\" + parent})
         ctx = self.ctx
         ctx.pacer.wait("think")
+        try:
+            self.desk.ensure_front(win, "make folder")
+        except Exception:
+            self.log({"event": "folder_missing_fallback", "folder": folder})
+            return self.cfg["files"]["work_folder"]
         ctx.backend.hotkey("ctrl", "shift", "n")
         ctx.pacer.wait("settle")
         ctx.typer.type_text(name, ctx="filename")
@@ -230,40 +288,67 @@ class Workday:
         return self.cfg["files"]["work_folder"]
 
     def loop(self) -> None:
-        since_task = 0
         while not self.stopped():
             if self.left() < self.reserve() + 40:
                 break
-            self.maybe_break()
+            self.safely(self.maybe_break)
             if self.left() < self.reserve() + 40:
                 break
             task = self.pick()
             if task is None:
-                if self.left() > self.reserve() + 150:
-                    self.top_up(force=True)
+                if self.left() > self.reserve() + P("todo.top_up_min_left_s"):
+                    if self.safely(self.top_up, True):
+                        continue
+                    # nothing new to put on the list (every item used today): a quiet spell, not a
+                    # busy loop (review 25 Oct: a 9 h run spun at 100% CPU after about 2 h)
+                    self.ctx.pacer.wait("gap", lambda: self.left() < self.reserve() + 45 or self.break_due())
                     continue
                 break
-            self.maybe_glance()
+            self.safely(self.maybe_glance)
             self.run_task(task)
-            since_task += 1
-            self.after_task(task)
+            self.safely(self.after_task, task)
             if self.left() > self.reserve() + 60:
                 self.ctx.pacer.wait("gap" if self.minutes >= 30 else "switch",
                                     lambda: self.left() < self.reserve() + 45 or self.break_due())
 
+    def _link_waiting(self, item) -> bool:
+        """A linked office note waits until its hybrid is finished (done or failed), or until a started
+        hybrid will not be picked up again, so it can write about what was really found."""
+        link = item.spec.get("_link")
+        if link is None: return False
+        if link.status in ("done", "failed", "deleted"): return False
+        if link.status == "started" and not link.resume: return False
+        return True
+
+    def safely(self, step, *args):
+        """Run one step between tasks; a desktop surprise (wrong window, no Save As box) is logged and
+        the day goes on instead of the whole bot stopping (review 25 Oct)."""
+        try:
+            return step(*args)
+        except Cut:
+            raise
+        except Exception as exc:
+            self.log({"event": "step_error", "step": getattr(step, "__name__", "?"), "error": repr(exc)[:160]})
+            return None
+
     def pick(self):
         """Next task: a cut task picked up again, the next line on the list, or now and then another one."""
-        ready = [t for t in self.paused if t.item.resume and t.item.status == "started"]
+        room0 = self.left() - self.reserve()
+        ready = [t for t in self.paused if t.item.resume and t.item.status == "started"
+                 and room0 > 45 + 50 + t.next_need_s]          # the step it stopped before must fit
         if ready and self.rng.random() < 0.6:
             task = ready[0]
             self.paused.remove(task)
             return task
-        open_items = [i for i in self.todo.visible() if i.status == "open" and not i.personal]
-        open_items += [i for i in self.todo.visible() if i.status == "started" and i.resume and i.task is None]
+        open_items = [i for i in self.todo.visible() if i.status == "open" and not i.personal
+                      and i.spec.get("task") in TASKS        # follow ups (call samsung...) stay on the list
+                      and not self._link_waiting(i)]
+        open_items += [i for i in self.todo.visible() if i.status == "started" and i.resume and i.task is None
+                       and self.now() - i.spec.get("_fx_started_at", -1e9) > P("task.look_again_after_s")]
         room = self.left() - self.reserve()
         fits = lambda i: P("task.min_seconds").get(i.spec["task"], 60) < room
         open_items = [i for i in open_items if fits(i)]
-        ready = [t for t in ready if room > 45]
+        ready = [t for t in ready if room > 45 + 50 + t.next_need_s]   # the step it stopped before must fit
         if not open_items:
             if ready:
                 self.paused.remove(ready[0]); return ready[0]
@@ -289,41 +374,59 @@ class Workday:
             cut_at = self.rng.randint(1, 3)
         checkpoints = 0
         try:
+          try:
             for _ in task.gen:
                 checkpoints += 1
                 if self.stopped(): raise Cut("stop")
-                if self.left() < self.reserve() + 50: raise Cut("end of day")
+                if self.left() < self.reserve() + 50 + task.next_need_s: raise Cut("end of day")
                 if cut_at == checkpoints: raise Cut("interrupted")
                 if self.break_due() and task.resumable: raise Cut("break")
+          except Cut:
+            raise
+          except Exception as exc:                          # wrong window, no Save As box, a bug
+            self.log({"event": "task_error", "item": item.label, "error": repr(exc)[:160]})
+            task.status = "failed"
+            app = getattr(task.window, "app", "") or "app"
+            task.note = ", " + self.rng.choice([f"{app} acting up, try later", f"could not finish in {app}, later"])
         except Cut as cut:
             self.cut_task(task, cut.why)
-            if cut.why in ("stop", "end of day"): raise
+            # a step that no longer fits is not the end of the day if shorter work still fits
+            if cut.why == "stop" or (cut.why == "end of day" and self.left() < self.reserve() + 60): raise
             return
         item.status = task.status
         note = task.note if task.note.startswith(", ") or not task.note else ", " + task.note
         if task.status == "done":
             strike = self.cfg["todo"].get("strike", "note") == "dialog"
-            note = (", " + self.rng.choice(DONE_NOTES) if not strike else "") + note
-        note = note if note else (", " + self.rng.choice(DONE_NOTES))
-        item.pending_note = self._fit(item.label, note)
+            says_done = note.lstrip(", ").startswith(("done", "finished", "ok", "filled", "sgd added"))
+            if not strike and not says_done:                   # "done" first, unless the note already says it
+                note = ", " + self.rng.choice(DONE_NOTES) + note
+        if not note and task.status != "done":
+            item.task = None                                   # nothing new to write on the list
+        else:
+            note = note if note else (", " + self.rng.choice(DONE_NOTES))
+            item.pending_note = self._fit(item.label + item.note, note)
         item.task = None
         self.log({"event": "task_end", "item": item.label, "status": task.status, "note": note,
                   "seconds": round(self.now() - task.started_at, 1)})
 
     def _fit(self, label: str, note: str) -> str:
-        """Keep a list line short enough that it never wraps in Writer (the bot moves line by line):
-        drop the front part of the note, then the middle, down to ', done'."""
+        """Keep a list line short enough that it never wraps in Writer (the bot moves line by line).
+        The first part of the note says what happened ("page error", "done but some pages error"), so
+        that part is kept and the extras at the end go first ("try again later", the file name)."""
         limit = P("todo.max_line_chars") - len(", started, tbc")
         parts = [p for p in note.split(", ") if p]
-        while parts and len(label) + 2 + len(", ".join(parts)) > limit:
-            parts = parts[1:] if len(parts) > 2 else parts[-1:] if len(parts) == 2 and len(parts[-1]) < len(parts[0]) else parts[:1]
-            if len(parts) == 1 and len(label) + 2 + len(parts[0]) > limit:
-                parts = ["done"]; break
+        while len(parts) > 1 and len(label) + 2 + len(", ".join(parts)) > limit:
+            parts = parts[:-1]
+        if parts and len(label) + 2 + len(parts[0]) > limit:   # still too long: the short form
+            words = parts[0].split()
+            while len(words) > 1 and len(label) + 2 + len(" ".join(words)) > limit:
+                words = words[1:] if words[0] in ("coinmarketcap", "coingecko", "coinbase") else words[:-1]
+            parts = [" ".join(words)]
         return ", " + ", ".join(parts) if parts else ""
 
     def cut_task(self, task, why: str) -> None:
         item = task.item
-        task.pause_here()
+        self.safely(task.pause_here)
         item.status = "started"
         if task.resumable:
             item.resume = self.rng.random() < P("todo.resume_p")
@@ -349,7 +452,11 @@ class Workday:
                 and len(self.desk.find(win.app)) > 1 and self.rng.random() < P("doc.close_done_p")):
             if win.dirty and win.file: self.desk.save(win)
             self.desk.close(win)                             # done with this document
-        if self.rng.random() < P("todo.strike_now_p") or self.left() < self.reserve() + 120:
+        followup = getattr(task, "followup", None)
+        if (followup and task.status == "done" and followup not in {i.label for i in self.todo.items}
+                and self.left() > self.reserve() + 60):
+            self.pending_followups.append(followup)        # the open end of a note goes on the list
+        if self.pending_followups or self.rng.random() < P("todo.strike_now_p") or self.left() < self.reserve() + 120:
             self.visit_list("cross off")
 
     def visit_list(self, why: str) -> None:
@@ -361,12 +468,17 @@ class Workday:
         for item in todo.visible():
             if item.delete_at and self.now() >= item.delete_at and item.status == "open" and item.task is None:
                 todo.delete_item(item); changed += 1
+        if self.pending_followups:
+            new = [Item(label, {"task": "followup", "kind": "followup"}) for label in self.pending_followups]
+            self.pending_followups = []
+            todo.add_items(new, self.wait); changed += 1
+            self.log({"event": "followup_added", "items": [i.label for i in new]})
         if self.top_up(): changed += 1
-        if changed or todo.window.dirty:
-            self.desk.save(todo.window)
+        if (changed or todo.window.dirty) and self.rng.random() < P("todo.save_after_edit_p"):
+            self.desk.save(todo.window)                  # not every time: the final update always saves
 
     def top_up(self, force: bool = False) -> bool:
-        open_n = sum(1 for i in self.todo.visible() if i.status == "open" and not i.personal)
+        open_n = sum(1 for i in self.todo.visible() if i.status == "open" and not i.personal and i.spec.get("task") in TASKS)
         if not force and (open_n >= P("todo.add_when_open_below") or self.left() < 12 * 60): return False
         n = self.rng.randint(*P("todo.add_count"))
         new = self.draw_items(n, {i.label for i in self.todo.items})
@@ -417,13 +529,22 @@ class Workday:
             site = mine[0].spec["site"] if mine else self.rng.choice(self.cfg["break_sites"])
             win = self.desk.browser("break")
             self.mark_app("browser")
-            if win.tabs < P("tabs.max_open"):
+            own_tab = win.tabs < P("tabs.max_open")
+            if own_tab:
                 self.ctx.backend.hotkey("ctrl", "t"); win.tabs += 1; self.ctx.pacer.wait("settle")
             self.desk._skill("go_to_url", {"url": site})
             until = self.now() + seconds
             while self.now() < until and not self.stopped():
                 self.desk._skill("scroll_and_read", {"bursts_range": [1, 3]})
                 if self.rng.random() < 0.3: self.ctx.pacer.wait("read")
+            # Leave the browser as the work left it: the break's page stayed in front and a task that
+            # came back to "its" page searched Amazon instead (VM run 3, 25 Oct, finding 15).
+            self.ctx.pacer.wait("step")
+            if own_tab:
+                self.ctx.backend.hotkey("ctrl", "w"); win.tabs -= 1
+            else:
+                self.ctx.backend.hotkey("alt", "left")
+            self.ctx.pacer.wait("settle")
             if mine: mine[0].status, mine[0].pending_note = "done", ", " + self.rng.choice(DONE_NOTES)
         self.breaks.append({"kind": kind, "seconds": round(self.now() - start, 1)})
         self.log({"event": "break", "kind": kind, "seconds": round(self.now() - start, 1)})
@@ -433,19 +554,22 @@ class Workday:
         if self.ctx.pacer.stopped():
             self.log({"event": "stopped"}); return
         todo = self.todo
-        todo.open_list("final update")
-        self.mark_app("writer")
-        self.ctx.pacer.wait("read")
-        todo.apply_pending(strike_ok=True)
         for t in self.paused:
             t.item.task = None
-        todo.final_update(self.minutes, self.rng, self.wait)
-        self.desk.save(todo.window)
-        for win in list(self.desk.mru):                      # save everything, close every app
-            if win.app in ("writer", "calc") and win.dirty:
-                if win.file: self.desk.save(win)
+
+        def update_list():
+            todo.open_list("final update")
+            self.mark_app("writer")
+            self.ctx.pacer.wait("read")
+            todo.apply_pending(strike_ok=True)
+            todo.final_update(self.minutes, self.rng, self.wait)
+            self.desk.save(todo.window)
+        self.safely(update_list)
+        for win in list(self.desk.mru):                      # save everything, close every app:
+            if win.app in ("writer", "calc") and win.dirty and win.file:
+                self.safely(self.desk.save, win)            # one window failing never skips the rest
         for win in [w for w in list(self.desk.mru) if w.app != "harness"]:
-            self.desk.close(win)
+            if win in self.desk.mru: self.safely(self.desk.close, win)
         self.log({"event": "workday_end", "overrun_s": round(self.now() - self.end, 1)})
 
     def summary(self) -> dict:

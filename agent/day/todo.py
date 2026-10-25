@@ -30,6 +30,7 @@ class Item:
     task: object = None
     resume: bool = False
     files: list = field(default_factory=list)
+    found: dict | None = None     # what a hybrid task found, for an office task that grows out of it
 
 
 class TodoList:
@@ -39,7 +40,8 @@ class TodoList:
         self.window = None
         self.doc: WriterDoc | None = None
         self.title = ""
-        self.copied_tbc = False
+        # "- " in front of every line, only when Writer leaves it as typed (config lists.dash, VM check)
+        self.dash = "- " if (config.get("lists") or {}).get("dash") == "literal" else ""
 
     # layout
     def visible(self) -> list[Item]:
@@ -53,7 +55,7 @@ class TodoList:
         return self.doc.line_start(n) + len(self.doc.lines()[n])
 
     def item_text(self, item: Item) -> str:
-        return item.label + item.note
+        return self.dash + item.label + item.note
 
     def expected_text(self, extra: str = "") -> str:
         return self.title + "\n\n" + "\n".join(self.item_text(i) for i in self.visible()) + extra
@@ -66,7 +68,7 @@ class TodoList:
         self.window.doc = self.doc
         self.title, self.items = title, list(items)
         units = [Unit(title, newline_after=2, can_park=False)]
-        units += [Unit(i.label, newline_after=1 if k < len(items) - 1 else 0) for k, i in enumerate(items)]
+        units += [Unit(self.dash + i.label, newline_after=1 if k < len(items) - 1 else 0) for k, i in enumerate(items)]
         units[-1].newline_after = 0
         composer = Composer(self.doc, self.ctx.rng, wait, extras=[])
         target = composer.write(units)
@@ -80,10 +82,11 @@ class TodoList:
         lines = target.split("\n")
         self.title = lines[0]
         for item, line in zip(self.items, lines[2:]):
-            item.label = line
+            item.label = line[len(self.dash):]
 
     def open_list(self, why: str) -> None:
         self.desk.focus(self.window, why)
+        self.desk.ensure_front(self.window, why)
 
     def add_items(self, new: list[Item], wait) -> None:
         """New lines at the end of the list (when it runs low, or after lunch)."""
@@ -91,13 +94,13 @@ class TodoList:
         last = self.visible()[-1]
         self.doc.go(self.line_end(last))
         self.ctx.pacer.wait("think")
-        units = [Unit(i.label, newline_after=0) for i in new]
+        units = [Unit(self.dash + i.label, newline_after=0) for i in new]
         self.doc.enter()
         first_line = self.line_no(last) + 1
         for k, u in enumerate(units):
             if k: self.doc.enter()
             Composer(self.doc, self.ctx.rng, wait).write([u])
-            new[k].label = self.doc.lines()[first_line + k]     # as it ended up on the page
+            new[k].label = self.doc.lines()[first_line + k][len(self.dash):]     # as it ended up on the page
         self.items.extend(new)
         self.window.dirty = True
         self.log({"event": "todo_added", "items": [i.label for i in new]})
@@ -122,7 +125,7 @@ class TodoList:
     def strike(self, item: Item) -> bool:
         """Cross the item text out. Only with the keyboard route set in config (VM check pending)."""
         if self.cfg["todo"].get("strike", "note") != "dialog": return False
-        start = self.doc.line_start(self.line_no(item))
+        start = self.doc.line_start(self.line_no(item)) + len(self.dash)
         self.doc.select(start, start + len(item.label))
         ctx = self.ctx
         for key in self.cfg["todo"]["strike_keys"]:
@@ -153,32 +156,27 @@ class TodoList:
         self.log({"event": "todo_deleted", "item": item.label})
 
     def final_update(self, minutes: float, rng, wait) -> None:
-        """Open items get ', tbc' (typed once, copied, pasted on the rest); started ones ', started, tbc';
-        a progress line on runs over 5 min."""
+        """Open items get ', tbc', started ones ', started, tbc'; a progress line on runs over 5 min."""
         doc = self.doc
         open_items = [i for i in self.visible() if i.status in ("open", "started") and not i.pending_note]
-        first = None
         for item in open_items:
-            suffix = ", started, tbc" if item.status == "started" else ", tbc"
+            # a started item whose note already says "started ..." only gets ", tbc"; typed each time
+            # (the copy and paste of ", tbc" was a one-off trick, removed on Kellyn's call, 25 Oct)
+            # a note that already says what happened ("only the Galaxy Z Fold7 so far") only gets ", tbc"
+            says_what = item.note.strip(", ") not in ("", "started")
+            suffix = ", started, tbc" if item.status == "started" and "started" not in item.note and not says_what else ", tbc"
             doc.go(self.line_end(item))
-            if item.status == "open" and first is not None:
-                doc.paste()                                   # the ', tbc' copied from the first one
-            else:
-                self.ctx.pacer.wait("think")
-                doc.type(suffix)
-                if item.status == "open" and first is None:
-                    first = item
-                    end = doc.cur
-                    doc.select(end - len(suffix), end)        # select ', tbc' and copy it
-                    doc.copy()
-                    doc.go(end)
+            self.ctx.pacer.wait("think")
+            doc.type(suffix)
             item.note += suffix
             self.ctx.pacer.wait("step")
         if minutes > P("todo.progress_line_min_minutes"):
             from .content import PROGRESS
-            work = [i for i in self.visible() if not i.personal]
-            done = sum(1 for i in work if i.status == "done")
-            line = rng.choice(PROGRESS).format(done=done, total=len(work))
+            # count every line the reader sees; counting only work lines read as wrong ("1 out of 4"
+            # under 6 lines with 2 done, VM run 3, 25 Oct, finding 17)
+            shown = self.visible()
+            done = sum(1 for i in shown if i.status == "done")
+            line = rng.choice(PROGRESS).format(done=done, total=len(shown))
             doc.go(len(doc.text))
             doc.enter(); doc.enter()
             Composer(doc, rng, wait).write([Unit(line)])
@@ -223,9 +221,47 @@ class CalcSheet:
         else:
             self.has_total = False       # the next rows go over the old Total row
 
+    def goto(self, row: int, col: int) -> None:
+        """Go to a cell: Ctrl+Home, then arrows down and right (held for longer runs)."""
+        ctx = self.ctx
+        ctx.backend.hotkey("ctrl", "home"); ctx.pacer.wait("step")
+        ctx.typer.hold_arrow("down", row); ctx.typer.hold_arrow("right", col)
+        ctx.pacer.wait("step")
+        self.row = row
+
+    def fill_from(self, cells: list) -> None:
+        """Type cells to the right of the current one (Tab between), Enter at the end."""
+        ctx = self.ctx
+        for c, cell in enumerate(cells):
+            if callable(cell): cell()
+            else: ctx.typer.type_text(cell, ctx="cell")
+            if c < len(cells) - 1: ctx.backend.press("tab")
+            ctx.pacer.wait("cell")
+        ctx.backend.press("enter")
+
     def add_row(self, values: list[str]) -> None:
         self._type_row(values)
         self.rows.append(values)
+
+    def add_cells(self, cells: list) -> None:
+        """A row where some cells come off a web page: a cell is a string (typed) or a function that
+        goes to the page and pastes or types the number itself, then comes back to this cell."""
+        ctx = self.ctx
+        ctx.pacer.wait("burst" if self.row else "think")
+        shown = []
+        for c, cell in enumerate(cells):
+            if callable(cell):
+                cell()
+                shown.append("(from page)")
+            else:
+                numeric = cell.replace(".", "").replace(",", "").isdigit()
+                ctx.typer.type_text(cell, ctx="number" if numeric else "cell", mode="transcribe")
+                shown.append(cell)
+            if c < len(cells) - 1: ctx.backend.press("tab")
+            ctx.pacer.wait("cell")
+        ctx.backend.press("enter")
+        self.row += 1
+        self.rows.append(shown)
 
     def total(self, label: str = "Total") -> None:
         ctx = self.ctx

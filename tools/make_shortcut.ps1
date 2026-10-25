@@ -23,3 +23,13 @@ $s.Save()
 Write-Host "Shortcut: $lnk" -ForegroundColor Green
 Write-Host "  target: $py -m ui" -ForegroundColor Green
 Write-Host "  start in: $App" -ForegroundColor Green
+# One paste updates (25 Oct): "Update DeskAssist" applies the patch on the clipboard (tools/vm_update.py).
+$console = Join-Path (Split-Path -Parent $py) 'python.exe'
+$up = (New-Object -ComObject WScript.Shell).CreateShortcut((Join-Path ([Environment]::GetFolderPath('Desktop')) 'Update DeskAssist.lnk'))
+$up.TargetPath = $console
+$up.Arguments = 'tools\vm_update.py'
+$up.WorkingDirectory = $App
+$up.WindowStyle = 1
+$up.Description = 'Apply a DeskAssist code update from the clipboard'
+$up.Save()
+Write-Host "Shortcut: Update DeskAssist (python.exe tools\vm_update.py)" -ForegroundColor Green

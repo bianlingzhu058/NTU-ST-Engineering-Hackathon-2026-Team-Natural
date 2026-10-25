@@ -1,0 +1,116 @@
+=== PAGE: Bumble | Date, Chat  Meet New People and 3 more pages - Profile 1 - Microsoft​ Edge
+--- Text : 29
+  474,  686 Danna, 28
+  678,  634 Josh, 34
+  838,  581 Tiana, 30
+  860,  559 Danna, 28
+  863,  560 Josh, 34
+  862,  560 Tiana, 30
+   44,  351 Bumble
+  104, 1035 We exist to bring people closer to love.
+  104, 1263 We want our members to find meaningful and authentic relationships that ignite confidence and joy.
+  919, 1028 Outdoors
+ 1045, 1058 Running
+ 1172, 1088 Dog parent
+  632, 1709 Share your ideas
+  632, 1863 Help shape the future of Bumble by joining our Member Circle. This select community of Members share
+  632, 1988 Participants get early access to new features, sneak peeks at upcoming campaigns, and the chance to 
+   65, 2644 Bumble Date
+   65, 2692 Whether you're new to dating or ready to try again, Bumble Date is built to bring you closer to love
+  673, 2644 BFF
+  673, 2692 Whether you’ve moved to a new city or just want to expand your circle, BFF makes it easy to meet lik
+   44, 2930 "
+   44, 2985 We are both naturally positive, happy-go-getters, but when you put us together, it feels like there 
+   44, 3344 Leslie & Thomas, married in 2025
+   85, 3577 Get the app
+   85, 3661 Just scan the QR code to get started.
+  551, 4026 Our apps
+  727, 4026 Company
+  883, 4026 Legal
+  230, 4360 Scan the QR code to get the Bumble app
+--- Hyperlink : 35
+   24,  -30 Skip to main content  <https://www.bumble.com/#main>
+   40,  113 logo link  <https://www.bumble.com/index.html>
+  634,  103 Safety  <https://www.bumble.com/index.html>
+  745,  103 Support  <https://support.bumble.com/hc>
+ 1122,  103 Sign in  <https://www.bumble.com/get-started>
+  104, 1374 Download Bumble  <https://bumble.onelink.me/3396940749/yuhjm82c>
+  632, 2099 Sign up  <https://bumblecx.qualtrics.com/jfe/form/SV_cN3ZPm5KkQAuVAG>
+   65, 2785 Find your person  <https://www.bumble.com/en/date>
+  673, 2785 Find your people  <https://www.bumble.com/en/bff>
+   44, 3405 Read more stories  <https://www.bumble.com/love-stories>
+  551, 4061 Bumble Date  <https://www.bumble.com/en/date>
+  551, 4102 BFF  <https://www.bumble.com/en/bff>
+  551, 4143 Badoo  <https://www.bumble.com/index.html>
+  727, 4061 About  <https://www.bumble.com/en/about>
+  727, 4102 Contact us  <https://support.bumble.com/hc/articles/30933835506589>
+  727, 4143 Careers  <https://www.bumble.com/index.html>
+  727, 4184 Investors  <https://www.bumble.com/index.html>
+  727, 4225 The Shop  <https://www.bumble.com/index.html>
+  727, 4266 The Buzz  <https://www.bumble.com/the-buzz>
+  727, 4307 Support  <https://support.bumble.com/hc>
+  883, 4070 Guidelines  <https://www.bumble.com/en/guidelines>
+  883, 4102 Manage cookies  <https://www.bumble.com/index.html>
+  883, 4134 Privacy policy  <https://www.bumble.com/privacy-policy/en>
+  883, 4166 Terms and conditions  <https://www.bumble.com/en/terms>
+  883, 4198 Accessibility at Bumble  <https://www.bumble.com/en/accessibility>
+  883, 4230 Notice at collection  <https://www.bumble.com/notice-at-collection>
+  883, 4262 Modern Slavery act  <https://www.bumble.com/modern-slavery-act-statement>
+  883, 4294 Washington Consumer Health Privacy Policy  <https://www.bumble.com/bumble-washington-consumer-health-data-privacy-policy>
+  541, 4466 Bumble on Instagram (opens in new window)  <https://www.instagram.com/bumble>
+  589, 4466 Bumble on Facebook (opens in new window)  <https://www.facebook.com/bumbleapp>
+  637, 4466 Bumble on Twitter (opens in new window)  <https://www.twitter.com/bumble>
+  685, 4466 Bumble on LinkedIn (opens in new window)  <https://www.linkedin.com/company/bumbleinc/>
+  733, 4466 Bumble on Pinterest (opens in new window)  <https://www.pinterest.com/bumbleapp>
+  781, 4466 Bumble on YouTube (opens in new window)  <https://www.youtube.com/bumble>
+  829, 4466 Bumble on TikTok (opens in new window)  <https://www.tiktok.com/@bumble>
+--- Button : 26
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  538,    8 Close tab
+  777,    8 Close tab
+ 1016,    8 Close tab
+ 1044,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+  328,  103 Date
+  427,  103 BFF
+  518,  103 Stories
+ 1010,  103 Choose your language
+ 1117, 4453 Choose your language
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 33
+   40,  113 Bumble
+ 1035,  117 generic-ethnicity Icon
+ 1065,  116 generic-chevron-down Icon
+  226,  103 Woman with long dark ponytail, black top, and sunglasses on head, smiling with the sea behind her.
+  352,  137 Bearded man in patterned shirt holding a camera, standing outdoors with trees and buildings in the b
+  581,  222 Woman in red rainbow-striped jacket and silver headphones, wearing a green star necklace, looking at
+  775,  306 Woman with long dark ponytail, black top, and sunglasses on head, smiling with the sea behind her.
+  811,  340 Bearded man in patterned shirt holding a camera, standing outdoors with trees and buildings in the b
+  811,  340 Woman in red rainbow-striped jacket and silver headphones, wearing a green star necklace, looking at
+   44,  351 Bumble
+  617, 1000 Smiling woman carrying a skateboard in a park
+  782, 1034 Man jogging and smiling in a city park
+  947, 1069 Woman holding a small fluffy dog outdoors
+   85, 1620 People enjoying connections on Bumble through photos, video chats, and expert advice.
+  135, 1980 Member circle stamp
+  593, 3576 3 mobile phone screens showing the Bumble app
+   44, 4026 Bumble
+ 1142, 4467 generic-ethnicity Icon
+ 1172, 4466 generic-chevron-down Icon
+--- DataItem : 0

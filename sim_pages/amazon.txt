@@ -1,0 +1,87 @@
+=== PAGE: Amazon.com. Spend less. Smile more. - Profile 1 - Microsoft​ Edge
+--- Text : 1
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+--- Hyperlink : 46
+   60,-1178 Amazon  <https://www.amazon.com/ref=navm_hdr_logo>
+ 1107,-1191 Sign in ›  <https://www.amazon.com/ap/signin?openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3F_encoding%3DUTF8%26ref_%3Dnavm_hdr_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=anywhere_v2_us&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0>
+ 1152,-1191 your account  <https://www.amazon.com/ap/signin?openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3F_encoding%3DUTF8%26ref_%3Dnavm_hdr_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=anywhere_v2_us&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0>
+ 1191,-1191 Cart  <https://www.amazon.com/gp/aw/c?ref_=navm_hdr_cart>
+   27,-1081 Video  <https://www.amazon.com/b?node=2858778011&rh=i%3Ainstant-video%2Cn%3A2858778011&ref_=navm_cs_prime_video>
+   80,-1081 Deals  <https://www.amazon.com/gp/goldbox?ref_=navm_nav_cs_gb>
+  132,-1081 Amazon Basics  <https://www.amazon.com/gp/browse.html?node=20648519011&ref_=navm_cs_amazonbasics>
+  244,-1081 Livestreams  <https://www.amazon.com/live?ref_=navm_cs_amazonlive>
+  335,-1081 Books  <https://www.amazon.com/gp/browse.html?node=283155&ref_=navm_cs_books>
+  392,-1081 Best Sellers  <https://www.amazon.com/gp/bestsellers/?ref_=navm_cs_bestsellers>
+  481,-1081 New Releases  <https://www.amazon.com/gp/new-releases/?ref_=navm_cs_newreleases>
+  584,-1081 Home  <https://www.amazon.com/gp/browse.html?node=1055398&ref_=navm_cs_home>
+  638,-1081 Music  <https://www.amazon.com/gp/browse.html?node=14981443011&ref_=navm_cs_music>
+  694,-1081 PC  <https://www.amazon.com/gp/browse.html?node=541966&ref_=navm_cs_pc>
+   28, -981 Shop Back to School School essentials at every price Shop school must-haves  <https://www.amazon.com/b/?_encoding=UTF8&node=121171061011&pd_rd_w=IhU2y&content-id=amzn1.sym.246308db-2ce5-4915-92a8-096945974e8c&pf_rd_p=246308db-2ce5-4915-92a8-096945974e8c&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  391, -969 Must-haves for every student Backpack picks  <https://www.amazon.com/s/?_encoding=UTF8&k=backpack%20for%20kids&_encoding=UTF8&ref=pd_hp_d_atf_unk&pd_rd_w=MjXwO&content-id=amzn1.sym.da0028fd-f49a-4bce-9051-7b78432ffa63&pf_rd_p=da0028fd-f49a-4bce-9051-7b78432ffa63&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  379, -981 Must-haves for every student  <https://www.amazon.com/s/?_encoding=UTF8&_encoding=UTF8&_encoding=UTF8&k=backpack%20for%20kids&ref=pd_hp_d_atf_unk&ref_=pd_hp_mw_atf_unk&pd_rd_w=MjXwO&content-id=amzn1.sym.da0028fd-f49a-4bce-9051-7b78432ffa63&pf_rd_p=da0028fd-f49a-4bce-9051-7b78432ffa63&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9>
+  731, -981 Shop kitchen must-haves Kitchen must-haves  <https://www.amazon.com/s/?_encoding=UTF8&k=kitchen%20appliances&pd_rd_w=LCnNJ&content-id=amzn1.sym.cdf8fb5e-177e-4368-bc95-7557f8d45baa&pf_rd_p=cdf8fb5e-177e-4368-bc95-7557f8d45baa&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  445, -232 Beauty Beauty  <https://www.amazon.com/b/?_encoding=UTF8&node=121739141011&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  636, -232 Home and Kitchen Home and Kitchen  <https://www.amazon.com/b/?_encoding=UTF8&node=121739135011&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  445, -132 Sports and Outdoors Sports and Outdoors  <https://www.amazon.com/s/?_encoding=UTF8&k=sports%20outdoors&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  636, -132 Electronics Electronics  <https://www.amazon.com/s/?_encoding=UTF8&k=electronics&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  445,  -32 Outdoor Clothing Outdoor Clothing  <https://www.amazon.com/s/?_encoding=UTF8&k=outdoor%20clothing&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  636,  -32 Pet Supplies Pet Supplies  <https://www.amazon.com/s/?_encoding=UTF8&k=pet%20supplies&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  445,   61 All Departments  <https://www.amazon.com/gp/goldbox/?ie=UTF8&pd_rd_w=KxDy6&content-id=amzn1.sym.c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_p=c988c7e5-a039-4d67-ab49-0604febbc769&pf_rd_r=27VTPD40212DCCJGA9DR&pd_rd_wg=gCcT4&pd_rd_r=4a69d9a8-b2c9-4b9b-bcd2-fff287ba7ac9&ref_=pd_hp_mw_atf_unk>
+  636,  210 Your Orders  <https://www.amazon.com/gp/your-account/order-history?ref_=navm_ftr_yo>
+  636,  251 Amazon Live  <https://www.amazon.com/live?ref_=nav_ftr_amzn_live_m>
+  636,  292 Registry & Gift List  <https://www.amazon.com/registries?ref_=nav_footer_registry_giftlist_mobile>
+  636,  333 Your Account  <https://www.amazon.com/gp/aw/ya?ref_=navm_ftr_ya>
+  636,  374 Sell products on Amazon  <https://sell.amazon.com/?ld=AZFSSOA-m_FTSELL-C&ref_=footer_soa_m>
+  636,  415 Recalls and Product Safety Alerts  <https://www.amazon.com/product-safety-alerts?ref_=footer_bsx_ypsa>
+  636,  456 Customer Service  <https://www.amazon.com/gp/help/customer/display.html?ref_=navm_ftr_cu>
+   32,  210 Amazon.com  <https://www.amazon.com/?ref_=navm_ftr_home>
+   32,  251 Your Lists  <https://www.amazon.com/hz/wishlist/ls/lol?ref_=navm_ftr_wl>
+   32,  292 Gift Cards  <https://www.amazon.com/b?node=13245981011&ref_=navm_ftr_reg_gc>
+   32,  333 Find a Gift  <https://www.amazon.com/gcx/Gifts-for-Adults/gfhz/?ref_=navm_ftr_gf>
+   32,  374 Browsing History  <https://www.amazon.com/gp/aw/ybh?ref_=navm_ftr_ybh>
+   32,  415 Your Returns  <https://www.amazon.com/your-returns?ingress=navm_footer&ref_=navm_ftr_returns>
+-9988,  456 Click to call our Disability Customer Support line, or reach us directly at 1-888-283-1678  <https://www.amazon.com/gp/aw/contact-us/c2c/phone?c2cId=f67f2578-98fb-4abd-a85d-ec8e1918eaca&ie=UTF8>
+  444,  539 Choose a language for shopping. Current selection is English.  <https://www.amazon.com/customer-preferences/edit?from=mobile&ie=UTF8&preferencesReturnUrl=%2F&ref_=footer_lang>
+  526,  527 SGDSingapore Dollar  <https://www.amazon.com/customer-preferences/edit?ie=UTF8&ref_=footer_cop&preferencesReturnUrl=%2F>
+  670,  606 Sign in  <https://www.amazon.com/ap/signin?openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3F_encoding%3DUTF8%26ref_%3Dnav_m_foot_si&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=anywhere_v2_us&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0>
+  355,  652 Conditions of Use  <https://www.amazon.com/gp/help/customer/display.html?nodeId=508088&ref_=navm_ftr_cou>
+  454,  652 Privacy Notice  <https://www.amazon.com/gp/help/customer/display.html?ie=UTF8&nodeId=GX7NJQ4ZB8MHFRNJ&ref_=footer_privacy>
+  539,  652 Consumer Health Data Privacy Disclosure  <https://www.amazon.com/gp/help/customer/display.html?ie=UTF8&nodeId=TnACMrGVghHocjL8KB&ref_=mobile_footer_consumer_health_data_privacy>
+  745,  652 Your Ads Privacy Choices  <https://www.amazon.com/privacyprefs?ref_=footer_iba>
+--- Button : 23
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+   12,-1191 Open All Categories Menu
+ 1193,-1141 Go
+   12,  135 Top of page
+  692,  525 Choose a country/region for shopping. The current selection is United States.
+--- Edit : 3
+  145,   38 Address and search bar
+   22,-1141 Search Amazon
+--- Image : 8
+   28, -981 Shop school must-haves
+  731, -981 Kitchen must-haves
+  445, -232 Beauty
+  636, -232 Home and Kitchen
+  445, -132 Sports and Outdoors
+  636, -132 Electronics
+  445,  -32 Outdoor Clothing
+  636,  -32 Pet Supplies
+--- DataItem : 0

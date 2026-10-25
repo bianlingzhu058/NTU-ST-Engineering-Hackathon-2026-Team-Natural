@@ -1,0 +1,44 @@
+=== PAGE: Apple - Profile 1 - Microsoft​ Edge
+--- Text : 3
+  916,   66 Restore pages
+  932,  109 Microsoft Edge closed unexpectedly.
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+--- Hyperlink : 0
+--- Button : 24
+ 1208,   70 Close
+ 1147,  143 Restore
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+ 1050,  117 Search apple.com
+ 1100,  117 Shopping Bag
+ 1225, 4634 Play endless entertainment gallery
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 11
+ -872,  161 iPhone 17 Pro, back exterior, deep blue color, Pro Fusion camera system in top left corner, Apple lo
+  342,  753 Two open MacBook Air laptops in sky blue color forming arrow shape, emphasizing narrow profile
+  342, 1345 iPad Air models floating, back exterior, single-lens camera, front exterior, rounded corners, black 
+   31, 1937 MacBook Pro positioned into the shape of a V, referencing the M5 chip family
+  653, 1937 Person wearing white shirt, head turned to the side, left AirPods Pro 3 earbud visible
+   31, 2529 Apple Watch Series 11, rose gold color, aluminum case, sleep score, right side exterior, Digital Cro
+  653, 2529 Two iPad Pro devices, front exterior, portrait orientation, black display bezel, display showing mul
+   31, 3121 Side-by-side, hand holding iPhone 13 in silicon case with stickers on back exterior, trade-in with h
+  653, 3121 Apple Card, front, Apple logo in top left, cardholder name in middle left Marisa Robertson, card chi
+--- DataItem : 0

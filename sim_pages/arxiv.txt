@@ -1,0 +1,289 @@
+=== PAGE: arXiv.org e-Print archive - Profile 1 - Microsoft​ Edge
+--- Text : 3
+  916,   66 Restore pages
+  932,  109 Microsoft Edge closed unexpectedly.
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+--- Hyperlink : 253
+   12,   17 Skip to main content  <https://www.arxiv.org/#content>
+  713,  126 Learn more  <https://info.arxiv.org/about>
+   28,  159 archive home  <https://www.arxiv.org/index.html>
+  948,  164 Search  <https://arxiv.org/search>
+ 1035,  164 Submit  <https://arxiv.org/user/create>
+ 1101,  164 Donate  <https://info.arxiv.org/about/donate.html>
+ 1181,  164 Log in  <https://arxiv.org/login>
+   54,  437 Astrophysics  <https://arxiv.org/archive/astro-ph>
+  206,  437 new astro-ph  <https://arxiv.org/list/astro-ph/new>
+  239,  437 recent astro-ph  <https://arxiv.org/list/astro-ph/recent>
+  287,  437 search astro-ph  <https://arxiv.org/search/astro-ph>
+  339,  437 Astrophysics Astrophysics of Galaxies  <https://arxiv.org/list/astro-ph.GA/recent>
+  504,  437 Astrophysics Cosmology and Nongalactic Astrophysics  <https://arxiv.org/list/astro-ph.CO/recent>
+  776,  437 Astrophysics Earth and Planetary Astrophysics  <https://arxiv.org/list/astro-ph.EP/recent>
+  997,  437 Astrophysics High Energy Astrophysical Phenomena  <https://arxiv.org/list/astro-ph.HE/recent>
+   54,  453 Astrophysics Instrumentation and Methods for Astrophysics  <https://arxiv.org/list/astro-ph.IM/recent>
+  354,  453 Astrophysics Solar and Stellar Astrophysics  <https://arxiv.org/list/astro-ph.SR/recent>
+   54,  469 Condensed Matter  <https://arxiv.org/archive/cond-mat>
+  250,  469 new cond-mat  <https://arxiv.org/list/cond-mat/new>
+  283,  469 recent cond-mat  <https://arxiv.org/list/cond-mat/recent>
+  331,  469 search cond-mat  <https://arxiv.org/search/cond-mat>
+  383,  469 Condensed Matter Disordered Systems and Neural Networks  <https://arxiv.org/list/cond-mat.dis-nn/recent>
+  660,  469 Condensed Matter Materials Science  <https://arxiv.org/list/cond-mat.mtrl-sci/recent>
+  781,  469 Condensed Matter Mesoscale and Nanoscale Physics  <https://arxiv.org/list/cond-mat.mes-hall/recent>
+ 1012,  469 Condensed Matter Other Condensed Matter  <https://arxiv.org/list/cond-mat.other/recent>
+   54,  469 Condensed Matter Quantum Gases  <https://arxiv.org/list/cond-mat.quant-gas/recent>
+  103,  485 Condensed Matter Soft Condensed Matter  <https://arxiv.org/list/cond-mat.soft/recent>
+  259,  485 Condensed Matter Statistical Mechanics  <https://arxiv.org/list/cond-mat.stat-mech/recent>
+  402,  485 Condensed Matter Strongly Correlated Electrons  <https://arxiv.org/list/cond-mat.str-el/recent>
+  598,  485 Condensed Matter Superconductivity  <https://arxiv.org/list/cond-mat.supr-con/recent>
+   54,  501 General Relativity and Quantum Cosmology  <https://arxiv.org/archive/gr-qc>
+  383,  501 new gr-qc  <https://arxiv.org/list/gr-qc/new>
+  417,  501 recent gr-qc  <https://arxiv.org/list/gr-qc/recent>
+  465,  501 search gr-qc  <https://arxiv.org/search/gr-qc>
+   54,  517 High Energy Physics - Experiment  <https://arxiv.org/archive/hep-ex>
+  331,  517 new hep-ex  <https://arxiv.org/list/hep-ex/new>
+  365,  517 recent hep-ex  <https://arxiv.org/list/hep-ex/recent>
+  413,  517 search hep-ex  <https://arxiv.org/search/hep-ex>
+   54,  533 High Energy Physics - Lattice  <https://arxiv.org/archive/hep-lat>
+  302,  533 new hep-lat  <https://arxiv.org/list/hep-lat/new>
+  335,  533 recent hep-lat  <https://arxiv.org/list/hep-lat/recent>
+  383,  533 search hep-lat  <https://arxiv.org/search/hep-lat>
+   54,  549 High Energy Physics - Phenomenology  <https://arxiv.org/archive/hep-ph>
+  364,  549 new hep-ph  <https://arxiv.org/list/hep-ph/new>
+  398,  549 recent hep-ph  <https://arxiv.org/list/hep-ph/recent>
+  446,  549 search hep-ph  <https://arxiv.org/search/hep-ph>
+   54,  565 High Energy Physics - Theory  <https://arxiv.org/archive/hep-th>
+  301,  565 new hep-th  <https://arxiv.org/list/hep-th/new>
+  334,  565 recent hep-th  <https://arxiv.org/list/hep-th/recent>
+  382,  565 search hep-th  <https://arxiv.org/search/hep-th>
+   54,  581 Mathematical Physics  <https://arxiv.org/archive/math-ph>
+  262,  581 new math-ph  <https://arxiv.org/list/math-ph/new>
+  296,  581 recent math-ph  <https://arxiv.org/list/math-ph/recent>
+  344,  581 search math-ph  <https://arxiv.org/search/math-ph>
+   54,  597 Nonlinear Sciences  <https://arxiv.org/archive/nlin>
+  216,  597 new nlin  <https://arxiv.org/list/nlin/new>
+  250,  597 recent nlin  <https://arxiv.org/list/nlin/recent>
+  298,  597 search nlin  <https://arxiv.org/search/nlin>
+  114,  613 Nonlinear Sciences Adaptation and Self-Organizing Systems  <https://arxiv.org/list/nlin.AO/recent>
+  381,  613 Nonlinear Sciences Cellular Automata and Lattice Gases  <https://arxiv.org/list/nlin.CG/recent>
+  623,  613 Nonlinear Sciences Chaotic Dynamics  <https://arxiv.org/list/nlin.CD/recent>
+  747,  613 Nonlinear Sciences Exactly Solvable and Integrable Systems  <https://arxiv.org/list/nlin.SI/recent>
+ 1016,  613 Nonlinear Sciences Pattern Formation and Solitons  <https://arxiv.org/list/nlin.PS/recent>
+   54,  629 Nuclear Experiment  <https://arxiv.org/archive/nucl-ex>
+  243,  629 new nucl-ex  <https://arxiv.org/list/nucl-ex/new>
+  277,  629 recent nucl-ex  <https://arxiv.org/list/nucl-ex/recent>
+  325,  629 search nucl-ex  <https://arxiv.org/search/nucl-ex>
+   54,  645 Nuclear Theory  <https://arxiv.org/archive/nucl-th>
+  213,  645 new nucl-th  <https://arxiv.org/list/nucl-th/new>
+  246,  645 recent nucl-th  <https://arxiv.org/list/nucl-th/recent>
+  294,  645 search nucl-th  <https://arxiv.org/search/nucl-th>
+   54,  661 Physics  <https://arxiv.org/archive/physics>
+  170,  661 new physics  <https://arxiv.org/list/physics/new>
+  203,  661 recent physics  <https://arxiv.org/list/physics/recent>
+  251,  661 search physics  <https://arxiv.org/search/physics>
+  114,  677 Physics Accelerator Physics  <https://arxiv.org/list/physics.acc-ph/recent>
+  247,  677 Physics Applied Physics  <https://arxiv.org/list/physics.app-ph/recent>
+  356,  677 Physics Atmospheric and Oceanic Physics  <https://arxiv.org/list/physics.ao-ph/recent>
+  582,  677 Physics Atomic and Molecular Clusters  <https://arxiv.org/list/physics.atm-clus/recent>
+  784,  677 Physics Atomic Physics  <https://arxiv.org/list/physics.atom-ph/recent>
+  890,  677 Physics Biological Physics  <https://arxiv.org/list/physics.bio-ph/recent>
+ 1013,  677 Physics Chemical Physics  <https://arxiv.org/list/physics.chem-ph/recent>
+ 1135,  677 Physics Classical Physics  <https://arxiv.org/list/physics.class-ph/recent>
+   54,  693 Physics Computational Physics  <https://arxiv.org/list/physics.comp-ph/recent>
+  208,  693 Physics Data Analysis, Statistics and Probability  <https://arxiv.org/list/physics.data-an/recent>
+  468,  693 Physics Fluid Dynamics  <https://arxiv.org/list/physics.flu-dyn/recent>
+  575,  693 Physics General Physics  <https://arxiv.org/list/physics.gen-ph/recent>
+  688,  693 Physics Geophysics  <https://arxiv.org/list/physics.geo-ph/recent>
+  771,  693 Physics History and Philosophy of Physics  <https://arxiv.org/list/physics.hist-ph/recent>
+  996,  693 Physics Instrumentation and Detectors  <https://arxiv.org/list/physics.ins-det/recent>
+   54,  693 Physics Medical Physics  <https://arxiv.org/list/physics.med-ph/recent>
+  111,  709 Physics Optics  <https://arxiv.org/list/physics.optics/recent>
+  160,  709 Physics Physics and Society  <https://arxiv.org/list/physics.soc-ph/recent>
+  297,  709 Physics Physics Education  <https://arxiv.org/list/physics.ed-ph/recent>
+  423,  709 Physics Plasma Physics  <https://arxiv.org/list/physics.plasm-ph/recent>
+  532,  709 Physics Popular Physics  <https://arxiv.org/list/physics.pop-ph/recent>
+  644,  709 Physics Space Physics  <https://arxiv.org/list/physics.space-ph/recent>
+   54,  725 Quantum Physics  <https://arxiv.org/archive/quant-ph>
+  241,  725 new quant-ph  <https://arxiv.org/list/quant-ph/new>
+  274,  725 recent quant-ph  <https://arxiv.org/list/quant-ph/recent>
+  323,  725 search quant-ph  <https://arxiv.org/search/quant-ph>
+   54,  802 Mathematics  <https://arxiv.org/archive/math>
+  182,  802 new math  <https://arxiv.org/list/math/new>
+  216,  802 recent math  <https://arxiv.org/list/math/recent>
+  264,  802 search math  <https://arxiv.org/search/math>
+  146,  818 detailed description Mathematics  <https://info.arxiv.org/help/math/index.html>
+  283,  818 Mathematics Algebraic Geometry  <https://arxiv.org/list/math.AG/recent>
+  417,  818 Mathematics Algebraic Topology  <https://arxiv.org/list/math.AT/recent>
+  546,  818 Mathematics Analysis of PDEs  <https://arxiv.org/list/math.AP/recent>
+  664,  818 Mathematics Category Theory  <https://arxiv.org/list/math.CT/recent>
+  779,  818 Mathematics Classical Analysis and ODEs  <https://arxiv.org/list/math.CA/recent>
+  972,  818 Mathematics Combinatorics  <https://arxiv.org/list/math.CO/recent>
+ 1072,  818 Mathematics Commutative Algebra  <https://arxiv.org/list/math.AC/recent>
+   54,  834 Mathematics Complex Variables  <https://arxiv.org/list/math.CV/recent>
+  181,  834 Mathematics Differential Geometry  <https://arxiv.org/list/math.DG/recent>
+  325,  834 Mathematics Dynamical Systems  <https://arxiv.org/list/math.DS/recent>
+  460,  834 Mathematics Functional Analysis  <https://arxiv.org/list/math.FA/recent>
+  591,  834 Mathematics General Mathematics  <https://arxiv.org/list/math.GM/recent>
+  736,  834 Mathematics General Topology  <https://arxiv.org/list/math.GN/recent>
+  856,  834 Mathematics Geometric Topology  <https://arxiv.org/list/math.GT/recent>
+  992,  834 Mathematics Group Theory  <https://arxiv.org/list/math.GR/recent>
+ 1089,  834 Mathematics History and Overview  <https://arxiv.org/list/math.HO/recent>
+   54,  850 Mathematics Information Theory  <https://arxiv.org/list/math.IT/recent>
+  182,  850 Mathematics K-Theory and Homology  <https://arxiv.org/list/math.KT/recent>
+  346,  850 Mathematics Logic  <https://arxiv.org/list/math.LO/recent>
+  389,  850 Mathematics Mathematical Physics  <https://arxiv.org/list/math.MP/recent>
+  536,  850 Mathematics Metric Geometry  <https://arxiv.org/list/math.MG/recent>
+  650,  850 Mathematics Number Theory  <https://arxiv.org/list/math.NT/recent>
+  758,  850 Mathematics Numerical Analysis  <https://arxiv.org/list/math.NA/recent>
+  888,  850 Mathematics Operator Algebras  <https://arxiv.org/list/math.OA/recent>
+ 1013,  850 Mathematics Optimization and Control  <https://arxiv.org/list/math.OC/recent>
+   54,  866 Mathematics Probability  <https://arxiv.org/list/math.PR/recent>
+  129,  866 Mathematics Quantum Algebra  <https://arxiv.org/list/math.QA/recent>
+  249,  866 Mathematics Representation Theory  <https://arxiv.org/list/math.RT/recent>
+  403,  866 Mathematics Rings and Algebras  <https://arxiv.org/list/math.RA/recent>
+  536,  866 Mathematics Spectral Theory  <https://arxiv.org/list/math.SP/recent>
+  645,  866 Mathematics Statistics Theory  <https://arxiv.org/list/math.ST/recent>
+  760,  866 Mathematics Symplectic Geometry  <https://arxiv.org/list/math.SG/recent>
+   54,  944 Computing Research Repository  <https://info.arxiv.org/help/cs/index.html>
+  315,  944 new CoRR  <https://arxiv.org/list/cs/new>
+  348,  944 recent CoRR  <https://arxiv.org/list/cs/recent>
+  396,  944 search CoRR  <https://arxiv.org/search/cs>
+  146,  960 detailed description Computing Research Repository  <https://info.arxiv.org/help/cs/index.html>
+  283,  960 Computing Research Repository Artificial Intelligence  <https://arxiv.org/list/cs.AI/recent>
+  418,  960 Computing Research Repository Computation and Language  <https://arxiv.org/list/cs.CL/recent>
+  604,  960 Computing Research Repository Computational Complexity  <https://arxiv.org/list/cs.CC/recent>
+  780,  960 Computing Research Repository Computational Engineering, Finance, and Science  <https://arxiv.org/list/cs.CE/recent>
+   54,  960 Computing Research Repository Computational Geometry  <https://arxiv.org/list/cs.CG/recent>
+  125,  976 Computing Research Repository Computer Science and Game Theory  <https://arxiv.org/list/cs.GT/recent>
+  371,  976 Computing Research Repository Computer Vision and Pattern Recognition  <https://arxiv.org/list/cs.CV/recent>
+  644,  976 Computing Research Repository Computers and Society  <https://arxiv.org/list/cs.CY/recent>
+  802,  976 Computing Research Repository Cryptography and Security  <https://arxiv.org/list/cs.CR/recent>
+  980,  976 Computing Research Repository Data Structures and Algorithms  <https://arxiv.org/list/cs.DS/recent>
+   54,  992 Computing Research Repository Databases  <https://arxiv.org/list/cs.DB/recent>
+  130,  992 Computing Research Repository Digital Libraries  <https://arxiv.org/list/cs.DL/recent>
+  238,  992 Computing Research Repository Discrete Mathematics  <https://arxiv.org/list/cs.DM/recent>
+  384,  992 Computing Research Repository Distributed, Parallel, and Cluster Computing  <https://arxiv.org/list/cs.DC/recent>
+  672,  992 Computing Research Repository Emerging Technologies  <https://arxiv.org/list/cs.ET/recent>
+  830,  992 Computing Research Repository Formal Languages and Automata Theory  <https://arxiv.org/list/cs.FL/recent>
+ 1099,  992 Computing Research Repository General Literature  <https://arxiv.org/list/cs.GL/recent>
+   54, 1008 Computing Research Repository Graphics  <https://arxiv.org/list/cs.GR/recent>
+  119, 1008 Computing Research Repository Hardware Architecture  <https://arxiv.org/list/cs.AR/recent>
+  270, 1008 Computing Research Repository Human-Computer Interaction  <https://arxiv.org/list/cs.HC/recent>
+  463, 1008 Computing Research Repository Information Retrieval  <https://arxiv.org/list/cs.IR/recent>
+  604, 1008 Computing Research Repository Information Theory  <https://arxiv.org/list/cs.IT/recent>
+  733, 1008 Computing Research Repository Logic in Computer Science  <https://arxiv.org/list/cs.LO/recent>
+  913, 1008 Computing Research Repository Machine Learning  <https://arxiv.org/list/cs.LG/recent>
+ 1036, 1008 Computing Research Repository Mathematical Software  <https://arxiv.org/list/cs.MS/recent>
+   54, 1024 Computing Research Repository Multiagent Systems  <https://arxiv.org/list/cs.MA/recent>
+  187, 1024 Computing Research Repository Multimedia  <https://arxiv.org/list/cs.MM/recent>
+  265, 1024 Computing Research Repository Networking and Internet Architecture  <https://arxiv.org/list/cs.NI/recent>
+  506, 1024 Computing Research Repository Neural and Evolutionary Computing  <https://arxiv.org/list/cs.NE/recent>
+  741, 1024 Computing Research Repository Numerical Analysis  <https://arxiv.org/list/cs.NA/recent>
+  871, 1024 Computing Research Repository Operating Systems  <https://arxiv.org/list/cs.OS/recent>
+ 1001, 1024 Computing Research Repository Other Computer Science  <https://arxiv.org/list/cs.OH/recent>
+   54, 1040 Computing Research Repository Performance  <https://arxiv.org/list/cs.PF/recent>
+  144, 1040 Computing Research Repository Programming Languages  <https://arxiv.org/list/cs.PL/recent>
+  314, 1040 Computing Research Repository Robotics  <https://arxiv.org/list/cs.RO/recent>
+  378, 1040 Computing Research Repository Social and Information Networks  <https://arxiv.org/list/cs.SI/recent>
+  593, 1040 Computing Research Repository Software Engineering  <https://arxiv.org/list/cs.SE/recent>
+  739, 1040 Computing Research Repository Sound  <https://arxiv.org/list/cs.SD/recent>
+  788, 1040 Computing Research Repository Symbolic Computation  <https://arxiv.org/list/cs.SC/recent>
+  941, 1040 Computing Research Repository Systems and Control  <https://arxiv.org/list/cs.SY/recent>
+   54, 1118 Quantitative Biology  <https://arxiv.org/archive/q-bio>
+  230, 1118 new q-bio  <https://arxiv.org/list/q-bio/new>
+  263, 1118 recent q-bio  <https://arxiv.org/list/q-bio/recent>
+  311, 1118 search q-bio  <https://arxiv.org/search/q-bio>
+  146, 1134 detailed description Quantitative Biology  <https://info.arxiv.org/help/q-bio/index.html>
+  283, 1134 Quantitative Biology Biomolecules  <https://arxiv.org/list/q-bio.BM/recent>
+  377, 1134 Quantitative Biology Cell Behavior  <https://arxiv.org/list/q-bio.CB/recent>
+  471, 1134 Quantitative Biology Genomics  <https://arxiv.org/list/q-bio.GN/recent>
+  543, 1134 Quantitative Biology Molecular Networks  <https://arxiv.org/list/q-bio.MN/recent>
+  678, 1134 Quantitative Biology Neurons and Cognition  <https://arxiv.org/list/q-bio.NC/recent>
+  833, 1134 Quantitative Biology Other Quantitative Biology  <https://arxiv.org/list/q-bio.OT/recent>
+ 1009, 1134 Quantitative Biology Populations and Evolution  <https://arxiv.org/list/q-bio.PE/recent>
+   54, 1150 Quantitative Biology Quantitative Methods  <https://arxiv.org/list/q-bio.QM/recent>
+  198, 1150 Quantitative Biology Subcellular Processes  <https://arxiv.org/list/q-bio.SC/recent>
+  348, 1150 Quantitative Biology Tissues and Organs  <https://arxiv.org/list/q-bio.TO/recent>
+   54, 1228 Quantitative Finance  <https://arxiv.org/archive/q-fin>
+  230, 1228 new q-fin  <https://arxiv.org/list/q-fin/new>
+  263, 1228 recent q-fin  <https://arxiv.org/list/q-fin/recent>
+  311, 1228 search q-fin  <https://arxiv.org/search/q-fin>
+  146, 1244 detailed description Quantitative Finance  <https://info.arxiv.org/help/q-fin/index.html>
+  283, 1244 Quantitative Finance Computational Finance  <https://arxiv.org/list/q-fin.CP/recent>
+  439, 1244 Quantitative Finance Economics  <https://arxiv.org/list/q-fin.EC/recent>
+  518, 1244 Quantitative Finance General Finance  <https://arxiv.org/list/q-fin.GN/recent>
+  632, 1244 Quantitative Finance Mathematical Finance  <https://arxiv.org/list/q-fin.MF/recent>
+  781, 1244 Quantitative Finance Portfolio Management  <https://arxiv.org/list/q-fin.PM/recent>
+  930, 1244 Quantitative Finance Pricing of Securities  <https://arxiv.org/list/q-fin.PR/recent>
+ 1065, 1244 Quantitative Finance Risk Management  <https://arxiv.org/list/q-fin.RM/recent>
+   54, 1260 Quantitative Finance Statistical Finance  <https://arxiv.org/list/q-fin.ST/recent>
+  178, 1260 Quantitative Finance Trading and Market Microstructure  <https://arxiv.org/list/q-fin.TR/recent>
+   54, 1338 Statistics  <https://arxiv.org/archive/stat>
+  150, 1338 new stat  <https://arxiv.org/list/stat/new>
+  183, 1338 recent stat  <https://arxiv.org/list/stat/recent>
+  231, 1338 search stat  <https://arxiv.org/search/stat>
+  146, 1354 detailed description Statistics  <https://info.arxiv.org/help/stat/index.html>
+  283, 1354 Statistics Applications  <https://arxiv.org/list/stat.AP/recent>
+  368, 1354 Statistics Computation  <https://arxiv.org/list/stat.CO/recent>
+  458, 1354 Statistics Machine Learning  <https://arxiv.org/list/stat.ML/recent>
+  580, 1354 Statistics Methodology  <https://arxiv.org/list/stat.ME/recent>
+  671, 1354 Statistics Other Statistics  <https://arxiv.org/list/stat.OT/recent>
+  777, 1354 Statistics Statistics Theory  <https://arxiv.org/list/stat.TH/recent>
+   54, 1432 Electrical Engineering and Systems Science  <https://arxiv.org/archive/eess>
+  380, 1432 new eess  <https://arxiv.org/list/eess/new>
+  414, 1432 recent eess  <https://arxiv.org/list/eess/recent>
+  462, 1432 search eess  <https://arxiv.org/search/eess>
+  146, 1448 detailed description Electrical Engineering and Systems Science  <https://info.arxiv.org/help/eess/index.html>
+  283, 1448 Electrical Engineering and Systems Science Audio and Speech Processing  <https://arxiv.org/list/eess.AS/recent>
+  484, 1448 Electrical Engineering and Systems Science Image and Video Processing  <https://arxiv.org/list/eess.IV/recent>
+  675, 1448 Electrical Engineering and Systems Science Signal Processing  <https://arxiv.org/list/eess.SP/recent>
+  799, 1448 Electrical Engineering and Systems Science Systems and Control  <https://arxiv.org/list/eess.SY/recent>
+   54, 1525 Economics  <https://arxiv.org/archive/econ>
+  170, 1525 new econ  <https://arxiv.org/list/econ/new>
+  204, 1525 recent econ  <https://arxiv.org/list/econ/recent>
+  252, 1525 search econ  <https://arxiv.org/search/econ>
+  146, 1541 detailed description Economics  <https://info.arxiv.org/help/econ/index.html>
+  283, 1541 Economics Econometrics  <https://arxiv.org/list/econ.EM/recent>
+  379, 1541 Economics General Economics  <https://arxiv.org/list/econ.GN/recent>
+  512, 1541 Economics Theoretical Economics  <https://arxiv.org/list/econ.TH/recent>
+   54, 1619 General information  <https://info.arxiv.org/about>
+   54, 1635 How to Submit to arXiv  <https://info.arxiv.org/help/submit/index.html>
+   54, 1651 Membership & Giving  <https://info.arxiv.org/about/donate.html>
+   54, 1667 Who We Are  <https://info.arxiv.org/about/people/index.html>
+  393, 1736 member institutions  <https://info.arxiv.org/about/ourmembers.html>
+   14, 1771 About  <https://info.arxiv.org/about>
+   77, 1771 Help  <https://info.arxiv.org/help>
+  133, 1771 Contact  <https://info.arxiv.org/help/contact.html>
+  206, 1771 Subscribe  <https://info.arxiv.org/help/subscribe>
+  292, 1771 Copyright  <https://info.arxiv.org/help/license/index.html>
+--- Button : 25
+ 1208,   70 Close
+ 1147,  143 Restore
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+  793,  126 Dismiss announcement
+  321,  333 Search
+  383,  333 Form Interface
+  490,  333 Catchup
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 3
+   28,  159 archive
+  935, 1754 Simons Foundation
+ 1101, 1754 Schmidt Sciences
+--- DataItem : 0

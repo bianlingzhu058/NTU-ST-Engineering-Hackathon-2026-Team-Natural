@@ -1,0 +1,59 @@
+=== PAGE: Internet Archive: Digital Library of Free  Borrowable Texts, Movies, Music & Wayback Machine and 1 more page - Profile 1 - Microsoft​ Edge
+--- Text : 1
+ 1095,   88 |
+--- Hyperlink : 20
+    4,   70 Skip to main content  <https://www.archive.org/#maincontent>
+   14,   80 Internet Archive logo A line drawing of the Internet Archive headquarters building façade.  <https://www.archive.org/>
+  161,   70 Web icon An illustration of a computer application window WEB  <https://web.archive.org/>
+  240,   70 Texts icon An illustration of an open book. TEXTS  <https://www.archive.org/details/texts>
+  332,   70 Video icon An illustration of two cells of a film strip. VIDEO  <https://www.archive.org/details/movies>
+  423,   70 Audio icon An illustration of an audio speaker. AUDIO  <https://www.archive.org/details/audio>
+  514,   70 Software icon An illustration of a 3.5" floppy disk. SOFTWARE  <https://www.archive.org/details/software>
+  637,   70 Images icon An illustration of two photographs. IMAGES  <https://www.archive.org/details/image>
+ 1038,   88 SIGN UP  <https://www.archive.org/signup>
+ 1107,   88 LOG IN  <https://www.archive.org/login>
+ 1159,   70 Upload icon An illustration of a horizontal line over an up pointing arrow. UPLOAD  <https://www.archive.org/upload>
+  282,  130 ABOUT  <https://www.archive.org/about/>
+  357,  130 BLOG  <https://blog.archive.org/>
+  423,  130 EVENTS  <https://www.archive.org/events>
+  505,  130 PROJECTS  <https://www.archive.org/projects/>
+  602,  130 HELP  <https://www.archive.org/about/faqs.php>
+  667,  129 DONATE Donate icon An illustration of a heart shape  <https://www.archive.org/donate?origin=iawww-TopNavDonateButton>
+  769,  130 CONTACT  <https://www.archive.org/about/contact>
+  859,  130 JOBS  <https://www.archive.org/about/jobs>
+  924,  130 VOLUNTEER  <https://www.archive.org/about/volunteer-positions>
+--- Button : 20
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  538,    8 Close tab
+  566,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+  993,   80 Toggle login menu
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 11
+   14,   80 Internet Archive logo A line drawing of the Internet Archive headquarters building façade.
+  161,   75 Web icon An illustration of a computer application window
+  240,   75 Texts icon An illustration of an open book.
+  332,   75 Video icon An illustration of two cells of a film strip.
+  423,   75 Audio icon An illustration of an audio speaker.
+  514,   75 Software icon An illustration of a 3.5" floppy disk.
+  637,   75 Images icon An illustration of two photographs.
+  999,   81 User icon An illustration of a person's head and chest.
+ 1164,   80 Upload icon An illustration of a horizontal line over an up pointing arrow.
+  719,  129 Donate icon An illustration of a heart shape
+--- DataItem : 0

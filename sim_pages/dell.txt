@@ -1,0 +1,128 @@
+=== PAGE: Computers, Monitors  Technology Solutions | Dell Singapore - Profile 1 - Microsoft​ Edge
+--- Text : 1
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+--- Hyperlink : 75
+   14,   57 Skip to main content  <https://www.dell.com/#mh-main>
+   28,  119 Dell Technologies Home  <https://www.dell.com/index.html>
+  937,  119 Contact Us  <https://www.dell.com/en-sg/lp/contact-us.html>
+  990,  175 Dell Premier for Business  <https://www.dell.com/en-sg/lp/dt/dell-premier>
+   36,  799 Shop on latest Dell Laptops  <https://www.dell.com/en-sg/shop/deals/weekly-deals>
+  144, 1041 Laptops 1 of 8  <https://www.dell.com/en-sg/shop/dell-laptops/scr/laptops>
+  396, 1041 Desktops & All-in-Ones 2 of 8  <https://www.dell.com/en-sg/shop/desktop-computers/scr/desktops>
+  648, 1041 Monitors 3 of 8  <https://www.dell.com/en-sg/shop/all-monitors/sac/monitors>
+  900, 1041 PC Accessories 4 of 8  <https://www.dell.com/en-sg/shop/accessories>
+  144, 1234 Artificial Intelligence 5 of 8  <https://www.dell.com/en-sg/dt/solutions/artificial-intelligence/index.htm>
+  396, 1234 Servers 6 of 8  <https://www.dell.com/en-sg/shop/scc/sc/servers.html>
+  648, 1234 Data Storage 7 of 8  <https://www.dell.com/en-sg/shop/scc/sc/storage-products>
+  900, 1234 Cyber Resilience 8 of 8  <https://www.dell.com/en-sg/shop/scc/sc/cyber-resilience>
+  492, 7275 Learn More about the customer story  <https://www.dell.com/en-sg/lp/dt/customer-stories-deloitte>
+  637, 7275 View All Stories  <https://www.dell.com/en-sg/lp/dt/customer-stories.html>
+  135, 7658 Support Home  <https://www.dell.com/support/home/en-sg.html>
+  342, 7658 Drivers and Downloads  <https://www.dell.com/support/home/en-sg%3Fapp=drivers.html>
+  541, 7658 Order Support  <https://www.dell.com/support/contents/en-sg/category/esupport-order-support>
+  739, 7658 Warranty and Contracts  <https://www.dell.com/support/home/en-sg?app=warranty>
+  938, 7658 Parts and Upgrades  <https://www.dell.com/en-sg/shop/partsforyourdell>
+  153, 8061 Sign In to My Account  <https://www.dell.com/dci/idp/dwa/authorize?response_type=id_token&client_id=228467e4-d9b6-4b04-8a11-45e1cc9f786d&redirect_uri=https://www.dell.com/identity/global/in/228467e4-d9b6-4b04-8a11-45e1cc9f786d&scope=openid&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256&tag=cid%3dacff05dd-f32e-499a-8f0b-c86c93cdfe76%2caid%3d1f65f73f-ae49-4d1e-9c33-a903491d65ca&nonce=ash2wes45il1u51r20lqk1ct&state=aHR0cHM6Ly93d3cuZGVsbC5jb20vaWRlbnRpdHkvZ2xvYmFsL2luL2FjZmYwNWRkLWYzMmUtNDk5YS04ZjBiLWM4NmM5M2NkZmU3Nj9jPXNnJmw9ZW4mcj1hcCZzPWNvcnAmcmVkaXJlY3RVcmw9aHR0cHM6JTJGJTJGd3d3LmRlbGwuY29tJTJGZW4tc2cmcG49TG9naW5PclJlZ2lzdGVy>
+  361, 8061 Create Account  <https://www.dell.com/dci/idp/dwa/register?response_type=id_token&client_id=228467e4-d9b6-4b04-8a11-45e1cc9f786d&redirect_uri=https://www.dell.com/identity/global/in/228467e4-d9b6-4b04-8a11-45e1cc9f786d&scope=openid&code_challenge=E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM&code_challenge_method=S256&tag=cid%3dacff05dd-f32e-499a-8f0b-c86c93cdfe76%2caid%3d1f65f73f-ae49-4d1e-9c33-a903491d65ca&nonce=ash2wes45il1u51r20lqk1ct&state=aHR0cHM6Ly93d3cuZGVsbC5jb20vSWRlbnRpdHkvZ2xvYmFsL0luL2FjZmYwNWRkLWYzMmUtNDk5YS04ZjBiLWM4NmM5M2NkZmU3Nj9jPXNnJmw9ZW4mcj1hcCZzPWNvcnAmYWN0aW9uPXJlZ2lzdGVyJnJlZGlyZWN0VXJsPWh0dHBzOiUyRiUyRnd3dy5kZWxsLmNvbSUyRmVuLXNn>
+  658, 8586 Sign in to Dell Premier  <https://www.dell.com/premier/home>
+  829, 8586 Learn about Dell Premier  <https://www.dell.com/en-sg/lp/dt/dell-premier>
+  144, 9273 Move Faster, Work Smarter. Discover What's Next for Your Business.  <https://www.dell.com/en-sg/delltechnologiesworld/lp/2026-on-demand?dgc=ba&cid=dellcom&lid=DTW26-on-demand-4-up>
+  144, 9394 Watch the Dell Technologies World Replay  <https://www.dell.com/en-sg/delltechnologiesworld/lp/2026-on-demand?dgc=ba&cid=dellcom&lid=DTW26-on-demand-4-up>
+  396, 9273 View Newsroom  <https://www.dell.com/en-sg/dt/corporate/newsroom.htm>
+  396, 9394 Explore the Dell Technologies Newsroom  <https://www.dell.com/en-sg/dt/corporate/newsroom.htm>
+  648, 9273 Dell Technologies Events  <https://www.dell.com/en-sg/dt/events/index.htm>
+  648, 9394 Explore Dell Technologies events  <https://www.dell.com/en-sg/dt/events/index.htm>
+  900, 9273 Our Purpose in Action  <https://www.dell.com/en-sg/lp/dt/corporate-impact.html>
+  900, 9394 Learn more about our impact  <https://www.dell.com/en-sg/lp/dt/corporate-impact.html>
+  135, 9804 Learn More on Dell Rewards  <https://www.dell.com/en-sg/lp/dell-rewards.html>
+   44,10048 Site Map  <https://www.dell.com/en-sg/lp/sitemap.html>
+  338,10041 My Account  <https://www.dell.com/myaccount/en-sg>
+  338,10077 Order Status  <https://www.dell.com/myaccount/en-sg/orders>
+  338,10113 Profile Settings  <https://www.dell.com/myaccount/en-sg/account-settings/profile>
+  338,10149 My Products  <https://www.dell.com/support/mps/en-sg/myproducts>
+  338,10185 Dell Rewards Balance  <https://www.dell.com/myaccount/en-sg/rewards>
+  632,10041 Support Home  <https://www.dell.com/support/home/en-sg.html>
+  632,10077 Contact Technical Support  <https://www.dell.com/support/incidents-online/en-sg/contactus/dynamic>
+  632,10113 Returns  <https://www.dell.com/en-sg/lp/return-policy>
+  926,10041 Community  <https://www.dell.com/community/en/categories/dell-community>
+  926,10077 Contact Us  <https://www.dell.com/en-sg/lp/contact-us.html>
+   44,10285 Artificial Intelligence  <https://www.dell.com/en-sg/shop/scc/sc/artificial-intelligence.html>
+   44,10321 Products  <https://www.dell.com/index.html>
+   44,10357 Solutions  <https://www.dell.com/en-sg/lp/dt/solutions.html>
+   44,10393 Services  <https://www.dell.com/en-sg/lp/dt/services>
+   44,10429 Deals  <https://www.dell.com/en-sg/shop/deals>
+  338,10285 Who We Are  <https://www.dell.com/en-sg/lp/dt/who-we-are>
+  338,10321 Careers  <https://jobs.dell.com/singapore>
+  338,10357 Dell Technologies Capital  <https://www.dell.com/index.html>
+  338,10393 Investors  <https://www.dell.com/index.html>
+  338,10429 Newsroom  <https://www.dell.com/en-sg/dt/corporate/newsroom.htm>
+  338,10465 Recycling  <https://www.dell.com/en-sg/lp/dt/recovery-recycling-consumer-solutions.html>
+  338,10501 Corporate Impact  <https://www.dell.com/en-sg/lp/dt/corporate-impact.html>
+  338,10537 Customer Stories  <https://www.dell.com/en-sg/lp/dt/customer-stories.html>
+  632,10285 Find a Partner  <https://dell.my.site.com/FindAPartner/s/partnersearch?language=en&country=sg>
+  632,10321 OEM Solutions  <https://www.dell.com/en-sg/lp/dt/oem-solutions>
+  632,10357 Partner Program  <https://www.delltechnologies.com/partner/en-sg/partner/partner.htm>
+  926,10285 Blog  <https://www.dell.com/en-sg/blog/>
+  926,10321 Dell Rewards  <https://www.dell.com/en-sg/lp/dell-rewards.html>
+  926,10357 Events  <https://www.dell.com/en-sg/dt/events/index.htm>
+  926,10393 Email Sign-Up  <https://www.dell.com/en-sg/dt/forms/csb/unified-signup.htm>
+  926,10429 Privacy Centre  <https://www.dell.com/en-sg/lp/privacy-center.html>
+  926,10465 Security & Trust Centre  <https://www.dell.com/en-sg/lp/dt/security-and-trust-center.html>
+  926,10501 Trial Software Downloads  <https://www.dell.com/en-sg/lp/dt/software-downloads>
+   44,10605 Dell Technologies  <https://www.dell.com/index.html>
+  210,10605 Dell Premier for Business  <https://www.dell.com/en-sg/lp/dt/dell-premier>
+   44,10653 Copyright © 2026 Dell Inc.  <https://www.dell.com/en-sg/lp/legal/site-terms-of-use-copyright>
+  255,10653 Terms of Sale  <https://www.dell.com/en-sg/lp/legal/terms-of-sale>
+  389,10653 Privacy Statement  <https://www.dell.com/en-sg/lp/legal/policies-privacy.html>
+  550,10653 Cookies, Ads & Emails  <https://www.dell.com/en-sg/lp/legal/policies-cookies-ads-emails.html>
+  739,10653 Legal & Regulatory  <https://www.dell.com/en-sg/lp/legal/terms.html>
+  906,10653 Accessibility  <https://www.dell.com/en-sg/lp/accessibility>
+--- Button : 34
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+  777,  132 Search Dell
+  830,  119 Sign In
+ 1042,  119 SG/EN
+ 1146,  119 Cart
+  938,  314 Voice input
+  984,  314 Send
+  265,  384 Show current deals
+  442,  384 Find the best laptop for me
+  673,  384 Track my order
+  820,  384 Get technical support
+  634,  440 Transparency Statement
+   36, 4202 Previous slide
+ 1189, 4202 Next slide
+  558, 7203 Play Video
+   44,10005 SG/EN
+--- Edit : 3
+  145,   38 Address and search bar
+  266,  311 Ask me about today's best deals.
+--- Image : 33
+  311,  753 banner legal text icon 1
+    4, 6910 A workspace with a monitor displaying graphs, a laptop, headphones, and a potted plant.
+  541, 7838 MyAccount
+  135, 8362 Dell Premier
+  136, 9086 Woman clapping; Dell Technologies World 2026 logo.
+  388, 9086 Earth from Space. Best Internet Concept of global business from concepts series. Elements of this im
+  640, 9086 Dell Technologies Events
+  892, 9086 Employee walking with a sustainability ecoloop urban backpack
+  640, 9594 Dell Rewards
+--- DataItem : 0

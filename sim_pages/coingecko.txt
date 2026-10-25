@@ -1,0 +1,761 @@
+=== PAGE: Cryptocurrency Prices, Charts, and Crypto Market Cap | CoinGecko - Google Chrome
+--- Text : 80
+   15, -736 ?? Now LIVE:
+ 1236, -734 ?
+   15, -690 Coins:
+  100, -690 Exchanges:
+  205, -690 Market Cap:
+  321, -688 ?
+  333, -690 1.9%
+  375, -690 24h Vol:
+  486, -690 Dominance:
+  692, -688 ?
+  701, -690 Gas:
+  730, -690 0.125 GWEI
+  561, -633 Products
+  955, -631 ?
+ 1052, -629 ?
+ 1065, -631 Search
+ 1227, -631 /
+   15, -458 Cryptocurrency Prices by Market Cap
+   15, -422 The global cryptocurrency market cap today is $
+  311, -422 2.29 Trillion
+  381, -422 , a
+  403, -419 ?
+  417, -422 1.9%
+  446, -422 change in the last 24 hours.
+  624, -422 Read more
+ 1088, -667 Highlights
+ 1193, -664 ?
+   33, -560 $2,287,060,815,271
+   33, -530 Market Cap
+  109, -527 ?
+  123, -530 1.9%
+   33, -462 $63,032,755,600
+   33, -432 24h Trading Volume
+  431, -564 ?? Trending
+  829, -564 ?? Top Gainers
+   15, 7137 Showing 1 to 100 of 9350 results
+  480, 7137 ?
+  527, 7135 1
+  728, 7135 ...
+ 1111, 7137 Rows
+   15, 7185 Frequently Asked Questions
+  170, 7185 Show
+   15, 7250 Latest Crypto News
+   15, 7602 U.Today
+   15, 7626 24 minutes ago
+  317, 7602 Cointelegraph
+  317, 7626 39 minutes ago
+  620, 7602 Cointribune
+  620, 7626 about 1 hour ago
+  923, 7602 Bitcoin.com
+  923, 7626 about 1 hour ago
+   15, 7747 Featured Articles
+   15, 8136 Vikas Negi
+   15, 8163 ?
+   25, 8160 4.0 (3 votes)
+  317, 8136 CoinGecko
+  317, 8163 ?
+  328, 8160 4.26 (276 votes)
+  620, 8136 CoinGecko
+  620, 8163 ?
+  631, 8160 4.64 (11 votes)
+  923, 8136 Loke Choon Khei
+  923, 8163 ?
+  934, 8160 4.14 (7 votes)
+   15, 8402 CoinGecko provides a fundamental analysis of the crypto market. In addition to tracking price, volum
+  558, 8338 Resources
+  739, 8338 Support
+  920, 8338 About CoinGecko
+  920, 8662 Cookie Preferences
+ 1101, 8338 Community
+   15, 8773 Interested to stay up-to-date with cryptocurrencies?
+   15, 8801 Get the latest crypto news, updates, and reports by subscribing to our free newsletter.
+   15, 8888 © 2026 CoinGecko. All Rights Reserved.
+   15, 8945 All content provided herein our website, hyperlinked sites, associated applications, forums, blogs, 
+  478,  105 Google Chrome isn't your default browser
+--- Hyperlink : 306
+  106, -949 TradFi on Crypto Exchanges Report 2026  <https://www.coingecko.com/research/publications/tradfi-on-crypto-exchanges-report-2026>
+   50, -903 17,468  <https://coingecko.com/index.html>
+  161, -903 1,497  <https://www.coingecko.com/en/exchanges>
+  272, -903 $2.288T  <https://www.coingecko.com/en/charts>
+  420, -903 $63.058B  <https://www.coingecko.com/en/charts>
+  552, -903 BTC 56.0%  <https://www.coingecko.com/en/charts/bitcoin-dominance>
+  617, -903 ETH 9.44%  <https://www.coingecko.com/en/charts/bitcoin-dominance>
+   15, -852 CoinGecko  <https://coingecko.com/index.html>
+  193, -846 Cryptocurrencies  <https://coingecko.com/index.html>
+  333, -846 Exchanges  <https://www.coingecko.com/en/exchanges>
+  431, -846 RWA  <https://www.coingecko.com/en/rwa>
+  494, -846 Learn  <https://www.coingecko.com/learn>
+  649, -846 API  <https://www.coingecko.com/en/api>
+  823, -847 ? Ask  <https://www.coingecko.com/chat?locale=en>
+  876, -848 Candy Jar Candy  <https://www.coingecko.com/en/candy>
+  970, -846 Portfolio  <https://www.coingecko.com/en/portfolio>
+  234, -565 To get missing image descriptions, open the context menu.  <https://www.coingecko.com/en/charts>
+  234, -467   <https://www.coingecko.com/en/charts>
+  712, -563 View more ?  <https://www.coingecko.com/en/highlights/trending-crypto>
+  423, -531 Zano Zano $9.27 ? 10.0%  <https://www.coingecko.com/en/coins/zano>
+  423, -487 Cash Cat Cash Cat $0.1434 ? 32.3%  <https://www.coingecko.com/en/coins/cash-cat>
+  423, -443 Pudgy Penguins Pudgy Penguins $0.006292 ? 3.3%  <https://www.coingecko.com/en/coins/pudgy-penguins>
+ 1110, -563 View more ?  <https://www.coingecko.com/en/crypto-gainers-losers>
+  821, -531 Palladium Network Palladium Network $0.3874 ? 43.2%  <https://www.coingecko.com/en/coins/palladium-network>
+  821, -487 SKALE SKALE $0.005377 ? 42.1%  <https://www.coingecko.com/en/coins/skale>
+  821, -443 TAC TAC $0.004194 ? 36.2%  <https://www.coingecko.com/en/coins/tac>
+   15, -357 ? All  <https://coingecko.com/index.html>
+   82, -357 ? Highlights  <https://www.coingecko.com/en/highlights>
+  198, -357 Base Ecosystem  <https://www.coingecko.com/en/categories/base-native>
+  351, -357 ? Categories  <https://www.coingecko.com/en/categories>
+  470, -357 ?? Robotics  <https://www.coingecko.com/en/categories/robotics>
+  582, -357 ?? AI Agent Launchpad  <https://www.coingecko.com/en/categories/ai-agent-launchpad>
+  768, -357 ?? AI Framework  <https://www.coingecko.com/en/categories/ai-framework>
+  103, -248 BTC Bitcoin BTC  <https://www.coingecko.com/en/coins/bitcoin>
+ 1061, -264 bitcoin (BTC) 7d chart  <https://www.coingecko.com/en/coins/bitcoin>
+  103, -179 ETH Ethereum ETH  <https://www.coingecko.com/en/coins/ethereum>
+ 1061, -195 ethereum (ETH) 7d chart  <https://www.coingecko.com/en/coins/ethereum>
+  103, -110 USDT Tether USDT  <https://www.coingecko.com/en/coins/tether>
+ 1061, -126 tether (USDT) 7d chart  <https://www.coingecko.com/en/coins/tether>
+  103,  -41 BNB BNB BNB  <https://www.coingecko.com/en/coins/bnb>
+ 1061,  -57 bnb (BNB) 7d chart  <https://www.coingecko.com/en/coins/bnb>
+  103,   28 USDC USDC USDC  <https://www.coingecko.com/en/coins/usdc>
+ 1061,   12 usdc (USDC) 7d chart  <https://www.coingecko.com/en/coins/usdc>
+  103,   97 XRP XRP XRP  <https://www.coingecko.com/en/coins/xrp>
+ 1061,   81 xrp (XRP) 7d chart  <https://www.coingecko.com/en/coins/xrp>
+  103,  166 SOL Solana SOL  <https://www.coingecko.com/en/coins/solana>
+ 1061,  150 solana (SOL) 7d chart  <https://www.coingecko.com/en/coins/solana>
+  103,  235 TRX TRON TRX  <https://www.coingecko.com/en/coins/tron>
+ 1061,  219 tron (TRX) 7d chart  <https://www.coingecko.com/en/coins/tron>
+  103,  304 FIGR_HELOC Figure Heloc FIGR_HELOC  <https://www.coingecko.com/en/coins/figure-heloc>
+ 1061,  288 figure heloc (FIGR_HELOC) 7d chart  <https://www.coingecko.com/en/coins/figure-heloc>
+  103,  373 WBT WhiteBIT Coin WBT  <https://www.coingecko.com/en/coins/whitebit>
+ 1061,  357 whitebit coin (WBT) 7d chart  <https://www.coingecko.com/en/coins/whitebit>
+  103,  442 HYPE Hyperliquid HYPE  <https://www.coingecko.com/en/coins/hyperliquid>
+ 1061,  426 hyperliquid (HYPE) 7d chart  <https://www.coingecko.com/en/coins/hyperliquid>
+  103,  511 DOGE Dogecoin DOGE  <https://www.coingecko.com/en/coins/dogecoin>
+ 1061,  495 dogecoin (DOGE) 7d chart  <https://www.coingecko.com/en/coins/dogecoin>
+  103,  580 USDS USDS USDS  <https://www.coingecko.com/en/coins/usds>
+ 1061,  564 usds (USDS) 7d chart  <https://www.coingecko.com/en/coins/usds>
+  103,  649 RAIN Rain RAIN  <https://www.coingecko.com/en/coins/rain>
+ 1061,  633 rain (RAIN) 7d chart  <https://www.coingecko.com/en/coins/rain>
+  103,  718 LEO LEO Token LEO  <https://www.coingecko.com/en/coins/leo-token>
+ 1061,  702 leo token (LEO) 7d chart  <https://www.coingecko.com/en/coins/leo-token>
+  103,  787 ZEC Zcash ZEC  <https://www.coingecko.com/en/coins/zcash>
+ 1061,  771 zcash (ZEC) 7d chart  <https://www.coingecko.com/en/coins/zcash>
+  103,  856 XLM Stellar XLM  <https://www.coingecko.com/en/coins/stellar>
+ 1061,  840 stellar (XLM) 7d chart  <https://www.coingecko.com/en/coins/stellar>
+  103,  925 ADA Cardano ADA  <https://www.coingecko.com/en/coins/cardano>
+ 1061,  909 cardano (ADA) 7d chart  <https://www.coingecko.com/en/coins/cardano>
+  103,  994 XMR Monero XMR  <https://www.coingecko.com/en/coins/monero>
+ 1061,  978 monero (XMR) 7d chart  <https://www.coingecko.com/en/coins/monero>
+  103, 1063 LINK Chainlink LINK  <https://www.coingecko.com/en/coins/chainlink>
+ 1061, 1047 chainlink (LINK) 7d chart  <https://www.coingecko.com/en/coins/chainlink>
+  103, 1132 CC Canton CC  <https://www.coingecko.com/en/coins/canton>
+ 1061, 1116 canton (CC) 7d chart  <https://www.coingecko.com/en/coins/canton>
+  103, 1201 BCH Bitcoin Cash BCH  <https://www.coingecko.com/en/coins/bitcoin-cash>
+ 1061, 1185 bitcoin cash (BCH) 7d chart  <https://www.coingecko.com/en/coins/bitcoin-cash>
+  103, 1270 DAI Dai DAI  <https://www.coingecko.com/en/coins/dai>
+ 1061, 1254 dai (DAI) 7d chart  <https://www.coingecko.com/en/coins/dai>
+  103, 1339 GRAM Gram (prev. Toncoin) GRAM  <https://www.coingecko.com/en/coins/gram>
+ 1061, 1323 gram (prev. toncoin) (GRAM) 7d chart  <https://www.coingecko.com/en/coins/gram>
+  103, 1408 USD1 USD1 USD1  <https://www.coingecko.com/en/coins/usd1-wlfi>
+ 1061, 1392 usd1 (USD1) 7d chart  <https://www.coingecko.com/en/coins/usd1-wlfi>
+  103, 1477 USDE Ethena USDe USDE  <https://www.coingecko.com/en/coins/ethena-usde>
+ 1061, 1461 ethena usde (USDE) 7d chart  <https://www.coingecko.com/en/coins/ethena-usde>
+  103, 1546 LTC Litecoin LTC  <https://www.coingecko.com/en/coins/litecoin>
+ 1061, 1530 litecoin (LTC) 7d chart  <https://www.coingecko.com/en/coins/litecoin>
+  103, 1615 DEXE DeXe DEXE  <https://www.coingecko.com/en/coins/dexe>
+ 1061, 1599 dexe (DEXE) 7d chart  <https://www.coingecko.com/en/coins/dexe>
+  103, 1684 USDG Global Dollar USDG  <https://www.coingecko.com/en/coins/global-dollar>
+ 1061, 1668 global dollar (USDG) 7d chart  <https://www.coingecko.com/en/coins/global-dollar>
+  103, 1753 USYC Circle USYC USYC  <https://www.coingecko.com/en/coins/hashnote-usyc>
+ 1061, 1737 circle usyc (USYC) 7d chart  <https://www.coingecko.com/en/coins/hashnote-usyc>
+  103, 1822 HBAR Hedera HBAR  <https://www.coingecko.com/en/coins/hedera>
+ 1061, 1806 hedera (HBAR) 7d chart  <https://www.coingecko.com/en/coins/hedera>
+  103, 1891 SUI Sui SUI  <https://www.coingecko.com/en/coins/sui>
+ 1061, 1875 sui (SUI) 7d chart  <https://www.coingecko.com/en/coins/sui>
+  103, 1960 AVAX Avalanche AVAX  <https://www.coingecko.com/en/coins/avalanche>
+ 1061, 1944 avalanche (AVAX) 7d chart  <https://www.coingecko.com/en/coins/avalanche>
+  103, 2029 PYUSD PayPal USD PYUSD  <https://www.coingecko.com/en/coins/paypal-usd>
+ 1061, 2013 paypal usd (PYUSD) 7d chart  <https://www.coingecko.com/en/coins/paypal-usd>
+  103, 2098 CRO Cronos CRO  <https://www.coingecko.com/en/coins/cronos>
+ 1061, 2082 cronos (CRO) 7d chart  <https://www.coingecko.com/en/coins/cronos>
+  103, 2167 SHIB Shiba Inu SHIB  <https://www.coingecko.com/en/coins/shiba-inu>
+ 1061, 2151 shiba inu (SHIB) 7d chart  <https://www.coingecko.com/en/coins/shiba-inu>
+  103, 2236 XAUT Tether Gold XAUT  <https://www.coingecko.com/en/coins/tether-gold>
+ 1061, 2220 tether gold (XAUT) 7d chart  <https://www.coingecko.com/en/coins/tether-gold>
+  103, 2305 NEAR NEAR Protocol NEAR  <https://www.coingecko.com/en/coins/near>
+ 1061, 2289 near protocol (NEAR) 7d chart  <https://www.coingecko.com/en/coins/near>
+  103, 2366 BUIDL BlackRock USD Institutional Digital Liquidity Fund BUIDL  <https://www.coingecko.com/en/coins/blackrock-usd-institutional-digital-liquidity-fund>
+ 1061, 2358 blackrock usd institutional digital liquidity fund (BUIDL) 7d chart  <https://www.coingecko.com/en/coins/blackrock-usd-institutional-digital-liquidity-fund>
+  103, 2443 UNI Uniswap UNI  <https://www.coingecko.com/en/coins/uniswap>
+ 1061, 2427 uniswap (UNI) 7d chart  <https://www.coingecko.com/en/coins/uniswap>
+  103, 2512 USDY Ondo US Dollar Yield USDY  <https://www.coingecko.com/en/coins/ondo-us-dollar-yield>
+ 1061, 2496 ondo us dollar yield (USDY) 7d chart  <https://www.coingecko.com/en/coins/ondo-us-dollar-yield>
+  103, 2581 TAO Bittensor TAO  <https://www.coingecko.com/en/coins/bittensor>
+ 1061, 2565 bittensor (TAO) 7d chart  <https://www.coingecko.com/en/coins/bittensor>
+  103, 2650 WLFI World Liberty Financial WLFI  <https://www.coingecko.com/en/coins/world-liberty-financial>
+ 1061, 2634 world liberty financial (WLFI) 7d chart  <https://www.coingecko.com/en/coins/world-liberty-financial>
+  103, 2719 PAXG PAX Gold PAXG  <https://www.coingecko.com/en/coins/pax-gold>
+ 1061, 2703 pax gold (PAXG) 7d chart  <https://www.coingecko.com/en/coins/pax-gold>
+  103, 2788 M MemeCore M  <https://www.coingecko.com/en/coins/memecore>
+ 1061, 2772 memecore (M) 7d chart  <https://www.coingecko.com/en/coins/memecore>
+  103, 2857 OKB OKB OKB  <https://www.coingecko.com/en/coins/okb>
+ 1061, 2841 okb (OKB) 7d chart  <https://www.coingecko.com/en/coins/okb>
+  103, 2926 ASTER Aster ASTER  <https://www.coingecko.com/en/coins/aster-2>
+ 1061, 2910 aster (ASTER) 7d chart  <https://www.coingecko.com/en/coins/aster-2>
+  103, 2995 HTX HTX DAO HTX  <https://www.coingecko.com/en/coins/htx-dao>
+ 1061, 2979 htx dao (HTX) 7d chart  <https://www.coingecko.com/en/coins/htx-dao>
+  103, 3064 ONDO Ondo ONDO  <https://www.coingecko.com/en/coins/ondo>
+ 1061, 3048 ondo (ONDO) 7d chart  <https://www.coingecko.com/en/coins/ondo>
+  103, 3133 USDD USDD USDD  <https://www.coingecko.com/en/coins/usdd>
+ 1061, 3117 usdd (USDD) 7d chart  <https://www.coingecko.com/en/coins/usdd>
+  103, 3202 RLUSD Ripple USD RLUSD  <https://www.coingecko.com/en/coins/ripple-usd>
+ 1061, 3186 ripple usd (RLUSD) 7d chart  <https://www.coingecko.com/en/coins/ripple-usd>
+  103, 3271 AAVE Aave AAVE  <https://www.coingecko.com/en/coins/aave>
+ 1061, 3255 aave (AAVE) 7d chart  <https://www.coingecko.com/en/coins/aave>
+  103, 3340 DOT Polkadot DOT  <https://www.coingecko.com/en/coins/polkadot>
+ 1061, 3324 polkadot (DOT) 7d chart  <https://www.coingecko.com/en/coins/polkadot>
+  103, 3409 MORPHO Morpho MORPHO  <https://www.coingecko.com/en/coins/morpho>
+ 1061, 3393 morpho (MORPHO) 7d chart  <https://www.coingecko.com/en/coins/morpho>
+  103, 3478 MNT Mantle MNT  <https://www.coingecko.com/en/coins/mantle>
+ 1061, 3462 mantle (MNT) 7d chart  <https://www.coingecko.com/en/coins/mantle>
+  103, 3547 USDF Falcon USD USDF  <https://www.coingecko.com/en/coins/falcon-usd>
+ 1061, 3531 falcon usd (USDF) 7d chart  <https://www.coingecko.com/en/coins/falcon-usd>
+  103, 3616 SKY Sky SKY  <https://www.coingecko.com/en/coins/sky>
+ 1061, 3600 sky (SKY) 7d chart  <https://www.coingecko.com/en/coins/sky>
+  103, 3685 WLD Worldcoin WLD  <https://www.coingecko.com/en/coins/worldcoin>
+ 1061, 3669 worldcoin (WLD) 7d chart  <https://www.coingecko.com/en/coins/worldcoin>
+  103, 3754 BFUSD BFUSD BFUSD  <https://www.coingecko.com/en/coins/bfusd>
+ 1061, 3738 bfusd (BFUSD) 7d chart  <https://www.coingecko.com/en/coins/bfusd>
+  103, 3823 ICP Internet Computer ICP  <https://www.coingecko.com/en/coins/internet-computer>
+ 1061, 3807 internet computer (ICP) 7d chart  <https://www.coingecko.com/en/coins/internet-computer>
+  103, 3892 PEPE Pepe PEPE  <https://www.coingecko.com/en/coins/pepe>
+ 1061, 3876 pepe (PEPE) 7d chart  <https://www.coingecko.com/en/coins/pepe>
+  103, 3961 BGB Bitget Token BGB  <https://www.coingecko.com/en/coins/bitget-token>
+ 1061, 3945 bitget token (BGB) 7d chart  <https://www.coingecko.com/en/coins/bitget-token>
+  103, 4030 ETC Ethereum Classic ETC  <https://www.coingecko.com/en/coins/ethereum-classic>
+ 1061, 4014 ethereum classic (ETC) 7d chart  <https://www.coingecko.com/en/coins/ethereum-classic>
+  103, 4099 PI Pi Network PI  <https://www.coingecko.com/en/coins/pi-network>
+ 1061, 4083 pi network (PI) 7d chart  <https://www.coingecko.com/en/coins/pi-network>
+  103, 4168 U United Stables U  <https://www.coingecko.com/en/coins/united-stables>
+ 1061, 4152 united stables (U) 7d chart  <https://www.coingecko.com/en/coins/united-stables>
+  103, 4229 EUTBL Spiko EU T-Bills Money Market Fund EUTBL  <https://www.coingecko.com/en/coins/spiko-eu-t-bills-money-market-fund>
+ 1061, 4221 spiko eu t-bills money market fund (EUTBL) 7d chart  <https://www.coingecko.com/en/coins/spiko-eu-t-bills-money-market-fund>
+  103, 4306 QNT Quant QNT  <https://www.coingecko.com/en/coins/quant>
+ 1061, 4290 quant (QNT) 7d chart  <https://www.coingecko.com/en/coins/quant>
+  103, 4375 BCAP Blockchain Capital BCAP  <https://www.coingecko.com/en/coins/blockchain-capital>
+ 1061, 4359 blockchain capital (BCAP) 7d chart  <https://www.coingecko.com/en/coins/blockchain-capital>
+  103, 4444 KCS KuCoin KCS  <https://www.coingecko.com/en/coins/kucoin-shares>
+ 1061, 4428 kucoin (KCS) 7d chart  <https://www.coingecko.com/en/coins/kucoin-shares>
+  103, 4513 USDGO USDGO USDGO  <https://www.coingecko.com/en/coins/usdgo>
+ 1061, 4497 usdgo (USDGO) 7d chart  <https://www.coingecko.com/en/coins/usdgo>
+  103, 4582 JST JUST JST  <https://www.coingecko.com/en/coins/just>
+ 1061, 4566 just (JST) 7d chart  <https://www.coingecko.com/en/coins/just>
+  103, 4643 JTRSY Janus Henderson Anemoy Treasury Fund JTRSY  <https://www.coingecko.com/en/coins/janus-henderson-anemoy-treasury-fund>
+ 1061, 4635 janus henderson anemoy treasury fund (JTRSY) 7d chart  <https://www.coingecko.com/en/coins/janus-henderson-anemoy-treasury-fund>
+  103, 4720 APX APX APX  <https://www.coingecko.com/en/coins/apx-2>
+ 1061, 4704 apx (APX) 7d chart  <https://www.coingecko.com/en/coins/apx-2>
+  103, 4789 STABLE ??Stable STABLE  <https://www.coingecko.com/en/coins/stable-2>
+ 1061, 4773 ??stable (STABLE) 7d chart  <https://www.coingecko.com/en/coins/stable-2>
+  103, 4858 POL POL (ex-MATIC) POL  <https://www.coingecko.com/en/coins/polygon>
+ 1061, 4842 pol (ex-matic) (POL) 7d chart  <https://www.coingecko.com/en/coins/polygon>
+  103, 4919 USTB Invesco Short Duration US Government Securities Fund USTB  <https://www.coingecko.com/en/coins/invesco-short-duration-us-government-securities-fund>
+ 1061, 4911 invesco short duration us government securities fund (USTB) 7d chart  <https://www.coingecko.com/en/coins/invesco-short-duration-us-government-securities-fund>
+  103, 4996 KAS Kaspa KAS  <https://www.coingecko.com/en/coins/kaspa>
+ 1061, 4980 kaspa (KAS) 7d chart  <https://www.coingecko.com/en/coins/kaspa>
+  103, 5065 ATOM Cosmos Hub ATOM  <https://www.coingecko.com/en/coins/cosmos-hub>
+ 1061, 5049 cosmos hub (ATOM) 7d chart  <https://www.coingecko.com/en/coins/cosmos-hub>
+  103, 5134 BEAT Audiera BEAT  <https://www.coingecko.com/en/coins/audiera>
+ 1061, 5118 audiera (BEAT) 7d chart  <https://www.coingecko.com/en/coins/audiera>
+  103, 5203 RENDER Render RENDER  <https://www.coingecko.com/en/coins/render>
+ 1061, 5187 render (RENDER) 7d chart  <https://www.coingecko.com/en/coins/render>
+  103, 5272 ADI ADI ADI  <https://www.coingecko.com/en/coins/adi-token>
+ 1061, 5256 adi (ADI) 7d chart  <https://www.coingecko.com/en/coins/adi-token>
+  103, 5333 EURSAFO Spiko Amundi Overnight Swap Fund (EUR) EURSAFO  <https://www.coingecko.com/en/coins/spiko-amundi-overnight-swap-fund-eur>
+ 1061, 5325 spiko amundi overnight swap fund (eur) (EURSAFO) 7d chart  <https://www.coingecko.com/en/coins/spiko-amundi-overnight-swap-fund-eur>
+  103, 5410 ALGO Algorand ALGO  <https://www.coingecko.com/en/coins/algorand>
+ 1061, 5394 algorand (ALGO) 7d chart  <https://www.coingecko.com/en/coins/algorand>
+  103, 5479 NEXO NEXO NEXO  <https://www.coingecko.com/en/coins/nexo>
+ 1061, 5463 nexo (NEXO) 7d chart  <https://www.coingecko.com/en/coins/nexo>
+  103, 5548 ENA Ethena ENA  <https://www.coingecko.com/en/coins/ethena>
+ 1061, 5532 ethena (ENA) 7d chart  <https://www.coingecko.com/en/coins/ethena>
+  103, 5617 USDTB USDtb USDTB  <https://www.coingecko.com/en/coins/usdtb>
+ 1061, 5601 usdtb (USDTB) 7d chart  <https://www.coingecko.com/en/coins/usdtb>
+  103, 5686 GT Gate GT  <https://www.coingecko.com/en/coins/gatetoken>
+ 1061, 5670 gate (GT) 7d chart  <https://www.coingecko.com/en/coins/gatetoken>
+  103, 5755 BDX Beldex BDX  <https://www.coingecko.com/en/coins/beldex>
+ 1061, 5739 beldex (BDX) 7d chart  <https://www.coingecko.com/en/coins/beldex>
+  103, 5816 JAAA Janus Henderson Anemoy AAA CLO Fund JAAA  <https://www.coingecko.com/en/coins/janus-henderson-anemoy-aaa-clo-fund>
+ 1061, 5808 janus henderson anemoy aaa clo fund (JAAA) 7d chart  <https://www.coingecko.com/en/coins/janus-henderson-anemoy-aaa-clo-fund>
+  103, 5893 ???? ???? (BinanceLife) ????  <https://www.coingecko.com/en/coins/bianrensheng>
+ 1061, 5877 ???? (binancelife) (????) 7d chart  <https://www.coingecko.com/en/coins/bianrensheng>
+  103, 5962 JUP Jupiter JUP  <https://www.coingecko.com/en/coins/jupiter>
+ 1061, 5946 jupiter (JUP) 7d chart  <https://www.coingecko.com/en/coins/jupiter>
+  103, 6031 FIL Filecoin FIL  <https://www.coingecko.com/en/coins/filecoin>
+ 1061, 6015 filecoin (FIL) 7d chart  <https://www.coingecko.com/en/coins/filecoin>
+  103, 6100 LIT Lighter LIT  <https://www.coingecko.com/en/coins/lighter>
+ 1061, 6084 lighter (LIT) 7d chart  <https://www.coingecko.com/en/coins/lighter>
+  103, 6169 GHO GHO GHO  <https://www.coingecko.com/en/coins/gho>
+ 1061, 6153 gho (GHO) 7d chart  <https://www.coingecko.com/en/coins/gho>
+  103, 6238 PUMP Pump.fun PUMP  <https://www.coingecko.com/en/coins/pump-fun>
+ 1061, 6222 pump.fun (PUMP) 7d chart  <https://www.coingecko.com/en/coins/pump-fun>
+  103, 6307 FLR Flare FLR  <https://www.coingecko.com/en/coins/flare>
+ 1061, 6291 flare (FLR) 7d chart  <https://www.coingecko.com/en/coins/flare>
+  103, 6376 ARB Arbitrum ARB  <https://www.coingecko.com/en/coins/arbitrum>
+ 1061, 6360 arbitrum (ARB) 7d chart  <https://www.coingecko.com/en/coins/arbitrum>
+  103, 6445 USD0 Usual USD USD0  <https://www.coingecko.com/en/coins/usual-usd>
+ 1061, 6429 usual usd (USD0) 7d chart  <https://www.coingecko.com/en/coins/usual-usd>
+  103, 6514 XDC XDC Network XDC  <https://www.coingecko.com/en/coins/xdc-network>
+ 1061, 6498 xdc network (XDC) 7d chart  <https://www.coingecko.com/en/coins/xdc-network>
+  103, 6583 YLDS YLDS YLDS  <https://www.coingecko.com/en/coins/ylds>
+ 1061, 6567 ylds (YLDS) 7d chart  <https://www.coingecko.com/en/coins/ylds>
+  103, 6652 VVV Venice Token VVV  <https://www.coingecko.com/en/coins/venice-token>
+ 1061, 6636 venice token (VVV) 7d chart  <https://www.coingecko.com/en/coins/venice-token>
+  103, 6721 APT Aptos APT  <https://www.coingecko.com/en/coins/aptos>
+ 1061, 6705 aptos (APT) 7d chart  <https://www.coingecko.com/en/coins/aptos>
+  103, 6790 USX USX USX  <https://www.coingecko.com/en/coins/usx>
+ 1061, 6774 usx (USX) 7d chart  <https://www.coingecko.com/en/coins/usx>
+  103, 6859 NIGHT Midnight NIGHT  <https://www.coingecko.com/en/coins/midnight-3>
+ 1061, 6843 midnight (NIGHT) 7d chart  <https://www.coingecko.com/en/coins/midnight-3>
+  103, 6928 TUSD TrueUSD TUSD  <https://www.coingecko.com/en/coins/true-usd>
+ 1061, 6912 trueusd (TUSD) 7d chart  <https://www.coingecko.com/en/coins/true-usd>
+  103, 6997 AERO Aerodrome Finance AERO  <https://www.coingecko.com/en/coins/aerodrome-finance>
+ 1061, 6981 aerodrome finance (AERO) 7d chart  <https://www.coingecko.com/en/coins/aerodrome-finance>
+  103, 7066 INJ Injective INJ  <https://www.coingecko.com/en/coins/injective>
+ 1061, 7050 injective (INJ) 7d chart  <https://www.coingecko.com/en/coins/injective>
+  552, 7129 2  <https://www.coingecko.com/?page=2>
+  596, 7129 3  <https://www.coingecko.com/?page=3>
+  640, 7129 4  <https://www.coingecko.com/?page=4>
+--- Button : 33
+ 1143,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    0,   46 Back
+   42,   46 Forward
+   78,   46 Reload
+  126,   51 View site information
+ 1159,   51 Bookmark this tab
+ 1204,   46 You
+ 1240,   46 Chrome
+ 1032, -912 ?
+ 1079, -912 ?
+ 1126, -912 Login
+ 1188, -911 Sign up
+ 1105, -357 ? Customize
+ 1146, 7129 100 ?
+   15, 7566 BTC ? 1.2%
+  122, 7566 2 more ?
+  317, 7566 BTC ? 1.2%
+  620, 7566 EURC ? 0.1%
+  737, 7566 7 more ?
+  923, 7566 BTC ? 1.2%
+ 1031, 7566 5 more ?
+  551, 7683 See More News
+  546, 8217 See more articles
+ 1231, -787 Insights & Portfolio
+ 1156, 8767 Subscribe
+ 1202,  644 ?
+  735,   98 Set as default
+ 1236,  101 Close
+    6,    6 Tab search
+  242,    6 Close
+  278,    0 New Tab
+--- Edit : 2
+  158,   51 Address and search bar
+  971, 8767 Enter your email address
+--- Image : 242
+   15, -852 CoinGecko
+  876, -845 Candy Jar
+  234, -565 To get missing image descriptions, open the context menu.
+  431, -521 Zano
+  431, -477 Cash Cat
+  431, -433 Pudgy Penguins
+  829, -521 Palladium Network
+  829, -477 SKALE
+  829, -433 TAC
+  103, -248 BTC
+ 1061, -264 bitcoin (BTC) 7d chart
+  103, -179 ETH
+ 1061, -195 ethereum (ETH) 7d chart
+  103, -110 USDT
+ 1061, -127 tether (USDT) 7d chart
+  103,  -42 BNB
+ 1061,  -58 bnb (BNB) 7d chart
+  103,   27 USDC
+ 1061,   11 usdc (USDC) 7d chart
+  103,   96 XRP
+ 1061,   80 xrp (XRP) 7d chart
+  103,  165 SOL
+ 1061,  149 solana (SOL) 7d chart
+  103,  234 TRX
+ 1061,  218 tron (TRX) 7d chart
+  103,  303 FIGR_HELOC
+ 1061,  287 figure heloc (FIGR_HELOC) 7d chart
+  103,  372 WBT
+ 1061,  356 whitebit coin (WBT) 7d chart
+  103,  441 HYPE
+ 1061,  425 hyperliquid (HYPE) 7d chart
+  103,  510 DOGE
+ 1061,  494 dogecoin (DOGE) 7d chart
+  103,  579 USDS
+ 1061,  563 usds (USDS) 7d chart
+  103,  648 RAIN
+ 1061,  632 rain (RAIN) 7d chart
+  103,  717 LEO
+ 1061,  701 leo token (LEO) 7d chart
+  103,  786 ZEC
+ 1061,  770 zcash (ZEC) 7d chart
+  103,  855 XLM
+ 1061,  839 stellar (XLM) 7d chart
+  103,  924 ADA
+ 1061,  908 cardano (ADA) 7d chart
+  103,  993 XMR
+ 1061,  977 monero (XMR) 7d chart
+  103, 1062 LINK
+ 1061, 1046 chainlink (LINK) 7d chart
+  103, 1131 CC
+ 1061, 1115 canton (CC) 7d chart
+  103, 1200 BCH
+ 1061, 1184 bitcoin cash (BCH) 7d chart
+  103, 1269 DAI
+ 1061, 1253 dai (DAI) 7d chart
+  103, 1338 GRAM
+ 1061, 1322 gram (prev. toncoin) (GRAM) 7d chart
+  103, 1407 USD1
+ 1061, 1391 usd1 (USD1) 7d chart
+  103, 1476 USDE
+ 1061, 1460 ethena usde (USDE) 7d chart
+  103, 1545 LTC
+ 1061, 1529 litecoin (LTC) 7d chart
+  103, 1614 DEXE
+ 1061, 1598 dexe (DEXE) 7d chart
+  103, 1683 USDG
+ 1061, 1667 global dollar (USDG) 7d chart
+  103, 1752 USYC
+ 1061, 1736 circle usyc (USYC) 7d chart
+  103, 1821 HBAR
+ 1061, 1805 hedera (HBAR) 7d chart
+  103, 1890 SUI
+ 1061, 1874 sui (SUI) 7d chart
+  103, 1959 AVAX
+ 1061, 1943 avalanche (AVAX) 7d chart
+  103, 2028 PYUSD
+ 1061, 2012 paypal usd (PYUSD) 7d chart
+  103, 2097 CRO
+ 1061, 2081 cronos (CRO) 7d chart
+  103, 2166 SHIB
+ 1061, 2150 shiba inu (SHIB) 7d chart
+  103, 2235 XAUT
+ 1061, 2219 tether gold (XAUT) 7d chart
+  103, 2304 NEAR
+ 1061, 2288 near protocol (NEAR) 7d chart
+  103, 2373 BUIDL
+ 1061, 2357 blackrock usd institutional digital liquidity fund (BUIDL) 7d chart
+  103, 2442 UNI
+ 1061, 2426 uniswap (UNI) 7d chart
+  103, 2511 USDY
+ 1061, 2495 ondo us dollar yield (USDY) 7d chart
+  103, 2580 TAO
+ 1061, 2564 bittensor (TAO) 7d chart
+  103, 2649 WLFI
+ 1061, 2633 world liberty financial (WLFI) 7d chart
+  103, 2718 PAXG
+ 1061, 2702 pax gold (PAXG) 7d chart
+  103, 2787 M
+ 1061, 2771 memecore (M) 7d chart
+  103, 2856 OKB
+ 1061, 2840 okb (OKB) 7d chart
+  103, 2925 ASTER
+ 1061, 2909 aster (ASTER) 7d chart
+  103, 2994 HTX
+ 1061, 2978 htx dao (HTX) 7d chart
+  103, 3063 ONDO
+ 1061, 3047 ondo (ONDO) 7d chart
+  103, 3132 USDD
+ 1061, 3116 usdd (USDD) 7d chart
+  103, 3201 RLUSD
+ 1061, 3185 ripple usd (RLUSD) 7d chart
+  103, 3270 AAVE
+ 1061, 3254 aave (AAVE) 7d chart
+  103, 3339 DOT
+ 1061, 3323 polkadot (DOT) 7d chart
+  103, 3408 MORPHO
+ 1061, 3392 morpho (MORPHO) 7d chart
+  103, 3477 MNT
+ 1061, 3461 mantle (MNT) 7d chart
+  103, 3546 USDF
+ 1061, 3530 falcon usd (USDF) 7d chart
+  103, 3615 SKY
+ 1061, 3599 sky (SKY) 7d chart
+  103, 3684 WLD
+ 1061, 3668 worldcoin (WLD) 7d chart
+  103, 3753 BFUSD
+ 1061, 3737 bfusd (BFUSD) 7d chart
+  103, 3822 ICP
+ 1061, 3806 internet computer (ICP) 7d chart
+  103, 3891 PEPE
+ 1061, 3875 pepe (PEPE) 7d chart
+  103, 3960 BGB
+ 1061, 3944 bitget token (BGB) 7d chart
+  103, 4029 ETC
+ 1061, 4013 ethereum classic (ETC) 7d chart
+  103, 4098 PI
+ 1061, 4082 pi network (PI) 7d chart
+  103, 4167 U
+ 1061, 4151 united stables (U) 7d chart
+  103, 4236 EUTBL
+ 1061, 4220 spiko eu t-bills money market fund (EUTBL) 7d chart
+  103, 4305 QNT
+ 1061, 4289 quant (QNT) 7d chart
+  103, 4374 BCAP
+ 1061, 4358 blockchain capital (BCAP) 7d chart
+  103, 4443 KCS
+ 1061, 4427 kucoin (KCS) 7d chart
+  103, 4512 USDGO
+ 1061, 4496 usdgo (USDGO) 7d chart
+  103, 4581 JST
+ 1061, 4565 just (JST) 7d chart
+  103, 4650 JTRSY
+ 1061, 4634 janus henderson anemoy treasury fund (JTRSY) 7d chart
+  103, 4719 APX
+ 1061, 4703 apx (APX) 7d chart
+  103, 4788 STABLE
+ 1061, 4772 ??stable (STABLE) 7d chart
+  103, 4857 POL
+ 1061, 4841 pol (ex-matic) (POL) 7d chart
+  103, 4926 USTB
+ 1061, 4910 invesco short duration us government securities fund (USTB) 7d chart
+  103, 4995 KAS
+ 1061, 4979 kaspa (KAS) 7d chart
+  103, 5064 ATOM
+ 1061, 5048 cosmos hub (ATOM) 7d chart
+  103, 5133 BEAT
+ 1061, 5117 audiera (BEAT) 7d chart
+  103, 5202 RENDER
+ 1061, 5186 render (RENDER) 7d chart
+  103, 5271 ADI
+ 1061, 5255 adi (ADI) 7d chart
+  103, 5340 EURSAFO
+ 1061, 5324 spiko amundi overnight swap fund (eur) (EURSAFO) 7d chart
+  103, 5409 ALGO
+ 1061, 5393 algorand (ALGO) 7d chart
+  103, 5478 NEXO
+ 1061, 5462 nexo (NEXO) 7d chart
+  103, 5547 ENA
+ 1061, 5531 ethena (ENA) 7d chart
+  103, 5616 USDTB
+ 1061, 5600 usdtb (USDTB) 7d chart
+  103, 5685 GT
+ 1061, 5669 gate (GT) 7d chart
+  103, 5754 BDX
+ 1061, 5738 beldex (BDX) 7d chart
+  103, 5823 JAAA
+ 1061, 5807 janus henderson anemoy aaa clo fund (JAAA) 7d chart
+  103, 5892 ????
+ 1061, 5876 ???? (binancelife) (????) 7d chart
+  103, 5961 JUP
+ 1061, 5945 jupiter (JUP) 7d chart
+  103, 6030 FIL
+ 1061, 6014 filecoin (FIL) 7d chart
+  103, 6099 LIT
+ 1061, 6083 lighter (LIT) 7d chart
+  103, 6168 GHO
+ 1061, 6152 gho (GHO) 7d chart
+  103, 6237 PUMP
+ 1061, 6221 pump.fun (PUMP) 7d chart
+  103, 6306 FLR
+ 1061, 6290 flare (FLR) 7d chart
+  103, 6375 ARB
+ 1061, 6359 arbitrum (ARB) 7d chart
+  103, 6444 USD0
+ 1061, 6428 usual usd (USD0) 7d chart
+  103, 6513 XDC
+ 1061, 6497 xdc network (XDC) 7d chart
+  103, 6582 YLDS
+ 1061, 6566 ylds (YLDS) 7d chart
+  103, 6651 VVV
+ 1061, 6635 venice token (VVV) 7d chart
+  103, 6720 APT
+ 1061, 6704 aptos (APT) 7d chart
+  103, 6789 USX
+ 1061, 6773 usx (USX) 7d chart
+  103, 6858 NIGHT
+ 1061, 6842 midnight (NIGHT) 7d chart
+  103, 6927 TUSD
+ 1061, 6911 trueusd (TUSD) 7d chart
+  103, 6996 AERO
+ 1061, 6980 aerodrome finance (AERO) 7d chart
+  103, 7065 INJ
+ 1061, 7049 injective (INJ) 7d chart
+   15, 7297 Standard Chartered Doubles Down on $100,000 BTC Target
+  317, 7297 New Hampshire council votes down $100M Bitcoin bonds
+  620, 7297 MiCA Increases Circle’s EURC Stablecoin’s Activity
+  923, 7297 Bitcoin ETFs Lose $95 Million as Ether’s 5-Day Inflow Streak Comes to an End
+   15, 7794 How to Get Bonding Curve Data from Memecoin Launchpads Using Python
+  317, 7794 What Are Crypto Narratives? Top 9 Narratives for 2026 (UPDATED)
+  620, 7794 Midnight Network: A Guide to Programmable Privacy
+  923, 7794 What Is Aztec Network (AZTEC)? A Vitalik-backed Privacy ETH L2
+   15, 8337 CoinGecko
+  964, 8875 Google Play Store Button
+ 1107, 8875 Apple App Store Button
+--- read time: 1480 ms
+
+=== CELLS: Cryptocurrency Prices, Charts, and Crypto Market Cap | CoinGecko - Google Chrome
+--- DataItem : 1294
+   45,-3113 ▴#
+   93,-3113 Coin▾
+  415,-3113 ▾Price
+  502,-3113 ▾1h
+  576,-3113 ▾24h
+  651,-3113 ▾7d
+  726,-3113 ▾24h Volume
+  876,-3113 ▾Market Cap
+ 1026,-3113 Last 7 Days
+   15,-3071 
+   45,-3071 1
+   93,-3071 BTC Bitcoin BTC
+  381,-3071 Buy
+  415,-3071 $63,889.82
+  502,-3071  0.5%
+  576,-3071  1.2%
+  651,-3071  2.7%
+  726,-3071 $26,662,597,022
+  876,-3071 $1,281,331,164,506
+ 1026,-3071 bitcoin (BTC) 7d chart
+   15,-3002 
+   45,-3002 2
+   93,-3002 ETH Ethereum ETH
+  381,-3002 Buy
+  415,-3002 $1,789.46
+  502,-3002  0.4%
+  576,-3002  2.4%
+  651,-3002  3.0%
+  726,-3002 $8,818,601,304
+  876,-3002 $215,962,520,751
+ 1026,-3002 ethereum (ETH) 7d chart
+   15,-2933 
+   45,-2933 3
+   93,-2933 USDT Tether USDT
+  415,-2933 $0.9994
+  502,-2933  0.0%
+  576,-2933  0.0%
+  651,-2933  0.0%
+  726,-2933 $41,619,274,557
+  876,-2933 $184,195,340,830
+ 1026,-2933 tether (USDT) 7d chart
+   15,-2864 
+   45,-2864 4
+   93,-2864 BNB BNB BNB
+  381,-2864 Buy
+  415,-2864 $576.09
+  502,-2864  0.2%
+  576,-2864  0.8%
+  651,-2864  1.5%
+  726,-2864 $517,551,375
+  876,-2864 $77,641,110,707
+ 1026,-2864 bnb (BNB) 7d chart
+   15,-2795 
+   45,-2795 5
+   93,-2795 USDC USDC USDC
+  415,-2795 $0.9997
+  502,-2795  0.0%
+  576,-2795  0.0%
+  651,-2795  0.0%
+  726,-2795 $10,462,178,247
+  876,-2795 $73,172,165,058
+ 1026,-2795 usdc (USDC) 7d chart
+   15,-2726 
+   45,-2726 6
+   93,-2726 XRP XRP XRP
+  381,-2726 Buy
+  415,-2726 $1.10
+  502,-2726  0.4%
+  576,-2726  0.5%
+  651,-2726  1.9%
+  726,-2726 $987,881,258
+  876,-2726 $68,789,507,300
+ 1026,-2726 xrp (XRP) 7d chart
+   15,-2657 
+   45,-2657 7
+   93,-2657 SOL Solana SOL
+  381,-2657 Buy
+  415,-2657 $77.68
+  502,-2657  0.7%
+  576,-2657  0.5%
+  651,-2657  5.0%
+  726,-2657 $1,819,723,998
+  876,-2657 $45,200,253,365
+ 1026,-2657 solana (SOL) 7d chart
+   15,-2588 
+   45,-2588 8
+   93,-2588 TRX TRON TRX
+  381,-2588 Buy
+  415,-2588 $0.3299
+  502,-2588  0.2%
+  576,-2588  0.5%
+  651,-2588  3.1%
+  726,-2588 $366,075,008
+  876,-2588 $31,297,923,221
+ 1026,-2588 tron (TRX) 7d chart
+   15,-2519 
+   45,-2519 9
+   93,-2519 FIGR_HELOC Figure Heloc FIGR_HELOC
+  381,-2519 Buy
+  415,-2519 $1.00
+  502,-2519  0.0%
+  576,-2519  3.0%
+  651,-2519  3.6%
+  726,-2519 $333,502,037
+  876,-2519 $19,874,998,962
+ 1026,-2519 figure heloc (FIGR_HELOC) 7d chart
+   15,-2450 
+   45,-2450 10
+   93,-2450 WBT WhiteBIT Coin WBT
+  381,-2450 Buy
+  415,-2450 $55.93
+  502,-2450  0.3%
+  576,-2450  0.5%
+  651,-2450  0.2%
+  726,-2450 $18,341,497
+  876,-2450 $16,441,529,972
+ 1026,-2450 whitebit coin (WBT) 7d chart
+   15,-2381 
+   45,-2381 11
+   93,-2381 HYPE Hyperliquid HYPE
+  381,-2381 Buy
+  415,-2381 $67.73
+  502,-2381  0.4%
+  576,-2381  0.5%
+  651,-2381  4.1%
+  726,-2381 $359,663,991
+  876,-2381 $15,069,884,899
+ 1026,-2381 hyperliquid (HYPE) 7d chart
+   15,-2312 
+   45,-2312 12
+   93,-2312 DOGE Dogecoin DOGE
+  381,-2312 Buy
+  415,-2312 $0.07387
+  502,-2312  0.5%
+  576,-2312  1.3%
+  651,-2312  3.9%
+  726,-2312 $442,086,445
+  876,-2312 $11,452,068,986
+ 1026,-2312 dogecoin (DOGE) 7d chart
+   15,-2243 
+   45,-2243 13
+   93,-2243 USDS USDS USDS
+  415,-2243 $1
+  502,-2243  0.0%
+  576,-2243  0.0%
+  651,-2243  0.0%
+  726,-2243 $130,056,747
+  876,-2243 $10,941,321,174
+ 1026,-2243 usds (USDS) 7d chart
+   15,-2174 
+--- Custom : 0
+--- Table : 1
+--- Header : 0
+--- HeaderItem : 0
+--- Group : 228
+ 1221,-2497 Insights and Portfolio Sidebar
+    0,   87 Infobar Container

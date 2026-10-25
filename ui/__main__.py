@@ -36,7 +36,9 @@ class OperatorApp:
         # per cycle in a fixed order (see Runner.run). Handy for a demo.
         self._all_label = "all objectives"
         self._workday_label = "my workday (own to do list)"
-        self._scenario_values = [self._workday_label, self._all_label] + [item.name for item in objectives]
+        # finals: only the workday is offered; the old fixed-script objectives stay in the code (tests,
+        # fallback) but are hidden, so nobody starts the hardcoded bot by mistake in the demo
+        self._scenario_values = [self._workday_label]
         self.objective = tk.StringVar(value=self._workday_label)
         self.minutes = tk.StringVar(value="15")
         self.dry_run = tk.BooleanVar(value=True)

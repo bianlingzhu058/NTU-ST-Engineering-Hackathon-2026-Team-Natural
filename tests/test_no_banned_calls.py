@@ -4,7 +4,7 @@ import re
 
 ROOT = Path(__file__).parents[1] / "agent"
 STDLIB_OK = {"abc", "argparse", "ctypes", "dataclasses", "datetime", "json", "logging", "math", "pathlib", "random", "re",
-             "sys", "threading", "time", "typing", "uuid", "__future__", "collections", "difflib", "os", "traceback"}
+             "sys", "threading", "time", "typing", "uuid", "__future__", "collections", "difflib", "os", "traceback", "functools"}
 
 
 def _lines():

@@ -1,0 +1,246 @@
+=== PAGE: Coursera | Courses, Professional Certificates, and Degrees Online - Profile 1 - Microsoft​ Edge
+--- Text : 57
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+    3,  236 Learn without limits
+   68,  270 Ends in 4 days! Meet new goals with midyear savings
+   68,  374 Unlock 10,000+ programs and save 40% as you expand your skills with flexible learning.
+  730,  286 Ends soon! Refresh skills. Recharge teams.
+  730,  358 Save 40% and see how you can help your team develop skills without slowing them down.
+ 1392,  286 Learn AI skills from leading names
+ 1392,  358 Practical knowledge from OpenAI, Anthropic, Google, and more is here for your career path.
+   52,  514 New and popular
+   68,  975 No prior experience needed to get started.
+   76, 1440 Get midyear savings and gain career momentum
+  664, 1440 Add momentum to your team
+   52, 1592 Learn from 350+ leading universities and companies
+   52, 1844 Explore categories
+   68, 2013 Google Career Collection
+   68, 2042 Explore multiple career pathways with entry-level programs from Google.
+   52, 2398 Trending searches
+   68, 2829 Learn AI skills from leading names
+   68, 2858 Get deeper insights into AI as you pursue credentials from industry leaders.
+  481, 3278 What brings you to Coursera today?
+  249, 3336 Start my career
+  435, 3336 Change my career
+  637, 3336 Grow in my current role
+  874, 3336 Explore topics outside of work
+   76, 3852 91% of learners achieved a positive career outcome
+   76, 3881 They reported new job opportunities, increased knowledge, and improved work performance.
+   52, 4028 Why people choose Coursera
+   85, 4081 Sarah W.
+   69, 4110 "Coursera's reputation for high-quality content, paired with its flexible structure, made it possibl
+  379, 4081 Noeris B.
+  363, 4110 "Coursera rebuilt my confidence and showed me I could dream bigger. It wasn't just about gaining kno
+  673, 4081 Abdullahi M.
+  657, 4110 "I now feel more prepared to take on leadership roles and have already started mentoring some of my 
+  967, 4081 Anas A.
+  951, 4110 "Learning with Coursera has expanded my professional expertise by giving me access to cutting-edge r
+   52, 4295 Frequently asked questions
+   55, 4331 Is Coursera accredited, and are Coursera certificates recognized by employers?
+   55, 4378 Is a Coursera certificate worth it?
+   55, 4425 What is Coursera Plus, and is it worth it?
+   55, 4472 Does Coursera offer free online courses?
+   55, 4519 What are the most popular courses on Coursera?
+   55, 4566 How can Coursera help me get a job or advance my career?
+   55, 4613 What is Coursera for Business, and how much does it cost?
+   52, 4713 ¹ Median salary and job opening data are sourced from Lightcast™ Job Postings Report. Content Creato
+    3, 4796 Coursera Footer
+   56, 4881 Skills
+  354, 4881 Professional Certificates
+  652, 4881 Courses & Specializations
+  950, 4881 Career Resources
+   56, 5305 Coursera
+  354, 5305 Community
+  652, 5305 More
+   36, 5950 © 2026 Coursera Inc. All rights reserved.
+--- Hyperlink : 127
+   60,  117 For Individuals  <https://www.coursera.org/index.html>
+  193,  117 For Businesses  <https://www.coursera.org/business?utm_content=corp-to-home-for-enterprise&utm_campaign=website&utm_medium=coursera&utm_source=header&utm_term=b-out>
+  323,  117 For Universities  <https://www.coursera.org/campus?utm_content=corp-to-landing-for-campus&utm_campaign=website&utm_medium=coursera&utm_source=header&utm_term=b-out>
+  459,  117 For Governments  <https://www.coursera.org/government?utm_content=corp-to-landing-for-government&utm_campaign=website&utm_medium=coursera&utm_source=header&utm_term=b-out>
+   52,  173 Coursera  <https://www.coursera.org/index.html>
+   68,  422 Save 40% now  <https://www.coursera.org/courseraplus/special/cplus-annual-june-2026-global>
+  730,  406 Save 40% on Teams  <https://www.coursera.org/business/teams?promoCode=summer40-2026&utm_medium=coursera&utm_source=home-page&utm_campaign=summer40-2026&utm_content=hero-cta>
+ 1392,  406 Join for Free  <https://www.coursera.org/?authMode=signup>
+   52,  551 Most popular  <https://www.coursera.org/explore/most-popular-courses>
+  445,  551 Hot new releases  <https://www.coursera.org/explore/new-on-coursera>
+  838,  551 Trending AI courses  <https://www.coursera.org/browse>
+   68,  943 Explore programs - Get job-ready for an in-demand career  <https://www.coursera.org/search?productTypeDescription=Professional%20Certificates&productDifficultyLevel=Beginner&sortBy=BEST_MATCH>
+   76, 1438 Get midyear savings and gain career momentum  <https://www.coursera.org/courseraplus/special/cplus-annual-june-2026-global>
+  664, 1438 Add momentum to your team  <https://www.coursera.org/business/teams?promoCode=summer40-2026&utm_medium=coursera&utm_source=home-page&utm_campaign=summer40-2026&utm_content=banner-cta>
+   52, 1628 Google  <https://www.coursera.org/google-career-certificates>
+  160, 1628 IBM  <https://www.coursera.org/explore/ibm-online-courses>
+  248, 1628 Microsoft  <https://www.coursera.org/explore/microsoft-certificates>
+  370, 1628 University of Illinois  <https://www.coursera.org/partners/illinois>
+  555, 1628 OpenAI  <https://www.coursera.org/partners/openai>
+  665, 1628 Anthropic  <https://www.coursera.org/partners/anthropic>
+  790, 1628 DeepLearning.AI  <https://www.coursera.org/explore/deep-learning-ai-online-courses>
+  954, 1628 Stanford University  <https://www.coursera.org/explore/stanford-online-courses>
+ 1136, 1628 University of Pennsylvania  <https://www.coursera.org/explore/university-of-pennsylvania-online-courses>
+ 1360, 1628 University of Michigan  <https://www.coursera.org/explore/university-of-michigan-online-courses>
+   52, 1702 Launch a new career  <https://www.coursera.org/career-academy>
+  444, 1702 Try Coursera for Business  <https://www.coursera.org/business?utm_campaign=website&utm_content=bucket-from-B2C-home-try-business&utm_medium=coursera&utm_source=enterprise>
+  836, 1702 Earn a degree  <https://www.coursera.org/degrees>
+   52, 1880 Business  <https://www.coursera.org/browse/business>
+  161, 1880 Artificial Intelligence  <https://www.coursera.org/explore/generative-ai>
+  338, 1880 Data Science  <https://www.coursera.org/browse/data-science>
+  471, 1880 Computer Science  <https://www.coursera.org/browse/computer-science>
+  636, 1880 Information Technology  <https://www.coursera.org/browse/information-technology>
+  834, 1880 Personal Development  <https://www.coursera.org/browse/personal-development>
+ 1025, 1880 Healthcare  <https://www.coursera.org/browse/health>
+   52, 1926 Language Learning  <https://www.coursera.org/browse/language-learning>
+  221, 1926 Social Sciences  <https://www.coursera.org/browse/social-sciences>
+  368, 1926 Arts and Humanities  <https://www.coursera.org/browse/arts-and-humanities>
+  544, 1926 Physical Science and Engineering  <https://www.coursera.org/browse/physical-science-and-engineering>
+  796, 1926 Math and Logic  <https://www.coursera.org/browse/math-and-logic>
+  558, 2042 Learn more  <https://www.coursera.org/google-career-certificates>
+   52, 2435 Python  <https://www.coursera.org/search?query=python&productTypeDescription=Professional%20Certificates&productTypeDescription=Specializations&sortBy=BEST_MATCH>
+  445, 2435 Data Analytics  <https://www.coursera.org/search?query=data%20analytics&productTypeDescription=Specializations&productTypeDescription=Professional%20Certificates&sortBy=BEST_MATCH>
+  838, 2435 Project Management  <https://www.coursera.org/search?query=project%20management&productTypeDescription=Specializations&productTypeDescription=Professional%20Certificates&sortBy=BEST_MATCH>
+ 1048, 2841 Explore programs  <https://www.coursera.org/explore/generative-ai>
+   76, 3850 91% of learners achieved a positive career outcome  <https://www.coursera.org/explore/learner-outcomes>
+   56, 4909 Accounting  <https://www.coursera.org/courses?query=accounting>
+   56, 4909 Artificial Intelligence (AI)  <https://www.coursera.org/courses?query=artificial%20intelligence>
+   56, 4909 Cybersecurity  <https://www.coursera.org/courses?query=cybersecurity>
+   56, 4909 Data Analytics  <https://www.coursera.org/courses?query=data%20analytics>
+   56, 4909 Digital Marketing  <https://www.coursera.org/courses?query=digital%20marketing>
+   56, 4909 Human Resources (HR)  <https://www.coursera.org/courses?query=hr>
+   56, 4909 Microsoft Excel  <https://www.coursera.org/courses?query=microsoft%20excel>
+   56, 4909 Project Management  <https://www.coursera.org/courses?query=project%20management>
+   56, 4909 Python  <https://www.coursera.org/courses?query=python>
+   56, 4909 SQL  <https://www.coursera.org/courses?query=sql>
+  354, 4909 Google AI Certificate  <https://www.coursera.org/professional-certificates/google-ai>
+  354, 4909 Google Cybersecurity Certificate  <https://www.coursera.org/professional-certificates/google-cybersecurity>
+  354, 4909 Google Data Analytics Certificate  <https://www.coursera.org/professional-certificates/google-data-analytics>
+  354, 4909 Google IT Support Certificate  <https://www.coursera.org/professional-certificates/google-it-support>
+  354, 4909 Google Project Management Certificate  <https://www.coursera.org/professional-certificates/google-project-management>
+  354, 4909 Google UX Design Certificate  <https://www.coursera.org/professional-certificates/google-ux-design>
+  354, 4909 IBM AI Engineering Certificate  <https://www.coursera.org/professional-certificates/ai-engineer>
+  354, 4909 IBM AI Product Manager Certificate  <https://www.coursera.org/professional-certificates/ibm-ai-product-manager>
+  354, 4909 IBM Data Science Certificate  <https://www.coursera.org/professional-certificates/ibm-data-science>
+  354, 4909 Intuit Academy Bookkeeping Certificate  <https://www.coursera.org/professional-certificates/intuit-bookkeeping>
+  652, 4909 AI Essentials Specialization  <https://www.coursera.org/specializations/ai-essentials-google>
+  652, 4909 AI For Business Specialization  <https://www.coursera.org/specializations/ai-for-business-wharton>
+  652, 4909 AI For Everyone Course  <https://www.coursera.org/learn/ai-for-everyone>
+  652, 4909 AI in Healthcare Specialization  <https://www.coursera.org/specializations/ai-healthcare>
+  652, 4909 Deep Learning Specialization  <https://www.coursera.org/specializations/deep-learning>
+  652, 4909 Excel Skills for Business Specialization  <https://www.coursera.org/specializations/excel>
+  652, 4909 Financial Markets Course  <https://www.coursera.org/learn/financial-markets-global>
+  652, 4909 Machine Learning Specialization  <https://www.coursera.org/specializations/machine-learning-introduction>
+  652, 4909 Prompt Engineering for ChatGPT Course  <https://www.coursera.org/learn/prompt-engineering>
+  652, 4909 Python for Everybody Specialization  <https://www.coursera.org/specializations/python>
+  950, 4909 Career Aptitude Test  <https://www.coursera.org/resources/career-quiz>
+  950, 4909 CAPM Certification Requirements  <https://www.coursera.org/articles/capm-certification-guide>
+  950, 4909 CompTIA A+ Certification Requirements  <https://www.coursera.org/articles/what-is-the-comptia-a-certification-what-to-know>
+  950, 4909 CompTIA Security+ Certification Requirements  <https://www.coursera.org/articles/what-is-the-comptia-security-plus-certification>
+  950, 4909 Essential IT Certifications  <https://www.coursera.org/articles/essential-it-certifications-entry-level-and-beginner>
+  950, 4909 High-Income Skills to Learn  <https://www.coursera.org/articles/high-income-skills>
+  950, 4909 How to Learn Artificial Intelligence  <https://www.coursera.org/articles/how-to-learn-artificial-intelligence>
+  950, 4909 PMP Certification Requirements  <https://www.coursera.org/articles/the-pmp-certification-a-guide-to-getting-started>
+  950, 4909 Popular Cybersecurity Certifications  <https://www.coursera.org/articles/popular-cybersecurity-certifications>
+  950, 4909 Share your Coursera learning story  <https://airtable.com/appxSsG2Dz9CjSpF8/pagCDDP2Uinw59CNP/form?prefill_utm_source=product&prefill_utm_campaign=seo_footer&prefill_utm_medium=written>
+   56, 5333 About  <https://www.coursera.org/about>
+   56, 5333 What We Offer  <https://www.coursera.org/about/how-coursera-works/>
+   56, 5333 Leadership  <https://www.coursera.org/about/leadership>
+   56, 5333 Careers  <https://www.coursera.org/index.html>
+   56, 5333 Catalog  <https://www.coursera.org/browse>
+   56, 5333 Coursera Plus  <https://www.coursera.org/courseraplus>
+   56, 5333 Professional Certificates  <https://www.coursera.org/professional-certificates>
+   56, 5333 MasterTrack® Certificates  <https://www.coursera.org/mastertrack>
+   56, 5333 Degrees  <https://www.coursera.org/degrees>
+   56, 5333 For Enterprise  <https://www.coursera.org/business?utm_campaign=website&utm_content=corp-to-home-footer-for-enterprise&utm_medium=coursera&utm_source=enterprise>
+   56, 5333 For Government  <https://www.coursera.org/government?utm_campaign=website&utm_content=corp-to-home-footer-for-government&utm_medium=coursera&utm_source=enterprise>
+   56, 5333 For Campus  <https://www.coursera.org/campus?utm_campaign=website&utm_content=corp-to-home-footer-for-campus&utm_medium=coursera&utm_source=enterprise>
+   56, 5333 Become a Partner  <https://partnerships.coursera.org/?utm_medium=coursera&utm_source=partnerships&utm_campaign=website&utm_content=corp-to-home-footer-become-a-partner>
+   56, 5333 Social Impact  <https://www.coursera.org/social-impact>
+   56, 5333 Free Courses  <https://www.coursera.org/courses?query=free>
+   56, 5333 Udemy  <https://www.coursera.org/index.html>
+  354, 5333 Learners  <https://www.coursera.org/index.html>
+  354, 5333 Partners  <https://www.coursera.org/partners>
+  354, 5333 Beta Testers  <https://www.coursera.support/s/article/360000152926-Become-a-Coursera-beta-tester>
+  354, 5333 Blog  <https://www.coursera.org/index.html>
+  354, 5333 The Coursera Podcast  <https://open.spotify.com/show/58M36bneU7REOofdPZxe6A>
+  354, 5333 Tech Blog  <https://medium.com/coursera-engineering>
+  652, 5333 Press  <https://www.coursera.org/about/press>
+  652, 5333 Investors  <https://www.coursera.org/index.html>
+  652, 5333 Terms  <https://www.coursera.org/about/terms>
+  652, 5333 Privacy  <https://www.coursera.org/about/privacy>
+  652, 5333 Help  <https://learner.coursera.help/hc>
+  652, 5333 Accessibility  <https://learner.coursera.help/hc/articles/360050668591-Accessibility-Statement>
+  652, 5333 Contact  <https://www.coursera.org/about/contact>
+  652, 5333 Articles  <https://www.coursera.org/articles>
+  652, 5333 Directory  <https://www.coursera.org/directory>
+  652, 5333 Affiliates  <https://www.coursera.org/about/affiliates>
+  652, 5333 Modern Slavery Statement  <https://coursera_assets.s3.amazonaws.com/footer/Modern+Slavery+Statement+(June%2C+2026).pdf>
+  652, 5333 Cookies Preference Center  <https://www.coursera.org/about/cookies-manage>
+  930, 5305 Download on the App Store  <https://itunes.apple.com/app/apple-store/id736535961?pt=2334150&ct=Coursera%20Web%20Promo%20Banner&mt=8>
+  930, 5410 Get it on Google Play  <http://play.google.com/store/apps/details?id=org.coursera.android>
+   -1,   -1 Coursera Facebook  <https://www.facebook.com/Coursera>
+   -1,   -1 Coursera Linkedin  <https://www.linkedin.com/company/coursera>
+   -1,   -1 Coursera Twitter  <https://twitter.com/coursera>
+   -1,   -1 Coursera YouTube  <https://www.youtube.com/user/coursera>
+   -1,   -1 Coursera Instagram  <https://www.instagram.com/coursera/>
+   -1,   -1 Coursera TikTok  <https://www.tiktok.com/@coursera>
+--- Button : 39
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+  195,  171 Explore our catalog
+  282,  171 Degrees
+  804,  171 Search
+ 1049,  167 Log In
+ 1109,  171 Join for Free
+   52,  490 Go to item 1
+   68,  490 Go to item 2
+   84,  490 Go to item 3
+ 1041, 2025 Start 7-day free trial
+  189, 3318 Start my career
+  375, 3318 Change my career
+  577, 3318 Grow in my current role
+  814, 3318 Explore topics outside of work
+   55, 4331 Is Coursera accredited, and are Coursera certificates recognized by employers?
+   55, 4378 Is a Coursera certificate worth it?
+   55, 4425 What is Coursera Plus, and is it worth it?
+   55, 4472 Does Coursera offer free online courses?
+   55, 4519 What are the most popular courses on Coursera?
+   55, 4566 How can Coursera help me get a job or advance my career?
+   55, 4613 What is Coursera for Business, and how much does it cost?
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 23
+   52,  173 Coursera
+   68,  243 cplus logo
+  730,  258 Coursera for teams logo
+ 1261,  450 WES 40% off
+ 1392,  260 coursera logo white
+ 1902,  450 woman ai icons
+   76, 1409 Coursera Plus blue logo
+  346, 1372 40% off
+  664, 1408 Coursera for teams logo
+  934, 1372 40%
+  930, 5305 Download on the App Store
+  930, 5410 Get it on Google Play
+  930, 5523 Logo of Certified B Corporation
+   -1,   -1 Coursera Facebook
+   -1,   -1 Coursera Linkedin
+   -1,   -1 Coursera Twitter
+   -1,   -1 Coursera YouTube
+   -1,   -1 Coursera Instagram
+   -1,   -1 Coursera TikTok
+--- DataItem : 0

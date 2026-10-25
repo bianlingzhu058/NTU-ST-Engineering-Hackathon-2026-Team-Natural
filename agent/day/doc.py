@@ -97,6 +97,14 @@ class WriterDoc:
         """Move the cursor to index i by the cheapest human route: arrows from here, or an anchor
         (Ctrl+Home, Ctrl+End, or on short lines Up/Down then Home/End) and then arrows."""
         i = max(0, min(len(self.text), i))
+        if self.sel is not None and i == self.cur:
+            # Text is still selected on screen (after a copy): one arrow there and back drops it, so
+            # the next key does not replace it (review 25 Oct: ", tbc" vanished on the last line).
+            first, back = ("left", "right") if self.cur > 0 else ("right", "left")
+            if self.cur > 0 or self.text:
+                self.typer.press(first); self.typer.press(back)
+            self.sel = None
+            return
         self.sel = None
         if i == self.cur: return
         self.counts["jumps"] += 1
@@ -212,6 +220,8 @@ class Composer:
         self._pending: list[tuple[int, str]] = []    # (words typed when due, marker name)
         self._words = 0
         self._n = 0
+        self._parked = False          # a sentence is parked: finish that before forgetting new words
+        self._busy = False            # a park or rewrite is in progress: no going back for a forgotten word
 
     def _pause(self, name: str) -> None:
         median, sigma, low, high = P(name)
@@ -221,9 +231,14 @@ class Composer:
         """Plan a slip that stays on the page (7% of slips; Crump and Logan 2012)."""
         rate = P("typing.error_rate_prose") * P("typing.uncorrected_share")
         if len(word) < 4 or not word.isalpha() or self.rng.random() >= rate * len(word): return word
+        # A wrong neighbour key, same length. Dropped or doubled letters ("untill", "tomorow") are in
+        # Writer's AutoCorrect list, which would fix them on the page and put the bot's copy out of step.
+        from ..input.keyboard import QWERTY_NEIGHBOURS
         i = self.rng.randrange(1, len(word) - 1)
+        pool = QWERTY_NEIGHBOURS.get(word[i].lower(), "")
+        if not pool: return word
         self.report.leftover_slips += 1
-        return word[:i] + word[i + 1:] if self.rng.random() < 0.5 else word[:i] + word[i] + word[i:]
+        return word[:i] + self.rng.choice(pool) + word[i + 1:]
 
     def write(self, units: list[Unit], at_end_marker: str = "write+") -> str:
         """Type all units at the cursor; returns the final text the page should now show."""
@@ -287,7 +302,7 @@ class Composer:
         simple=True (a sentence that may get cut or rewritten): no word left for later."""
         words = text.split(" ")
         skip = extra_at = None
-        if not simple and len(words) >= 4 and self.rng.random() < P("edit.forget_word_p"):
+        if not simple and not self._parked and len(words) >= 4 and self.rng.random() < P("edit.forget_word_p"):
             options = [j for j in range(1, len(words) - 1) if len(words[j]) >= 3]
             if options: skip = self.rng.choice(options)
         if len(words) >= 3 and self.rng.random() < P("edit.extra_word_p"):
@@ -335,6 +350,7 @@ class Composer:
         self.report.events.append("deleted an extra word")
 
     def _flush_pending(self, force: bool = False) -> None:
+        if self._busy and not force: return                  # not in the middle of a park or rewrite
         for due, item in list(self._pending):
             if not force and self._words < due: continue
             self._pending.remove((due, item))
@@ -346,7 +362,8 @@ class Composer:
 
     def _choose_park(self, units):
         """(index to jot at, index of the unit that belongs later) or (index, None) for an unneeded one."""
-        candidates = [i for i in range(1, len(units)) if units[i].can_park and not units[i - 1].newline_after]
+        # A sentence or a list line can be blocked, but not one right after a title (blank line).
+        candidates = [i for i in range(1, len(units)) if units[i].can_park and units[i - 1].newline_after <= 1]
         if not candidates or self.rng.random() >= P("edit.park_p"): return None
         later = self.rng.choice(candidates)
         if self.rng.random() < P("edit.park_keep_p") and later >= 2:
@@ -363,6 +380,8 @@ class Composer:
     def _jot_and_park(self, unit: Unit | None) -> str:
         """Type a sentence too early, then block it (select), cut and park it on a new last line."""
         doc = self.doc
+        self._flush_pending(force=True)                      # add back a forgotten word first
+        self._parked = self._busy = True
         text = unit.text if unit else self.rng.choice(self.extras)
         start = doc.markers[self.end]
         self._sentence(text, simple=True)
@@ -372,9 +391,11 @@ class Composer:
         messy = start > 0 and doc.text[start - 1] == " " and self.rng.random() < P("edit.clean_leftover_p")
         doc.select(start - 1 if messy else start, doc.markers[self.end])
         doc.cut()
+        keep = doc.markers[self.end]                         # where writing goes on after the park
         doc.anchor_end()
         doc.enter()
         doc.paste()                                          # parked on its own line at the bottom
+        doc.markers[self.end] = keep                         # (inserting at the end moved it along)
         self._n += 1
         name = f"p{self._n}"
         doc.markers[name] = len(doc.text) - len(doc.clip)
@@ -401,8 +422,7 @@ class Composer:
         self._go_end()
         doc.paste()
         self.report.events.append("moved the parked sentence back")
-        if doc.clip != unit.text:                            # the parked copy differs (leftover slip): clean it later
-            pass
+        self._parked = self._busy = False
 
     def _delete_parked(self, name: str) -> None:
         doc = self.doc
@@ -411,11 +431,14 @@ class Composer:
         doc.select(a - 1, b)                                 # the line and the line break before it
         doc.delete_selection()
         self.report.parked_deleted += 1
+        self._parked = self._busy = False
         self.report.events.append("deleted the parked sentence, not needed")
 
     def _rewrite(self, unit: Unit) -> None:
         """Push the sentence to its own line, try the other wording, keep one."""
         doc = self.doc
+        self._flush_pending(force=True)                      # add back a forgotten word first
+        was_busy, self._busy = self._busy, True
         keep_new = self.rng.random() < P("edit.rewrite_keep_new_p")
         first, second = (unit.alt, unit.text) if keep_new else (unit.text, unit.alt)
         start = doc.markers[self.end]
@@ -436,5 +459,6 @@ class Composer:
             doc.delete_selection()
             doc.delete(1)                                    # join the old sentence back up
         doc.markers[self.end] = start + len(unit.text)
+        self._busy = was_busy
         self.report.rewrites += 1
         self.report.events.append("rewrote a sentence" if keep_new else "tried a rewrite, kept the old one")

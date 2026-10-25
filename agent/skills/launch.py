@@ -42,7 +42,10 @@ class OpenAppSkill(BaseSkill):
             # the app name would resolve to the wrong Best Match (or none).
             context.backend.press("win")
             context.pacer.wait("settle")              # Start opens / search box ready
-            context.typer.type_text(str(args["name"]), exact=True)
+            name = args["name"]
+            if isinstance(name, list): name = context.rng.choice(name) if context.rng else name[0]
+            args["name"] = name
+            context.typer.type_text(str(name), exact=True)
             context.pacer.wait("settle")              # let Windows resolve the Best Match
             context.backend.press("enter")
         args["strategy"] = strategy
@@ -69,26 +72,31 @@ class OpenAppSkill(BaseSkill):
 
 @register_skill("maximize_window")
 class MaximizeWindowSkill(BaseSkill):
-    """Square up the foreground window to full screen with Win+Up, the way a person
-    maximizes a freshly opened window before working in it.
+    """Square up the foreground window to full screen the way a person does: nothing if it is
+    already full screen, else a double click on the title bar.
 
-    Keyboard shortcut through the shell (no coordinate guessing), and it standardizes
-    the window to a known full-screen size — which is the state the fraction-of-screen
-    mouse positions in scroll_and_read and hover_nav already assume. Telemetry-neutral.
+    Full screen is the state the fraction-of-screen mouse positions in scroll_and_read and
+    hover_nav assume.
 
     args: first (wait for a just-opened fresh-profile browser to come up first).
     """
     def execute(self, context: SkillContext, args: dict) -> None:
         if args.get("first"):
             context.pacer.wait("browser_ready")   # let the fresh browser window appear first
-        context.pacer.wait("step")                # brief beat before reaching for the window menu
-        # Alt+Space opens the foreground window's system menu, "x" picks Maximize. This is
-        # deterministic (Win+Up is intercepted by Win11 Snap layouts and can mis-fire).
-        # If the window is already maximized, Maximize is disabled and this is a harmless no-op.
-        context.backend.hotkey("alt", "space")
+        from ..win.uia import front_window
+        state = front_window()
+        if state is None or state[0]:
+            return                                # already full screen (Edge usually opens so), or no sensing
+        # Not full screen: double click the title bar, like a person. The old Alt+Space, x flashed the
+        # window menu at the top left corner over Edge's profile icon on every open (VM run 3, 25 Oct).
+        left, top, right, _ = state[1]
+        x = left + (right - left) * context.rng.uniform(0.35, 0.6) if context.rng else (left + right) / 2
+        context.mouse.move(x, top + 14)
         context.pacer.wait("step")
-        context.backend.press("x")
-        context.pacer.wait("step")   # brief beat; go_to_url does its own settle before typing, so no double-settle here
+        context.backend.click()
+        context.pacer.tiny(context.rng.uniform(0.07, 0.16) if context.rng else 0.1)
+        context.backend.click()
+        context.pacer.wait("step")
 
 
 @register_skill("close_app")

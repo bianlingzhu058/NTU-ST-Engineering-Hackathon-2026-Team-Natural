@@ -36,3 +36,17 @@ def test_move_and_click_are_mouse_inputs():
 def test_vk_table_covers_keys_the_skills_use():
     for k in ("win", "enter", "escape", "tab", "backspace", "ctrl", "alt", "f4", "l", "w", "s", "r", "f", "left", "1", "2"):
         assert k in VK
+
+
+def _flags(raw: bytes) -> int:
+    from agent.input.sendinput_backend import _INPUT, _KEYBDINPUT
+    off = _INPUT.u.offset + _KEYBDINPUT.dwFlags.offset
+    return int.from_bytes(raw[off: off + _KEYBDINPUT.dwFlags.size], "little")
+
+
+def test_arrow_keys_carry_the_extended_flag_letters_do_not():
+    """Shift + arrow only selects text when arrows are sent as extended keys (VM bug 25 Oct)."""
+    u = FakeUser32(); b = SendInputBackend(u)
+    b.key_event("right", True); b.key_event("a", True); b.key_event("delete", True)
+    assert _flags(u.inputs[0]) & 0x1 and _flags(u.inputs[2]) & 0x1
+    assert not _flags(u.inputs[1]) & 0x1

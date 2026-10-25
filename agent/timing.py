@@ -4,6 +4,7 @@ Every wait in the agent comes through ``HumanPacer.wait(kind)``. Each kind is
 a lognormal distribution (configured by median and sigma) optionally mixed
 with occasional long pauses, so no pause category is ever uniform or fixed.
 """
+import collections
 from dataclasses import dataclass
 import random
 import time
@@ -129,7 +130,7 @@ class HumanPacer:
     """Chooses configured delay strategies and performs interruptible waits."""
     def __init__(self, settings: dict, rng: random.Random, sleeper=time.sleep, clock=time.monotonic):
         self._rng, self._sleeper, self._clock = rng, sleeper, clock
-        self.samples: list[tuple[str, float]] = []
+        self.samples = collections.deque(maxlen=30000)   # recent pauses only (bounded on long runs)
         self._global_stop = lambda: False   # checked inside EVERY wait so Stop halts mid-skill
         # Session fatigue: people slow down over a long session. Every sampled pause is scaled
         # by 1 .. 1+max as wall-clock time passes (peak reached after rampup_seconds), adding a

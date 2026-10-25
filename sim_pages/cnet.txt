@@ -1,0 +1,28 @@
+=== PAGE: CNET: Product reviews, advice, how-tos and the latest news - Profile 1 - Microsoft​ Edge
+--- Text : 1
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+--- Hyperlink : 0
+--- Button : 19
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 0
+--- DataItem : 0

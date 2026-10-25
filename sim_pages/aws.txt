@@ -1,0 +1,118 @@
+=== PAGE: Cloud Computing Services - Amazon Web Services (AWS) - Profile 1 - Microsoft​ Edge
+--- Text : 71
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+  973,  132 Support
+ 1068,  132 My account
+  116,  354 Get the greatest choice of cloud and AI capabilities
+  116,  443 Modernize faster and scale more efficiently with an unmatched portfolio of over 240 comprehensive se
+   84, 1642 From startups to enterprises, AWS is how leaders have powered innovation for 20 years
+   84, 1739 Join the largest global community of innovators who trust AWS to accelerate transformation and redef
+  164, 2459 Toyota reduces call handling times by 20% with Amazon Connect Customer
+   84, 3217 I want to see new customer stories in
+   84, 3353 Powering what’s next in every industry
+   84, 3410 Discover how AWS helps organizations in every sector build, scale, and transform.
+   84, 3486 Loading
+  457, 3486 Loading
+  831, 3486 Loading
+   84, 3815 Loading
+  457, 3815 Loading
+   84, 4213 AWS Global Infrastructure
+   84, 4265 The AWS Cloud spans 123 Availability Zones within 39 Geographic Regions, with announced plans for 7 
+  116, 4520 AWS Coverage Regions
+  108, 4553 North America
+   84, 4601 Geographic Regions 9
+  124, 5011 Available
+  221, 5011 Coming soon
+   84, 4674 Edge Locations 31
+  108, 4749 The AWS Cloud in North America has 31 Availability Zones within 9 Geographic Regions, with 31 Edge N
+  108, 4837 Ashburn, VA
+  108, 4877 Atlanta. GA
+  108, 4917 Boston, MA
+  108, 4957 Chicago, IL
+  108, 4997 Columbus, OH
+  108, 5037 Dallas/Fort Worth, TX
+  108, 5077 Denver, CO
+  108, 5117 Hayward, CA
+  108, 5157 Houston, TX
+  108, 5197 Jacksonville, FL
+  108, 5237 Kansas City, MO
+  108, 5277 Los Angeles, CA
+  108, 5317 Miami, FL
+  108, 5357 Minneapolis, MN
+  108, 5397 Montreal, QC
+  108, 5437 Nashville, TN
+  358, 4837 New York, NY
+  358, 4877 Newark, NJ
+  358, 4917 Palo Alto, CA
+  358, 4957 Phoenix, AZ
+  358, 4997 Philadelphia, PA
+  358, 5037 Portland, OR
+  358, 5077 Queretaro, MX
+  358, 5117 Salt Lake City, UT
+  358, 5157 San Jose, CA
+  358, 5197 Seattle, WA
+  358, 5237 South Bend, IN
+  358, 5277 St. Louis, MO
+  358, 5317 Tampa Bay, FL
+  358, 5357 Toronto, ON
+  358, 5397 Washington D.C.
+   84, 4843 I want to
+  116, 5089 Did you find what you were looking for today?
+  116, 5135 Let us know so we can improve the quality of the content on our pages
+--- Hyperlink : 8
+    3,  116 Skip to main content link  <https://aws.amazon.com/#aws-page-content-main>
+  739,  125 Contact us  <https://aws.amazon.com/contact-us/?nc2=h_ut_cu>
+  830,  125 AWS Marketplace  <https://aws.amazon.com/marketplace?nc2=h_utmp>
+   44,  186   <https://aws.amazon.com/?nc2=h_home>
+  899,  185 Sign in to console  <https://console.aws.amazon.com/console/home/?nc2=h_si&src=header-signin>
+ 1051, 1766 View more stories  <https://aws.amazon.com/solutions/case-studies/innovators/?hp=rei>
+  108, 1928 Automotive Toyota reduces call handling times by 20% with Amazon Connect Customer View the story  <https://aws.amazon.com/solutions/case-studies/innovators/toyota/?hp=cs>
+  962, 3411 Explore AWS for your industry  <https://aws.amazon.com/industries/?hp=i0>
+--- Button : 42
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+  629,  125 English
+  965,  125 Support
+ 1060,  125 My account
+ 1189,  125 AWS Profile
+  784,  185 Search
+ 1059,  181 Create account
+ 1221,  414 Open feedback
+  116,  517 Start free with AWS
+  548, 3077 Previous slide
+  670, 3077 Next slide
+  108, 4626 Geographic Regions 9
+  108, 4678 AWS GovCloud (US-East)
+  108, 4717 AWS GovCloud (US-West)
+  108, 4756 Canada (Central)
+  108, 4795 Canada West (Calgary)
+  108, 4834 Mexico (Central)
+  108, 4873 US West (Northern California)
+  108, 4913 US East (Northern Virginia)
+  108, 4952 US East (Ohio)
+  108, 4991 US West (Oregon)
+  108, 4699 Edge Locations 31
+  656, 5113 Yes, give us positive feedback
+  910, 5113 No, give us constructive feedback
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 1
+    4,  242 Missing alt text value
+--- DataItem : 0

@@ -11,7 +11,7 @@ from ctypes import wintypes
 from ..interfaces import InputBackend
 
 INPUT_MOUSE, INPUT_KEYBOARD = 0, 1
-KEYEVENTF_KEYUP, KEYEVENTF_UNICODE, KEYEVENTF_SCANCODE = 0x0002, 0x0004, 0x0008
+KEYEVENTF_EXTENDEDKEY, KEYEVENTF_KEYUP, KEYEVENTF_UNICODE, KEYEVENTF_SCANCODE = 0x0001, 0x0002, 0x0004, 0x0008
 MOUSEEVENTF_MOVE, MOUSEEVENTF_ABSOLUTE = 0x0001, 0x8000
 MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP, MOUSEEVENTF_WHEEL = 0x0002, 0x0004, 0x0800
 WHEEL_DELTA = 120
@@ -24,6 +24,10 @@ VK = {  # virtual-key codes for the named keys the skills use
     **{f"f{i}": 0x6F + i for i in range(1, 13)},
     **{str(d): 0x30 + d for d in range(10)}, **{c: 0x41 + i for i, c in enumerate("abcdefghijklmnopqrstuvwxyz")},
 }
+
+
+# Keys in the block left of the number pad (and the Windows / Apps keys): sent with the extended flag.
+EXTENDED_VK = {0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x2D, 0x2E, 0x5B, 0x5D}
 
 
 class _KEYBDINPUT(ctypes.Structure):
@@ -56,8 +60,22 @@ class SendInputBackend(InputBackend):
 
     # keyboard
     def _key(self, vk: int, up: bool = False) -> None:
+        """One key event with the key's scan code, and the extended flag for the arrow block keys.
+
+        Arrows, Home, End, Page Up/Down, Insert and Delete exist twice on a keyboard (their own
+        block and the number pad). Without KEYEVENTF_EXTENDEDKEY Windows takes them as number pad
+        keys, and with Num Lock on, Shift + arrow then stops selecting: on the VM (25 Oct) a
+        "select the line and delete it" only moved the cursor. Microsoft's own UI Automation input
+        code sets this flag for the same keys. A real keyboard always sends the scan code too."""
+        flags = KEYEVENTF_KEYUP if up else 0
+        if vk in EXTENDED_VK: flags |= KEYEVENTF_EXTENDEDKEY
+        scan = 0
+        try:
+            scan = int(self._u.MapVirtualKeyW(vk, 0)) & 0xFF
+        except Exception:
+            scan = 0
         inp = _INPUT(type=INPUT_KEYBOARD)
-        inp.u.ki = _KEYBDINPUT(vk, 0, KEYEVENTF_KEYUP if up else 0, 0, None)
+        inp.u.ki = _KEYBDINPUT(vk, scan, flags, 0, None)
         self._u.SendInput(1, ctypes.byref(inp), ctypes.sizeof(_INPUT))
 
     def _unicode(self, char: str) -> None:

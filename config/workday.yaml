@@ -21,38 +21,60 @@ todo:
   strike_keys: ["alt+o", "h", "WAIT", "ctrl+pagedown", "alt+s", "down", "enter"]
   strike_dialog_title: "Character"
 
+# Lines on the to do list and in note lists. dash: none = plain lines; literal = "- " typed on every
+# line. Use literal only if Writer leaves "- " as typed (VM test: type "- test" + Enter in Writer; if it
+# turns into a bullet, switch off Tools > AutoCorrect > Options > Bulleted and numbered lists first).
+# plan.first_task: the first line of every list is this task (demo). crypto_prices = CoinGecko into Calc:
+# Edge and Calc side by side, numbers copied (Ctrl+C, Ctrl+V) or read and typed. Remove the line for a random first task.
+plan:
+  first_task: crypto_prices
+
+lists:
+  dash: none
+  # Notes: copy items off the page (select, Ctrl+C, Ctrl+Alt+Shift+V paste as plain text) instead of
+  # typing them. off until checked on the VM. check: whole = copy whole page elements only (the bot
+  # knows the text); clipboard = rough partial selection, then the bot reads what was copied.
+  copy: off
+  copy_check: whole
+
 apps:
-  browser: {search: "Edge Test", title: "Edge"}
-  writer: {search: "swriter", title: "Writer"}
-  calc: {search: "scalc", title: "Calc"}
+  # search: what a person types in Start search; one is picked each time. Best match checked on VM 2
+  # (25 Oct): wr -> OpenOffice Writer, calc -> OpenOffice Calc, edge -> Edge Test. Edge always gets at
+  # least "edge t": plain "edge" could become Microsoft Edge (no cert flag) once Windows reorders it.
+  browser: {search: ["edge t", "edge te", "edge test"], title: "Edge"}
+  writer: {search: ["wr", "writ", "writer"], title: "Writer"}
+  calc: {search: ["calc"], title: "Calc"}
 
 # Items the bot may put on its list. kind: hybrid (web then Writer/Calc), websurf, office, explorer.
 # labels are casual wordings; {coin} and {person} are filled in at random. Each line on a list is
-# unique. "facts" means the task types what the page shows (captured page facts in
-# config/page_facts.json, from the VM 2 dumps of 24 Oct); an item whose facts are missing is skipped.
-# Left out on purpose (24 Oct dumps): cnn (terms pop-up needs a click), arstechnica, aliexpress, binance,
+# unique. Everything a task takes from a website is read off the page at that moment (agent/day/eyes.py).
+# min_minutes: the item only goes on lists of runs at least that long.
+# Left out on purpose (24 Oct dumps): arstechnica, aliexpress, binance,
 # cloudflare (blocked on the range), coinmarketcap, bleacherreport (broken), apple, asus, cnet (unreadable).
-# booking is blocked too: kept as one "rare" line so a run now and then shows an honest failure.
+# cnn is in again (25 Oct): the eyes click its 'Agree' pop-up. booking is blocked too: kept as one "rare" line so a run now and then shows an honest failure.
 items:
-  # Hybrid: read the site, then work with what it shows (numbers and text from config/page_facts.json)
-  - {task: crypto_prices, kind: hybrid, site: "https://coingecko.com", facts: coingecko, file: ["crypto prices {date}", "coins {date}", "crypto {date}"], labels: ["check {coin} on coingecko", "coingecko prices for {coin}", "update crypto sheet from coingecko", "look up {coin} price on coingecko"]}
-  - {task: crypto_compare, kind: hybrid, site: "https://www.coinbase.com", facts: coinbase, labels: ["compare {coin} coingecko vs coinbase", "{coin} in sgd vs usd", "check sgd crypto prices on coinbase"]}
-  - {task: read_note, kind: hybrid, recipe: news, sites: ["https://apnews.com", "https://www.bbc.com"], facts: apnews, find: ["World Cup", "NATO", "business"], labels: ["news notes for the team", "news round up for {person}", "write up todays headlines"]}
-  - {task: read_note, kind: hybrid, recipe: training, sites: ["https://www.coursera.org"], facts: coursera, find: ["Python", "Excel", "Machine Learning"], labels: ["training ideas for {person}", "find a course for {person} on coursera", "coursera options for the team"]}
-  - {task: read_note, kind: hybrid, recipe: cloud, sites: ["https://aws.amazon.com", "https://cloud.google.com"], facts: aws, find: ["free", "AI"], labels: ["compare aws vs google cloud", "cloud options for the new project"]}
-  - {task: read_note, kind: hybrid, recipe: phone, sites: ["https://www.samsung.com"], facts: samsung, find: ["Galaxy"], labels: ["phone options for {person}", "samsung phone for {person}"]}
-  - {task: read_note, kind: hybrid, recipe: asana, sites: ["https://www.asana.com"], facts: asana, find: ["AI", "teams"], labels: ["look at asana for team tasks", "asana for our project?"]}
-  - {task: laptop_compare, kind: hybrid, site: "https://www.dell.com", labels: ["compare dell laptops", "dell laptop options for the team", "look at dell laptops"]}
-  # Websurf: read, scroll, find a word, follow a link and come back
-  - {task: browse, kind: websurf, site: "https://www.coursera.org", find: ["Python", "data", "AI"], labels: ["look at coursera python courses", "coursera plus price?"]}
-  - {task: browse, kind: websurf, site: "https://apnews.com", find: ["World Cup", "business", "tech"], labels: ["read the news on ap", "skim ap news"]}
-  - {task: browse, kind: websurf, site: "https://www.bbc.com", find: ["World Cup", "business"], labels: ["bbc headlines", "check bbc news"]}
-  - {task: browse, kind: websurf, site: "https://www.amazon.com", find: ["Deals", "Electronics", "Best Sellers"], labels: ["look for a monitor on amazon", "amazon deals for desk stuff"]}
-  - {task: browse, kind: websurf, site: "https://www.coinbase.com", find: ["Bitcoin", "XSGD"], labels: ["see coinbase for crypto news", "coinbase market update"]}
-  - {task: browse, kind: websurf, site: "https://www.arxiv.org", find: ["Computer Science", "Statistics"], labels: ["skim new papers on arxiv", "arxiv for the ml reading group"]}
-  - {task: browse, kind: websurf, site: "https://www.archive.org", find: ["Texts", "Video"], labels: ["find old reports on archive.org"]}
-  - {task: browse, kind: websurf, site: "https://cloud.google.com", find: ["free", "pricing"], labels: ["google cloud free tier?"]}
-  - {task: browse, kind: websurf, site: "https://www.bit.ly", find: ["QR", "links"], labels: ["bitly for the event links"]}
+  # Hybrid: read the site, then work with what it shows (read off the page live by the eyes)
+  - {task: crypto_prices, kind: hybrid, site: "https://coingecko.com", file: ["crypto prices {date}", "coins {date}", "crypto {date}"], labels: ["check {coin} on coingecko", "coingecko prices for {coin}", "update crypto sheet from coingecko", "look up {coin} price on coingecko"]}
+  - {task: crypto_compare, kind: hybrid, site: "https://www.coinbase.com", labels: ["compare {coin} coingecko vs coinbase", "{coin} in sgd vs usd", "check sgd crypto prices on coinbase"]}
+  - {task: read_note, kind: hybrid, recipe: news, sites: ["https://apnews.com", "https://www.bbc.com"], find: ["World Cup", "NATO", "business"], labels: ["news notes for the team", "news round up for {person}", "write up todays headlines"]}
+  - {task: read_note, kind: hybrid, recipe: training, sites: ["https://www.coursera.org"], find: ["Python", "Excel", "Machine Learning"], labels: ["training ideas for {person}", "find a course for {person} on coursera", "coursera options for the team"]}
+  - {task: read_note, kind: hybrid, recipe: cloud, sites: ["https://aws.amazon.com", "https://cloud.google.com"], find: ["free", "AI"], labels: ["compare aws vs google cloud", "cloud options for the new project"]}
+  - {task: read_note, kind: hybrid, recipe: phone, sites: ["https://www.samsung.com"], find: ["Galaxy"], labels: ["phone options for {person}", "samsung phone for {person}"]}
+  - {task: read_note, kind: hybrid, recipe: asana, sites: ["https://www.asana.com"], find: ["AI", "teams"], labels: ["look at asana for team tasks", "asana for our project?"]}
+  - {task: laptop_compare, kind: hybrid, site: "https://www.dell.com", min_minutes: 10, labels: ["compare dell laptops", "dell laptop options for the team", "look at dell laptops"]}
+  # Websurf: each line asks for one thing ([line, word, goal, answer word]; words from the VM page dumps, 25 Oct). The bot
+  # Ctrl+F's the word; done only when the goal is reached (Kellyn): read = a sentence with the word AND the
+  # answer word is on the page (news lines: any headline with the word), its gist goes on the list; open = the word's link opens a page with something new on it, else
+  # "<word> page down, try again later". Sub pages are 404 on the range, so only archive contact is "open":
+  # one honest failure now and then. amazon, arxiv and other link-only lines were dropped for that reason.
+  - {task: browse, kind: websurf, site: "https://www.coursera.org", labels: [["coursera plus discount?", "Save 40%", "read", "40%"]]}
+  - {task: browse, kind: websurf, site: "https://apnews.com", labels: [["world cup news on ap", "World Cup", "read"], ["ap tech news", "Technology", "read"]]}
+  - {task: browse, kind: websurf, site: "https://www.bbc.com", labels: [["bbc world cup news", "World Cup", "read"]]}
+  - {task: browse, kind: websurf, site: "https://www.cnn.com", labels: [["check cnn for the nato news", "NATO", "read"]]}
+  - {task: browse, kind: websurf, site: "https://www.coinbase.com", labels: [["what is xsgd on coinbase?", "XSGD", "read", "stablecoin"], ["coinbase trading fees?", "trading fees", "read", "zero"], ["who created bitcoin? coinbase page", "Bitcoin was", "read", "created by"]]}
+  - {task: browse, kind: websurf, site: "https://cloud.google.com", labels: [["google cloud free tier?", "free credit", "read", "$300"]]}
+  - {task: browse, kind: websurf, site: "https://www.bit.ly", labels: [["can bitly make qr codes for the event?", "QR Code", "read", "solutions"]]}
+  - {task: browse, kind: websurf, site: "https://www.archive.org", labels: [["get archive.org contact details", "Contact", "open"]]}
   - {task: browse, kind: websurf, site: "https://www.booking.com", rare: true, labels: ["look at hotels for the offsite"]}
   # Office only
   - {task: writer_note, kind: office, note: meeting, labels: ["write meeting notes", "notes from the {team} meeting", "type up meeting notes"]}

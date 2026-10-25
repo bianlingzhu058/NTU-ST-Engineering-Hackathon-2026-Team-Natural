@@ -1,0 +1,214 @@
+=== PAGE: asana.com - Profile 1 - Microsoft​ Edge
+--- Text : 47
+   20,   81 You're using an unsupported command-line flag: --ignore-certificate-errors. This poses stability and
+  195,  478 The OS for human-agent teams
+  372,  692 Supercharge your teams to get things done
+   82, 1014 85% of Fortune 100 companies choose Asana¹
+  265, 1434 AI that works the way your team works
+   76, 1646 Asana Work Graph®
+   76, 1733 A neural network of everything your company is doing, every person, task, project, goal, and depende
+  360, 1646 Multiplayer
+  360, 1697 Every workflow, app, and agent runs in a shared space where humans and agents act on the same plan, 
+  644, 1646 Shared memory
+  644, 1697 Shared memory means AI Teammates learn from the work itself. Every completed task, every piece of fe
+  928, 1646 Enterprise governance
+  928, 1733 Every agent has an identity, scoped permissions, an audit trail, and cost constraints, with data acc
+   82, 2178 AI TEAMMATES
+   82, 2210 Your team just got bigger
+   82, 2283 Pre-built AI agents that work alongside your team inside real workflows, with shared memory, governa
+   94, 2915 Skills
+   94, 2703 Launch Planner
+  522, 2915 Skills
+  522, 2703 Workflow Optimizer
+  950, 2915 Skills
+  950, 2703 Compliance Specialist
+   82, 3291 Deliver real productivity for every team
+  739, 3835 Agentic Work Management
+  739, 3906 Agentic Work Management brings together AI Teammates, AI Studio, Asana Dash, and MCP and AI Connecto
+  684, 4689 By building scalable workflows and leveraging AI with intention, we’ve been able to increase visibil
+  684, 5046 Simone Williams
+  684, 5072 Chief Digital, Technology & Business Development Officer, COS
+   76, 5305 Get started easily
+   76, 5387 Tour the platform, read a few deep dives, or kickstart your work management journey with the right t
+  676, 5337 Try the Asana demo
+  676, 5535 Discover resources
+  676, 5733 Start with a template
+   82, 6272 Recognized as a leader by top analyst firms
+   82, 6831 A Leader in the 2025 Gartner Magic Quadrant for Collaborative Work Management three years in a row
+  644, 6831 A leader in Work Management and OKR Software with more than 12,000 user reviews
+   76, 7167 The only platform that can support your company at any scale
+   76, 7545 1. Accurate as of December 2023, includes free and paid users.
+   12, 9357 ©
+   28, 9357 2026
+   60, 9357 Asana, Inc.
+   15, 9571 Terms
+   55, 9608 &
+   81, 9571 Privacy
+  -17, 9595 Download the Asana iOS app
+   98, 9595 Download the Asana Android app
+--- Hyperlink : 91
+   76,  137 Asana Home  <https://www.asana.com/index.html>
+  646,  137 Pricing  <https://asana.com/pricing>
+  892,  137 Contact sales  <https://asana.com/sales>
+ 1013,  137 Log in  <https://app.asana.com/-/login>
+ 1084,  137 Get started  <https://asana.com/create-account>
+   79,  245 desktop icon Contact sales  <https://asana.com/sales>
+  211,  245 message icon View demo  <https://asana.com/demo/main>
+  328,  245 download icon Download app  <https://asana.com/download>
+  461,  772 Get started  <https://asana.com/create-account>
+  636,  772 View demo  <https://asana.com/demo/main>
+   82, 2352 Learn more  <https://asana.com/product/ai/ai-teammates>
+  739, 4046 Learn more  <https://asana.com/product/ai>
+  644, 5305 Try the Asana demo See Asana in action arrow-right icon  <https://asana.com/demo/main>
+  644, 5503 Discover resources Help articles and tutorials arrow-right icon  <https://asana.com/resources>
+  644, 5701 Start with a template Get started faster with a template arrow-right icon  <https://asana.com/templates>
+   82, 6911 Learn more arrow-right-circle icon  <https://asana.com/inside-asana/leader-in-2025-gartner-magic-quadrant-collaborative-work-management-report>
+  644, 6911 Read user reviews arrow-right-circle icon  <https://www.g2.com/products/asana/reviews>
+   76, 7399 Get started  <https://asana.com/create-account>
+   12, 7645 Asana Home  <https://asana.com/?noredirect>
+   52, 7720 Product overview  <https://asana.com/product>
+   52, 7744 All features  <https://asana.com/features>
+   52, 7768 Latest feature release  <https://asana.com/whats-new>
+   52, 7792 Pricing  <https://asana.com/pricing>
+   52, 7816 Starter plan  <https://asana.com/plan/starter>
+   52, 7840 Advanced plan  <https://asana.com/plan/advanced>
+   52, 7864 Enterprise  <https://asana.com/enterprise>
+   52, 7888 App integrations  <https://asana.com/apps>
+   52, 7912 AI work management  <https://asana.com/product/ai>
+   52, 7936 Project management  <https://asana.com/resources/benefits-project-management>
+   52, 7960 Resource management  <https://asana.com/resources/resource-management-plan>
+   52, 8018 Campaign management  <https://asana.com/uses/campaign-management>
+   52, 8042 Content calendar  <https://asana.com/uses/content-calendar>
+   52, 8066 Creative production  <https://asana.com/uses/creative-production>
+   52, 8090 Goal management  <https://asana.com/uses/goal-management>
+   52, 8114 New hire onboarding  <https://asana.com/uses/employee-onboarding>
+   52, 8138 Organizational planning  <https://asana.com/uses/organizational-planning>
+   52, 8162 Product launches  <https://asana.com/uses/product-launch>
+   52, 8186 Resource planning  <https://asana.com/uses/resource-planning>
+   52, 8210 Strategic planning  <https://asana.com/uses/marketing-strategic-planning>
+   52, 8234 Project intake  <https://asana.com/uses/project-intake>
+   52, 8258 Task Management  <https://asana.com/uses/task-management>
+   52, 8282 All use cases  <https://asana.com/uses>
+   52, 8340 Small business  <https://asana.com/small-business>
+   52, 8364 Marketing  <https://asana.com/teams/marketing>
+   52, 8388 Operations  <https://asana.com/teams/operations>
+   52, 8412 IT  <https://asana.com/teams/it>
+   52, 8436 Product  <https://asana.com/teams/product-managers>
+   52, 8460 Sales  <https://asana.com/teams/sales>
+   52, 8484 Healthcare  <https://asana.com/industry/healthcare>
+   52, 8508 Retail  <https://asana.com/industry/retail>
+   52, 8532 Government  <https://asana.com/industry/government-solutions>
+   52, 8556 Education  <https://asana.com/education>
+   52, 8580 Manufacturing  <https://asana.com/industry/manufacturing>
+   52, 8604 Nonprofits  <https://asana.com/industry/nonprofit>
+   52, 8628 Startups  <https://asana.com/startups>
+   52, 8652 Agencies  <https://asana.com/agencies>
+   52, 8676 All teams  <https://asana.com/teams>
+   52, 8734 Help Center  <https://help.asana.com/s/>
+   52, 8758 Get support  <https://help.asana.com/s/#chat#chat>
+   52, 8782 Asana Academy  <https://www.asana.com/index.html>
+   52, 8806 Certifications  <http://asana.com/certifications>
+   52, 8830 Forum  <https://www.asana.com/index.html>
+   52, 8854 Resource center  <https://asana.com/resources/category/all>
+   52, 8878 Events and webinars  <https://asana.com/events>
+   52, 8902 Project templates  <https://asana.com/templates>
+   52, 8926 Customer Success  <https://asana.com/customer-success>
+   52, 8950 Developers and API  <https://developers.asana.com/docs/>
+   52, 8974 Partners  <https://asana.com/partners>
+   52, 8998 Sitemap  <https://asana.com/site-map>
+   52, 9056 About us  <https://asana.com/company>
+   52, 9080 Leadership  <https://asana.com/leadership>
+   52, 9104 Customers  <https://asana.com/customers>
+   52, 9128 Careers  <https://asana.com/jobs>
+   52, 9152 Inside Asana  <https://asana.com/inside-asana>
+   52, 9176 Culture  <https://asana.com/culture-and-belonging>
+   52, 9200 Press  <https://asana.com/press>
+   52, 9224 Investor relations  <https://www.asana.com/index.html>
+   52, 9248 Trust and security  <https://asana.com/trust>
+   52, 9272 Privacy  <https://asana.com/privacy>
+   52, 9296 Supplier responsibility  <https://asana.com/terms/modern-slavery-statement>
+   52, 9320 Sustainability and ESG  <https://asana.com/esg/>
+   12, 9423 Language  <https://www.asana.com/#i18n>
+   12, 9444 X  <https://x.com/intent/follow?screen_name=asana>
+   12, 9476 Linkedin  <https://www.linkedin.com/company/asana>
+   12, 9508 Instagram  <https://www.instagram.com/asana/>
+   12, 9540 Facebook  <https://www.facebook.com/asana>
+   12, 9572 Youtube  <https://www.youtube.com/channel/UC2BoogM0AqwOJyoSp1S4ClQ>
+   12, 9607 Terms  <https://asana.com/terms>
+   76, 9607 Privacy  <https://asana.com/terms/privacy-statement>
+   12, 9628 Download the Asana iOS app  <https://itunes.apple.com/us/app/asana-mobile/id489969512?mt=8>
+  132, 9628 Download the Asana Android app  <https://play.google.com/store/apps/details?id=com.asana.app>
+--- Button : 29
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  327,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  887,   38 Read aloud this page (Ctrl+Shift+U)
+  927,   38 Enter Immersive Reader (F9)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+ 1239,   80 Close
+  220,  137 Products chevron-down icon
+  339,  137 Solutions chevron-down icon
+  461,  137 Learning & support chevron-down icon
+  840,  137 Choose your preferred language
+   69, 2514 Skills ROADMAP SYNCING GTM SEQUENCING DEPENDENCY MAPPING Launch Planner Turns project goals into ste
+  497, 2514 Skills VOICE GOVERNANCE ARTIFACT AUDITING MESSAGING COMPLIANCE Workflow Optimizer Finds bottlenecks 
+  925, 2514 Skills ROADMAP SYNCING GTM SEQUENCING DEPENDENCY MAPPING Compliance Specialist Reviews project docs 
+ 1078, 2454 Scroll carousel back
+ 1138, 2454 Scroll carousel forward
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 43
+   76,  148 Asana Home
+  305,  154 chevron-down icon
+  427,  154 chevron-down icon
+  612,  154 chevron-down icon
+   79,  245 desktop icon
+  211,  245 message icon
+  328,  245 download icon
+  457, 1030 Amazon
+  606, 1030 Accenture
+  756, 1030 Johnson & Johnson
+  905, 1030 Dell
+ 1055, 1030 Merck
+  102, 3064 Microsoft excel icon
+  130, 3064 google sheets icon
+  530, 3064 Google Drive
+  558, 3064 Sharepoint icon
+  958, 3064 Microsoft word icon
+  986, 3064 Google Docs logo icon
+ 1089, 2465 Scroll carousel back
+ 1149, 2465 Scroll carousel forward
+   76, 3743 Asana UI displaying a "Summer Campaign Launch Readiness" project list. Sections include milestones a
+   82, 4402 Abstract workflow graphic showing a horizontal connecting line. It links a node with a woman's heads
+   82, 4666 COS quote image
+  684, 4610 COS logo
+ 1108, 4620 quote-mark icon
+ 1111, 5380 arrow-right icon
+ 1111, 5578 arrow-right icon
+ 1111, 5776 arrow-right icon
+   82, 6083 Abstract workflow graphic showing a connecting line. A central node features a man's headshot linked
+   82, 6460 2025 Gartner CWM Card
+  173, 6911 arrow-right-circle icon
+  644, 6460 Official G2 award badge for 2025's Top 100 Best Software Products. This emblem recognizes the highes
+  785, 6911 arrow-right-circle icon
+  624, 9452 X
+  624, 9484 Linkedin
+  624, 9516 Instagram
+  624, 9548 Facebook
+  624, 9580 Youtube
+   12, 9628 Download the Asana iOS app
+  132, 9628 Download app from Google Play
+--- DataItem : 0

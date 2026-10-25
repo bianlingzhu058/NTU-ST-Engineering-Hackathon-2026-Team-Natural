@@ -1,0 +1,38 @@
+=== PAGE: Search - Microsoft Bing and 1 more page - Profile 1 - Microsoft​ Edge
+--- Text : 1
+   28,   80 Microsoft Logo Image
+--- Hyperlink : 6
+  254,   84 Copilot  <https://www.bing.com/chat?FORM=hpcodx&intent=bing>
+  355,   95 Images  <https://www.bing.com/images?FORM=Z9LH>
+  432,   95 Videos  <https://www.bing.com/videos?FORM=Z9LH1>
+  507,   95 Maps  <https://www.bing.com/maps?FORM=Z9LH2>
+  575,   95 News  <https://www.bing.com/news/search?q=Top+stories&nvaug=%5bNewsVertical+Category%3d%22rt_MaxClass%22%5d&FORM=Z9LH3>
+ 1131,  208 Open Copilot  <https://www.bing.com/chat?FORM=hpcodx&intent=bing>
+--- Button : 22
+ 1142,    0 Minimize
+ 1188,    0 Restore
+ 1234,    0 Close
+    8,    2 Profile 1 Profile, Please sign in
+   44,    2 Tab actions menu
+  299,    8 Close tab
+  538,    8 Close tab
+  566,    0 New Tab
+    0,   36 Back
+   52,   36 Refresh
+  106,   38 View site information
+  927,   38 Read aloud this page (Ctrl+Shift+U)
+  967,   38 Add this page to favorites (Ctrl+D)
+ 1020,   36 Split screen
+ 1064,   36 Favorites
+ 1108,   36 Collections
+ 1152,   36 Browser essentials
+ 1196,   36 Settings and more (Alt+F)
+ 1240,   36 Copilot (Ctrl+Shift+.)
+  642,   91 More
+ 1047,  219 Search using voice
+ 1080,  219 Search using an image
+--- Edit : 2
+  145,   38 Address and search bar
+--- Image : 2
+   15,   90 Microsoft Logo Image
+--- DataItem : 0

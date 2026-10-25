@@ -14,6 +14,12 @@ def _pick(context: SkillContext, value):
     return value
 
 
+def _as_typed(url: str) -> str:
+    """What a person types for a URL: no scheme, but "www." kept where the config has it (the
+    mirror's certificates cover only www for some sites, so a bare host is a dead end there)."""
+    return url.split("://", 1)[-1]
+
+
 def _focus_page_body(context: SkillContext) -> None:
     """Put keyboard focus on the page body: leave the address bar, click empty space mid-page."""
     context.backend.hotkey("ctrl", "l"); context.pacer.wait("micro")
@@ -61,7 +67,7 @@ class GoToUrlSkill(BaseSkill):
             context.pacer.wait("settle")          # fresh page: brief settle before focusing the bar
         context.backend.hotkey("ctrl", "l")       # focus the address bar (reliable)
         context.pacer.wait("step")
-        context.typer.type_text(url, exact=True, key_pause="url")  # URLs verbatim (no typos), visibly keyed — not instant
+        context.typer.type_text(_as_typed(url), exact=True, key_pause="url")  # URLs verbatim (no typos), visibly keyed — not instant
         context.pacer.wait("step")
         context.backend.press("enter")
         context.pacer.wait("page_load")  # let the page finish loading before interacting
@@ -83,7 +89,7 @@ class OpenNewTabSkill(BaseSkill):
         context.pacer.wait("settle")
         context.backend.hotkey("ctrl", "l")         # make sure the address bar is focused
         context.pacer.wait("step")
-        context.typer.type_text(url, exact=True, key_pause="url")    # URL verbatim, visibly keyed
+        context.typer.type_text(_as_typed(url), exact=True, key_pause="url")    # URL verbatim, visibly keyed
         context.pacer.wait("step")
         context.backend.press("enter")
         context.pacer.wait("page_load")
