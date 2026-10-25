@@ -164,49 +164,15 @@ class Workday:
         "asana": ["asana pitch for the team", "asana summary for {person}"],
     }
 
-    def must_haves(self, taken: set[str]) -> list[Item]:
-        """The brief asks for office work and web work in every run (design 25 Oct, Kellyn): one hybrid
-        that ends with a sheet or note, and one office task, both drawn at random from their pools.
-        About 1 run in 3 the office task grows out of the hybrid (written from what it found)."""
-        pool = [s for s in self.cfg["items"] if self._usable(s)]
-        hybrids = [s for s in pool if s.get("task") in self.RELIABLE_HYBRIDS]
-        first = (self.cfg.get("plan") or {}).get("first_task")     # demo: e.g. crypto_prices (web to Calc)
-        if first and any(s.get("task") == first for s in pool):
-            hybrids = [s for s in pool if s.get("task") == first]
-        offices = [s for s in pool if s.get("kind") == "office"]
-        out = []
-        if hybrids:
-            label, spec = self._label(self.rng.choice(hybrids)); taken.add(label)
-            out.append(Item(label, spec))
-        if self.minutes >= 10 and offices:
-            hybrid = out[0] if out else None
-            key = (hybrid.spec.get("recipe") or hybrid.spec.get("task")) if hybrid else None
-            if hybrid and key in self.LINKED and self.rng.random() < P("plan.linked_office_p"):
-                label = self.rng.choice(self.LINKED[key]).replace("{person}", self.rng.choice(PEOPLE))
-                out.append(Item(label, {"task": "writer_note", "kind": "office", "note": "linked", "_link": hybrid}))
-            else:
-                label, spec = self._label(self.rng.choice(offices))
-                out.append(Item(label, spec))
-            taken.add(out[-1].label)
-        return out
-
     def plan(self) -> list[Item]:
         for limit, (lo, hi) in P("todo.items_by_minutes"):
             if self.minutes <= limit: break
         n = self.rng.randint(lo, hi)
         taken: set[str] = set()
-        musts = self.must_haves(taken)
-        items = self.draw_items(max(0, n - len(musts)), taken)
-        # the must haves land somewhere in the first 3 or 4 lines, in random order (a linked office task
-        # always after its hybrid)
-        top = min(len(items) + len(musts), self.rng.randint(3, 4))
-        slots = sorted(self.rng.sample(range(top), len(musts))) if len(musts) <= top else list(range(len(musts)))
-        order = list(musts)
-        if not (len(order) == 2 and order[1].spec.get("_link")): self.rng.shuffle(order)
-        if (self.cfg.get("plan") or {}).get("first_task") and musts:
-            slots[0] = 0; order.remove(musts[0]); order.insert(0, musts[0])   # the demo task is line one
-        for slot, item in zip(slots, order):
-            items.insert(slot, item)
+        # No line is forced any more (team, 25 Oct: the judges asked for no hardcoding): every line is drawn
+        # from the pool by its weight. A short run only gets fewer lines.
+        short = self.minutes < P("plan.short_run_minutes")
+        items = self.draw_items(2 if short else n, taken)
         if self.minutes >= P("todo.personal_min_minutes"):
             k = self.rng.randint(*P("todo.personal_items"))
             for spec in self.rng.sample(self.cfg["personal"], k):
@@ -214,7 +180,7 @@ class Workday:
                 items.insert(self.rng.randrange(1, len(items) + 1), Item(label, dict(spec), personal=True))
         if self.minutes >= 10:
             for item in items[1:]:
-                if not item.personal and item not in musts and self.rng.random() < P("todo.delete_p"):
+                if not item.personal and self.rng.random() < P("todo.delete_p"):
                     item.delete_at = self.t0 + self.rng.uniform(0.2, 0.9) * self.minutes * 60
         return items
 
@@ -296,6 +262,8 @@ class Workday:
                 break
             task = self.pick()
             if task is None:
+                if self.minutes < P("plan.short_run_minutes"):
+                    break                                      # the 3.5 min demo: no new lines, wrap up
                 if self.left() > self.reserve() + P("todo.top_up_min_left_s"):
                     if self.safely(self.top_up, True):
                         continue
@@ -347,7 +315,10 @@ class Workday:
                        and self.now() - i.spec.get("_fx_started_at", -1e9) > P("task.look_again_after_s")]
         room = self.left() - self.reserve()
         fits = lambda i: P("task.min_seconds").get(i.spec["task"], 60) < room
-        open_items = [i for i in open_items if fits(i)]
+        if self.minutes < P("plan.short_run_minutes") and open_items and open_items[0] is self.todo.visible()[0]:
+            open_items = open_items[:1]                         # the 3.5 min demo: line one always runs
+        else:
+            open_items = [i for i in open_items if fits(i)]
         ready = [t for t in ready if room > 45 + 50 + t.next_need_s]   # the step it stopped before must fit
         if not open_items:
             if ready:
@@ -389,10 +360,12 @@ class Workday:
             app = getattr(task.window, "app", "") or "app"
             task.note = ", " + self.rng.choice([f"{app} acting up, try later", f"could not finish in {app}, later"])
         except Cut as cut:
+            self.desk.unsplit()                                # the next window used goes full screen again
             self.cut_task(task, cut.why)
             # a step that no longer fits is not the end of the day if shorter work still fits
             if cut.why == "stop" or (cut.why == "end of day" and self.left() < self.reserve() + 60): raise
             return
+        self.desk.unsplit()                                    # side by side only while the task needs it
         item.status = task.status
         note = task.note if task.note.startswith(", ") or not task.note else ", " + task.note
         if task.status == "done":

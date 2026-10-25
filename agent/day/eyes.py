@@ -90,7 +90,13 @@ class SimEyes:
     def split(self) -> None:
         """Edge on the left half (VM: 1280 px wide screen): the right hand columns are off screen. Up and
         down are not limited: on the VM, Ctrl+F on the coin brings its row into view; the dump has no scroll."""
-        self.viewport = (0, -10 ** 6, 640, 10 ** 6)
+        self.viewport = (0, 130, 640, 1040) if self.faults.get("tall_view") else (0, -10 ** 6, 640, 10 ** 6)
+
+    voff = 0                                       # how far the page is scrolled down (px), tall_view only
+
+    def vscroll(self, notches: int) -> None:
+        """Mouse wheel over the page: positive = down."""
+        self.voff = self.voff + 100 * notches         # the dump was saved scrolled down: either way is fine
 
     def hscroll(self, notches: int) -> None:
         """Shift + wheel over the table: positive = to the right (VM test 25 Oct). Coin names stay put."""
@@ -140,6 +146,8 @@ class SimEyes:
             return []                                       # still loading on the first look
         site = self._site()
         page = [e for e in self._page() if e.kind in wanted]
+        if self.voff and site == "coingecko":
+            page = [replace(e, top=e.top - self.voff, bottom=e.bottom - self.voff) for e in page]
         if self.hoff and site == "coingecko":            # table cells right of the coin name moved left
             page = [replace(e, left=e.left - self.hoff, right=e.right - self.hoff)
                     if e.kind == "dataitem" and e.left > 300 else e for e in page]

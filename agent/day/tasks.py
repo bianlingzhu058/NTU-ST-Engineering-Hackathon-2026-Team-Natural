@@ -198,23 +198,12 @@ class Task:
         ctx.pacer.wait("step")
 
     def split_screen(self, left, right) -> None:
-        """Edge on the left half, the sheet on the right (Win+Left / Win+Right), the way people
-        copy numbers from a page into a sheet. Snap Assist's window picker gets an Esc."""
-        ctx, desk = self.ctx, self.day.desk
-        if getattr(self, "_split", False): return
-        for win, key in ((left, "left"), (right, "right")):
-            win.extra["split"] = True                       # half screen on purpose: no re-maximise
-            desk.focus(win, "split screen")
-            ctx.pacer.wait("step")
-            ctx.backend.hotkey("win", key)
-            if hasattr(ctx.backend, "release_modifiers"): ctx.backend.release_modifiers()
-            ctx.pacer.wait("settle")
-            if key == "left":
-                ctx.backend.press("escape")
-                ctx.pacer.wait("step")
-        self._split = True
+        """Edge on the left half, the document on the right, the way people move things from a page into
+        a sheet or note. Only the tasks that copy across do this; the desk checks it really happened."""
+        desk = self.day.desk
+        if desk.split_pair == (left, right): return
+        desk.split(left, right)
         if hasattr(self.day.eyes, "split"): self.day.eyes.split()   # simulator: right hand columns now off screen
-        self.day.log({"event": "split_screen"})
 
     def site_name(self, url: str) -> str:
         host = url.split("//")[-1].split("/")[0].replace("www.", "")
@@ -335,11 +324,12 @@ class CryptoPrices(Task):
             self.status = "failed"
             self.note = self.say("site_error", site="coingecko") if not page else self.say("missing", site="coingecko", what="prices")
             return
-        self.skill("scroll_and_read", {"bursts_range": [1, 3]})
+        short = day.minutes < P("plan.short_run_minutes")      # the 3.5 min demo: one coin, Coin + Price
+        if not short: self.skill("scroll_and_read", {"bursts_range": [1, 3]})
         focus = (self.item.spec.get("_coin") or "").lower()
         first = [c for c in coins if c["name"].lower() == focus]
         others = [c for c in coins if c not in first and c["name"] not in ("USDC", "USDS")]
-        k = rng.randint(*P("task.coins_to_record"))
+        k = 1 if short else rng.randint(*P("task.coins_to_record"))
         chosen = first + rng.sample(others[:8], min(len(others[:8]), k - len(first)))
         yield "read prices"
         browser = self.window
@@ -347,10 +337,11 @@ class CryptoPrices(Task):
         if sheet_win:
             day.desk.focus(sheet_win, "crypto sheet"); sheet = sheet_win.doc
             sheet.go_next_free_row()
+            self.split_screen(browser, sheet_win)
         else:
             sheet_win = day.desk.new_document("calc", "crypto sheet")
             sheet_win.extra["topic"] = "crypto"
-            sheet = CalcSheet(ctx, ["Coin", "Price", "Market cap"], sum_cols=[2])
+            sheet = CalcSheet(ctx, ["Coin", "Price"] if short else ["Coin", "Price", "Market cap"], sum_cols=[])   # no total: adding market caps means nothing
             sheet_win.doc = sheet
             self.split_screen(browser, sheet_win)
             day.desk.ensure_front(sheet_win, "sheet")
@@ -359,21 +350,22 @@ class CryptoPrices(Task):
         day.mark_app("calc")
         self.hidden = set()                                  # columns the bot could not see for some coin
         for n, coin in enumerate(chosen):
+            self.split_screen(browser, sheet_win)              # again after a break or a cut (no op if still split)
             day.desk.ensure_front(sheet_win, "row")
-            sheet.add_cells([coin["name"],
-                             self._from_page(browser, sheet_win, coin["name"], "price_text", coin["price"]),
-                             self._from_page(browser, sheet_win, coin["name"], "cap_text", coin["market_cap"])])
+            cells = [coin["name"], self._from_page(browser, sheet_win, coin["name"], "price_text", coin["price"])]
+            if not short:
+                cells.append(self._from_page(browser, sheet_win, coin["name"], "cap_text", coin["market_cap"]))
+            sheet.add_cells(cells)
             sheet_win.dirty = True
             if n < len(chosen) - 1:
                 self.next_need_s = P("task.row_need_s"); yield "row"; self.next_need_s = 0.0
-        sheet.total()
         self.save()
         self.item.found = {"kind": "crypto", "file": sheet_win.file,
                            "facts": [(c["name"], c["price"], c["market_cap"]) for c in chosen]}
         self.status = "done"
         self.note = ", " + rng.choice(SAVED_NOTE).format(file=sheet_win.file)
-        if "cap_text" in self.hidden:                         # said as it is, then tbc at the end of the day
-            self.status, self.note = "started", ", market cap not shown, " + rng.choice(SAVED_NOTE).format(file=sheet_win.file)
+        if self.hidden:                                      # a number it could not reach: started, tbc (Kellyn)
+            self.status, self.note = "started", ", started, " + rng.choice(SAVED_NOTE).format(file=sheet_win.file)
 
     def _from_page(self, browser, sheet_win, coin: str, which: str, value: str):
         """One cell, only from what is on screen (Kellyn, 25 Oct): go to the page, find the coin, scroll the
@@ -428,11 +420,14 @@ class CryptoPrices(Task):
         return el.left >= l and el.right <= r and el.top >= t and el.bottom <= b
 
     def _reach_cell(self, coin: str, which: str):
-        """The coin's cell, WHOLE on screen. Cut off on the right: Shift + wheel down over the table
-        (moves it right); on the left: Shift + wheel up. Looks again after each little scroll."""
+        """The coin's cell, WHOLE on screen. Above or below the screen: mouse wheel up or down over the
+        table; cut off on the right: Shift + wheel down (table moves right); on the left or under the coin
+        name column: Shift + wheel up. Looks again after each little scroll, and stops when the cell is
+        shown or the page no longer moves (a person gives up there too)."""
         ctx, eyes = self.ctx, self.day.eyes
         key = "price_el" if which == "price_text" else "cap_el"
-        for attempt in range(5):
+        last, scrolls = None, 0
+        for attempt in range(14):
             row = next((c for c in E.coingecko_coins(self.look()) if c["name"] == coin), None)
             el = (row or {}).get(key)
             if el is None: return None
@@ -441,20 +436,33 @@ class CryptoPrices(Task):
                 l, t, r, b = view                              # scrolls, and cells slide UNDER it
                 view = (max(l, row["name_el"].right + 4), t, r, b)
             if self._shown(el, view):
-                if attempt: self.rec("scrolled", coin=coin, cell=which, notches=attempt * 2)
+                if scrolls: self.rec("scrolled", coin=coin, cell=which, scrolls=scrolls)
                 return el
             if view is None: return None
+            pos = (el.left, el.top)
+            if pos == last:                                    # the last scroll moved nothing: give up
+                self.day.log({"event": "cell_unreachable", "coin": coin, "cell": which, "at": list(pos), "view": list(view)})
+                return None
+            last = pos
             l, t, r, b = view
-            if not (t <= el.top and el.bottom <= b): return None   # not on this part of the page
-            notches = 2 if el.right > r else -2                   # + = to the right, - = back to the left
-            ctx.mouse.move(rng_between(ctx.rng, l + 0.3 * (r - l), l + 0.7 * (r - l)), (el.top + el.bottom) / 2)
-            ctx.pacer.wait("step")
-            ctx.backend.key_event("shift", True)
-            for _ in range(abs(notches)):
-                ctx.backend.scroll(-1 if notches > 0 else 1)     # wheel down + Shift = table to the right
-                ctx.pacer.tiny(ctx.rng.uniform(0.08, 0.2))
-            ctx.backend.key_event("shift", False)
-            if hasattr(eyes, "hscroll"): eyes.hscroll(notches)
+            if el.top < t or el.bottom > b:                    # up or down first
+                ctx.mouse.move(rng_between(ctx.rng, l + 0.3 * (r - l), l + 0.7 * (r - l)), (t + b) / 2)
+                ctx.pacer.wait("step")
+                for _ in range(2):
+                    ctx.backend.scroll(1 if el.top < t else -1)   # wheel up = page up
+                    ctx.pacer.tiny(ctx.rng.uniform(0.08, 0.2))
+                if hasattr(eyes, "vscroll"): eyes.vscroll(-2 if el.top < t else 2)
+            else:                                              # then sideways
+                right = el.right > r
+                ctx.mouse.move(rng_between(ctx.rng, l + 0.3 * (r - l), l + 0.7 * (r - l)), (el.top + el.bottom) / 2)
+                ctx.pacer.wait("step")
+                ctx.backend.key_event("shift", True)
+                for _ in range(2):
+                    ctx.backend.scroll(-1 if right else 1)     # wheel down + Shift = table to the right
+                    ctx.pacer.tiny(ctx.rng.uniform(0.08, 0.2))
+                ctx.backend.key_event("shift", False)
+                if hasattr(eyes, "hscroll"): eyes.hscroll(2 if right else -2)
+            scrolls += 1
             ctx.pacer.wait("settle")
         return None
 

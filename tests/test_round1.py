@@ -57,14 +57,14 @@ def test_one_news_site_down_note_from_the_other():
 
 
 @pytest.mark.parametrize("seed", range(1, 21))
-def test_every_list_has_a_hybrid_and_an_office_task_near_the_top(seed):
+def test_no_line_is_forced(seed):
+    """Team, 25 Oct: nothing hardcoded. Short runs get 2 lines, longer runs 2 to 6, all drawn by weight."""
     _, ctx, _, _ = build_app(ROOT, sim=True, seed=seed)
-    d = Workday(ctx, ROOT, 10, sim=True)
-    d.t0 = 0.0
-    items = d.plan()
-    work = [i for i in items if not i.personal][:4]
-    assert any(i.spec.get("task") in Workday.RELIABLE_HYBRIDS for i in work)
-    assert any(i.spec.get("kind") == "office" for i in work)
+    for minutes, lo, hi in ((3.5, 2, 2), (15, 3, 8)):
+        d = Workday(ctx, ROOT, minutes, sim=True)
+        d.t0 = 0.0
+        work = [i for i in d.plan() if not i.personal]
+        assert lo <= len(work) <= hi, (minutes, [i.label for i in work])
 
 
 def test_line_answered_only_when_its_word_is_on_the_page():
@@ -105,3 +105,11 @@ def test_one_phone_is_said_as_it_is():
     _day(8, [item], {"slow_p": 0.0})
     assert item.status == "started" and "Galaxy Z Fold7" in item.note and "tbc" in item.note, item.note
     assert "Buds" not in item.note and "Watch" not in item.note
+
+
+def test_coins_further_down_are_scrolled_to_not_left_empty():
+    """Run 13: WhiteBIT (rank 10) was below the Edge half and left empty. The bot scrolls down to it."""
+    item = Item("check xrp on coingecko", _spec("crypto_prices", kind="hybrid", site="https://coingecko.com", _coin="xrp"))
+    d = _day(9, [item], {"slow_p": 0.0, "tall_view": True})
+    assert item.status == "done", item.note
+    assert not getattr(d.tasks_done[-1], "hidden", set()) if hasattr(d, "tasks_done") else True

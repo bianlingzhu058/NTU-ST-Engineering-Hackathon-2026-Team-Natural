@@ -24,11 +24,6 @@ todo:
 # Lines on the to do list and in note lists. dash: none = plain lines; literal = "- " typed on every
 # line. Use literal only if Writer leaves "- " as typed (VM test: type "- test" + Enter in Writer; if it
 # turns into a bullet, switch off Tools > AutoCorrect > Options > Bulleted and numbered lists first).
-# plan.first_task: the first line of every list is this task (demo). crypto_prices = CoinGecko into Calc:
-# Edge and Calc side by side, numbers copied (Ctrl+C, Ctrl+V) or read and typed. Remove the line for a random first task.
-plan:
-  first_task: crypto_prices
-
 lists:
   dash: none
   # Notes: copy items off the page (select, Ctrl+C, Ctrl+Alt+Shift+V paste as plain text) instead of
@@ -76,7 +71,7 @@ items:
   - {task: browse, kind: websurf, site: "https://www.bit.ly", labels: [["can bitly make qr codes for the event?", "QR Code", "read", "solutions"]]}
   - {task: browse, kind: websurf, site: "https://www.archive.org", labels: [["get archive.org contact details", "Contact", "open"]]}
   - {task: browse, kind: websurf, site: "https://www.booking.com", rare: true, labels: ["look at hotels for the offsite"]}
-  # Office only
+  # Office only (file admin "tidy up documents" removed 25 Oct, Kellyn: no time to debug it)
   - {task: writer_note, kind: office, note: meeting, labels: ["write meeting notes", "notes from the {team} meeting", "type up meeting notes"]}
   - {task: writer_note, kind: office, note: update, labels: ["weekly update", "write weekly update for {person}"]}
   - {task: writer_note, kind: office, note: email, labels: ["draft email to {person}", "reply {person} about the numbers"]}
@@ -84,7 +79,6 @@ items:
   - {task: calc_sheet, kind: office, sheet: budget, file: ["budget {mon}", "equipment budget"], labels: ["update budget sheet", "add costs to the budget"]}
   - {task: calc_sheet, kind: office, sheet: expenses, file: ["expenses {mon}", "claims {mon}"], labels: ["expense claims", "put in my expenses"]}
   - {task: calc_sheet, kind: office, sheet: timesheet, file: ["timesheet {date}", "hours {mon}"], labels: ["fill in timesheet", "log my hours"]}
-  - {task: tidy_files, kind: explorer, labels: ["tidy up documents", "clean up my files", "sort out documents folder"]}
 
 # Personal lines (0 to 2 per list). break: the kind of break that lets the bot strike them;
 # site: the personal site visited on an on screen break (homepage only, never a login form).

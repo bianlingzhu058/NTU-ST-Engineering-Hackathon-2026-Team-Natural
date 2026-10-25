@@ -320,3 +320,17 @@ def alt_tab_titles(user32=None) -> list[str] | None:
     except Exception:
         return None
     return out
+
+
+def window_state(needles) -> tuple[bool, tuple[int, int, int, int]] | None:
+    """(maximised?, (left, top, right, bottom)) of the window whose title holds one of ``needles``,
+    read from Windows (not the bot's memory). None off Windows or when no such window is open."""
+    hwnd = find_window(needles)
+    if not hwnd: return None
+    try:
+        user32 = ctypes.windll.user32
+        r = wintypes.RECT()
+        user32.GetWindowRect(hwnd, ctypes.byref(r))
+        return bool(user32.IsZoomed(hwnd)), (r.left, r.top, r.right, r.bottom)
+    except Exception:
+        return None

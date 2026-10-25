@@ -38,6 +38,7 @@ class Desk:
     def __init__(self, context, config: dict, log):
         self.ctx, self.cfg, self.log = context, config, log
         self._order = None                   # last real Alt+Tab order read (titles, front first)
+        self.split_pair = None               # (left, right) while a task works side by side, else None
         self.mru: list[Window] = [Window("harness", self.HARNESS, "operator window")]
         self.profile = os.environ.get("USERPROFILE") or os.path.expanduser("~")
         self.switches = 0
@@ -91,17 +92,76 @@ class Desk:
                 self._unsnap(win); return
         raise DeskError(f"{win.app} not in front")
 
+    # layout: the bot decides full screen or split, and checks what Windows really shows (Kellyn, 25 Oct)
     def _unsnap(self, win: Window) -> None:
-        """A document that is not full screen (and not put in a half on purpose) gets full screen again
-        before typing. Writer ended in the top left quarter while the list was typed (VM run 3, 25 Oct,
-        finding 13): Win+arrow keys from a Win key the system still saw as held."""
-        if win.app not in ("writer", "calc") or win.extra.get("split"): return
+        """Every window is full screen unless it is one half of the split the current task asked for.
+        Windows reopens an app at its last size (half, after a split day), so this runs on each switch."""
+        if win.app == "harness" or (self.split_pair and win in self.split_pair): return
+        self.make_full(win)
+
+    def make_full(self, win: Window) -> None:
+        """Maximise ``win`` (it is in front) the way a person does: its Maximize button, found by the eyes;
+        else a double click on the empty title bar left of the window buttons. Checked afterwards."""
         from ..win.uia import front_window
-        state = front_window()
-        if state is None or state[0]: return
+        st = front_window()
+        if st is None or st[0]: return                      # simulator, or already full screen
         if hasattr(self.ctx.backend, "release_modifiers"): self.ctx.backend.release_modifiers()
-        self.log({"event": "unsnap", "label": win.label, "rect": list(state[1])})
-        self._skill("maximize_window", {})
+        how = "title"
+        btn = None
+        if self.eyes is not None and getattr(self.eyes, "uia", None):
+            btns = self.eyes.read([win.needle], kinds=("button",), visible=True)
+            btn = next((b for b in btns if b.name.strip().lower() in ("maximize", "maximise")), None)
+        if btn is not None:
+            self.click_el(btn); how = "button"
+        else:
+            l, t, r, _ = st[1]
+            self.ctx.mouse.move(r - 230 - self.ctx.rng.uniform(0, 60), t + 14)
+            self.ctx.pacer.wait("step")
+            self.ctx.backend.click(); self.ctx.pacer.tiny(self.ctx.rng.uniform(0.07, 0.16)); self.ctx.backend.click()
+        self.ctx.pacer.wait("settle")
+        after = front_window()
+        # #46: the button click did not maximise on the VM; say where the button and the window were
+        self.log({"event": "maximised", "label": win.label, "how": how, "ok": bool(after and after[0]),
+                  "button": [btn.left, btn.top, btn.right, btn.bottom] if btn is not None else None,
+                  "window": list(st[1]), "front_after": self.title()[:50]})
+
+    def split(self, left: Window, right: Window) -> bool:
+        """Edge on the left half, the document on the right (Win+Left, Esc for Snap Assist, Win+Right),
+        then CHECK both with Windows; one more try if a window is not where it should be."""
+        from ..win.uia import window_state
+        ctx = self.ctx
+        width = ctx.backend.screen_size()[0] if hasattr(ctx.backend, "screen_size") else 0
+
+        def placed(win, side):
+            st = window_state(win.needle)
+            if st is None or not width: return None          # cannot tell (simulator)
+            zoomed, (l, _, r, _) = st
+            if zoomed: return False
+            mid = width / 2
+            return (l <= 20 and abs(r - mid) <= 40) if side == "left" else (abs(l - mid) <= 40 and r >= width - 20)
+
+        ok = None
+        for attempt in range(2):
+            for win, key in ((left, "left"), (right, "right")):
+                if placed(win, key): continue
+                self.focus(win, "split screen")
+                ctx.pacer.wait("step")
+                ctx.backend.hotkey("win", key)
+                if hasattr(ctx.backend, "release_modifiers"): ctx.backend.release_modifiers()
+                ctx.pacer.wait("settle")
+                if key == "left":
+                    ctx.backend.press("escape")
+                    ctx.pacer.wait("step")
+            checks = [placed(left, "left"), placed(right, "right")]
+            ok = None if None in checks else all(checks)
+            if ok is not False: break
+        self.split_pair = (left, right)
+        self.log({"event": "split_screen", "ok": ok, "left": left.label, "right": right.label})
+        return ok is not False
+
+    def unsplit(self) -> None:
+        """The task that wanted the split is over: windows go back to full screen when next used."""
+        self.split_pair = None
 
     def _learn_title(self, win: Window, fallback: str) -> None:
         """Take the exact title of a just opened document ('Untitled 2 - OpenOffice Writer')."""
@@ -180,6 +240,7 @@ class Desk:
                     break
             self.log({"event": "switch_recovered", "to": win.label, "order": (self._order or [])[:6]})
         self.log({"event": "switch", "to": win.label, "tabs": place, "why": why})
+        if why != "split screen": self._unsnap(win)
 
     def _real_place(self, win: Window):
         """How many Tabs reach ``win``: its place in the order Windows really keeps (front first),
@@ -212,7 +273,8 @@ class Desk:
         if app in ("writer", "calc"): self._learn_title(win, "Untitled")
         if app == "browser":
             win.tabs = 1
-            self._skill("maximize_window", {"first": True})
+            self.ctx.pacer.wait("browser_ready")         # let the fresh browser window appear first
+        self.make_full(win)                              # Windows may reopen it at its last (half) size
         self.log({"event": "open_app", "app": app, "label": label, "window_confirmed": args.get("window_confirmed")})
         return win
 
@@ -294,7 +356,7 @@ class Desk:
         ctx.backend.hotkey("alt", "n")                 # the File name box
         ctx.pacer.tiny(ctx.typer.key_gap())
         ctx.backend.hotkey("ctrl", "a")
-        ctx.typer.type_text(file if how != "path" else path, ctx="filename")
+        ctx.typer.type_text(file, ctx="filename")       # only the name, never the whole path (Kellyn, 25 Oct)
         ctx.pacer.wait("step")
         ctx.backend.press("enter")
         ctx.pacer.wait("read")
@@ -323,9 +385,46 @@ class Desk:
         self._items = self.eyes.read(["Save As", "Save"], kinds=("listitem",))
         return [e.name for e in self._items]
 
+    def _go_up(self) -> str:
+        """One folder up in the Save As box: click its Up arrow (eyes), else Alt+Up (the same button)."""
+        ctx = self.ctx
+        if self.eyes is not None and getattr(self.eyes, "uia", None):
+            btns = self.eyes.read(["Save As", "Save"], kinds=("button", "splitbutton"), visible=True)
+            up = next((b for b in btns if b.name.strip().lower().startswith("up to")), None)
+            if up is not None:
+                self.click_el(up)
+                ctx.pacer.wait("settle")
+                return "button"
+        ctx.backend.hotkey("alt", "up")
+        if hasattr(ctx.backend, "release_modifiers"): ctx.backend.release_modifiers()
+        if self.eyes is not None and not getattr(self.eyes, "uia", None): self.sim_folder = "Documents"
+        ctx.pacer.wait("settle")
+        return "alt+up"
+
+    def _dialog_census(self) -> dict:
+        """What the eyes see in the Save As box, by kind (for the log: which kinds hold the folders)."""
+        if self.eyes is None or not getattr(self.eyes, "uia", None): return {}
+        els = self.eyes.read(["Save As", "Save"], kinds=("treeitem", "listitem", "button", "splitbutton", "edit", "text"),
+                             visible=True)
+        out: dict = {}
+        for e in els:
+            out.setdefault(e.kind, []).append(e.name[:30])
+        return {k: (len(v), v[:8]) for k, v in out.items()}
+
+    def _click_documents(self) -> bool:
+        """Click "Documents" in the Save As box's left pane (eyes). False when it cannot be seen."""
+        if self.eyes is None or not getattr(self.eyes, "uia", None): return False
+        tree = [e for e in self.eyes.read(["Save As", "Save"], kinds=("treeitem",), visible=True)
+                if e.name.strip().lower() == "documents"]
+        if not tree: return False
+        self.click_el(tree[0])
+        self.ctx.pacer.wait("settle")
+        self.log({"event": "save_as_clicked", "folder": "Documents"})
+        return True
+
     def _choose_folder(self, folder: str) -> str:
         """Get the Save As box into ``folder`` the way a person does. Returns how: 'here', 'opened',
-        'up', 'typed' (typed the folder name, Enter) or 'path' (last resort: the full path)."""
+        'up', 'typed' (typed the folder name, Enter) or 'name only' (never the whole path)."""
         ctx = self.ctx
         want = folder.rsplit("\\", 1)[-1]                 # "To do" or "Documents"
         names = self._list_items()
@@ -335,18 +434,23 @@ class Desk:
             if names or self.eyes is None or not self.eyes.available: break
             ctx.pacer.wait("settle"); names = self._list_items()
         if not names:
-            # #36: the Calc Save As list read empty on the VM; say what the eyes looked at, to find out why
-            from ..win.uia import alt_tab_titles
-            self.log({"event": "save_list_empty", "front": self.title(), "windows": (alt_tab_titles() or [])[:6],
-                      "items_read": len(getattr(self, "_items", []) or [])})
-            if want != "Documents":
-                # Save As opens in Documents: typing the folder name + Enter opens it, then the file name
-                ctx.backend.hotkey("alt", "n")
-                ctx.typer.type_text(want, ctx="filename")
-                ctx.backend.press("enter")
-                ctx.pacer.wait("settle")
-                return "typed"
-            return "path"
+            # #36 (VM 25 Oct, Kellyn's screenshot): the box reopened in "To do", which holds only Writer files,
+            # so a Calc save showed "No items match your search" and the eyes read nothing. Never type the
+            # whole path (no person does): go up one folder like a person (the Up arrow, else Alt+Up, the
+            # move that worked for the Writer saves), look again, then only the file name.
+            seen = self._dialog_census()
+            how_up = self._go_up()
+            names = self._list_items()
+            self.log({"event": "save_list_empty", "front": self.title(), "seen": seen, "went_up": how_up,
+                      "after_up": names[:8]})
+            if "To do" in names:
+                if want == "Documents": return "up"
+                item = next((e for e in self._items if e.name == want), None)
+                if item is not None:
+                    self.click_el(item, double=True)
+                    ctx.pacer.wait("settle")
+                    return "up, opened"
+            return "name only"                          # cannot tell where it is: just the name, like a person
         looks_todo = any(n.lower().startswith(("todo", "to do ")) for n in names)
         if want == "Documents":
             if "To do" in names or not looks_todo: return "here"
@@ -377,6 +481,8 @@ class Desk:
             self.log({"event": "close_skipped_on_harness", "label": win.label})
             self.mru.remove(win)
             return
+        self.split_pair = None
+        self.make_full(win)                              # closed full size, so it opens full size next time
         ctx.pacer.wait("think")
         if win.app == "browser":
             # One Ctrl+W per tab, and more while Edge is still in front: the tab count can be low (a link
