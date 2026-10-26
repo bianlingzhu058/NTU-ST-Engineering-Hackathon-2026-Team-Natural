@@ -1,0 +1,33 @@
+# Office worker, spreadsheet: open OpenOffice Calc, enter a small table + a SUM row, bold the
+# header, save as .ods, close. A second office app so the process tree shows soffice.bin doing
+# spreadsheet work as well as document work (Action Complexity).
+# Row labels never start with another label in the same column, or Calc's AutoInput would
+# silently autocomplete them. Launch via `scalc` (same route as `swriter`, which works on this VM).
+name: office_calc
+weight: 1
+params:
+  app_name: scalc
+  run_command: scalc
+  filenames: ["budget {n}", "expenses {n}", "sales summary {n}", "team costs {n}"]
+  tables:
+    - name: office budget
+      headers: ["Item", "October", "November"]
+      rows: [["Rent", "2400", "2400"], ["Utilities", "310", "285"], ["Software", "560", "560"], ["Travel", "420", "180"], ["Coffee", "95", "110"]]
+      total_label: "Total"
+    - name: sales
+      headers: ["Region", "Q3", "Q4"]
+      rows: [["North", "15200", "16850"], ["East", "9800", "11200"], ["South", "12400", "12900"], ["West", "7600", "8300"]]
+      total_label: "Total"
+    - name: team costs
+      headers: ["Team", "Staff", "Equipment"]
+      rows: [["Design", "8200", "1300"], ["Engineering", "21500", "4200"], ["Marketing", "6900", "950"], ["Support", "5400", "700"]]
+      total_label: "Total"
+plan:
+  - skill: open_app
+    args: {name: "{app_name}", run_command: "{run_command}", strategies: ["start_search", "run_dialog"], expect: "Calc"}
+  - skill: fill_sheet
+    args: {table: "{tables}"}
+  - skill: save_file
+    args: {filename: "{filenames}"}
+  - skill: close_app
+    args: {method: alt_f4}

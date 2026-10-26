@@ -1,0 +1,93 @@
+# Cross-application research flow (three apps): browse a site and copy its URL as a "source",
+# write a short titled note in Writer and paste that source link under it, then open Calc, enter a
+# small table of gathered figures, paste the same source below the table, and save. This chains
+# browser -> Writer -> Calc with one real clipboard value, the kind of complex, obviously-human
+# action a single-app bot cannot fake. The telemetry shows msedge.exe and two soffice.bin instances
+# all parented to explorer.exe, plus genuine cross-process clipboard use.
+name: cross_app
+weight: 1
+params:
+  browser_name: Edge Test
+  writer_name: swriter
+  writer_run: swriter
+  calc_name: scalc
+  run_command: scalc
+  # Coherent "price research" scenario: browse tech-vendor sites, jot a short note citing the page
+  # as the source, then note product prices and the same source link in a spreadsheet — a believable
+  # human workflow (page, note and sheet all share the topic). All reliable, fast-loading. The figures
+  # are typed by hand (the agent drives blind and never scrapes the page); only the page URL is copied
+  # across as the Source.
+  sites:
+    - https://www.apple.com
+    - https://www.dell.com
+    - https://www.samsung.com
+    - https://www.amazon.com
+  find_terms: ["price", "buy", "specs", "compare", "learn"]
+  note_label: "Source"
+  # Writer leg: a short titled note. ASCII only; the body is typed, the source link is pasted.
+  writer_titles: ["Vendor research", "Product findings", "Pricing notes", "Quick research note"]
+  writer_bodies:
+    - - "Checked the vendor page for current pricing and availability before logging the figures."
+    - - "Had a look at the specs and the latest prices; keeping the source link here for reference."
+    - - "Quick scan of the product page. Prices look reasonable, noting the details for the sheet."
+  writer_filenames: ["research note {n}", "findings {n}", "vendor notes {n}", "price research {n}"]
+  filenames: ["research notes {n}", "market scan {n}", "price check {n}", "findings {n}"]
+  # Product/price tables — coherent with browsing vendor sites. Row labels in a column never share
+  # a leading prefix (Calc AutoInput would autocomplete them).
+  tables:
+    - name: hardware prices
+      headers: ["Item", "Price", "Qty"]
+      rows: [["Monitor", "240", "3"], ["Keyboard", "85", "6"], ["Dock", "145", "2"], ["Webcam", "70", "4"]]
+      total_label: "Total"
+    - name: laptop quotes
+      headers: ["Model", "Price", "Stock"]
+      rows: [["ProBook 14", "980", "4"], ["UltraSlim 13", "1340", "2"], ["Workstation 16", "2100", "1"], ["Mini PC", "560", "7"]]
+      total_label: "Total"
+plan:
+  # 1) Open the browser (confirm the Edge window is actually in front before acting).
+  - skill: open_app
+    args: {name: "{browser_name}", strategies: ["start_search"], expect: "Edge"}
+  # 2) Visit a site and read it, like gathering a figure for the note and sheet.
+  - skill: go_to_url
+    args: {url: "{sites}", first: true}
+  - skill: scroll_and_read
+    args: {bursts_range: [3, 6]}
+  - skill: find_on_page
+    chance: 0.6
+    args: {text: "{find_terms}"}
+  # 3) Copy the page URL to the clipboard, to cite the source in both documents.
+  - skill: copy_page_url
+    args: {expect: "Edge"}
+  # 4) Open Writer (a soffice.bin process under explorer.exe) and write a short titled note.
+  - skill: open_app
+    args: {name: "{writer_name}", run_command: "{writer_run}", strategies: ["start_search", "run_dialog"], expect: "Writer"}
+  - skill: type_document
+    args: {title: "{writer_titles}", paragraphs: "{writer_bodies}"}
+  # Style the title — a visible select-and-format action (Action Complexity). Leaves the cursor at
+  # the end of the document, ready for the pasted source line.
+  - skill: emphasize_title
+  # 5) Paste the copied source URL on a fresh line below the note (no navigation; pastes at cursor).
+  - skill: paste_note
+    args: {newline: true, label: "Source: ", expect: "Writer"}
+  # 6) Save the note as .odt and close Writer.
+  - skill: save_file
+    args: {filename: "{writer_filenames}"}
+  - skill: close_app
+    args: {method: alt_f4}
+  # 7) Open Calc (a second, separate soffice.bin process under explorer.exe).
+  - skill: open_app
+    args: {name: "{calc_name}", run_command: "{run_command}", strategies: ["start_search", "run_dialog"], expect: "Calc"}
+  # 8) Enter the gathered figures as a table with a SUM row (rows 1..~8).
+  - skill: fill_sheet
+    args: {table: "{tables}"}
+  # 9) Paste the copied source URL into a clear row below the table (A10), labelled "Source".
+  - skill: paste_into_cell
+    args: {label: "{note_label}", down: 9, expect: "Calc"}
+  # 10) Save as .ods and close Calc.
+  - skill: save_file
+    args: {filename: "{filenames}"}
+  - skill: close_app
+    args: {method: alt_f4}
+  # 11) Back on the browser, close it.
+  - skill: close_app
+    args: {method: ctrl_w, tabs: 2}

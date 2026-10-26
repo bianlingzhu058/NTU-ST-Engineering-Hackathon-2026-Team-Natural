@@ -1,0 +1,39 @@
+# File Explorer admin: open a File Explorer window and browse a few folders, the way a person
+# checks their files between other work. Explorer is explorer.exe itself, so this is natively
+# part of the shell (authentic lineage) and produces the folder/file-read activity a real user
+# generates. STRICTLY READ-ONLY: it navigates (address bar) and skims (arrow keys + scroll) only —
+# it never opens a file, and nothing is created, renamed or deleted.
+# NOTE: the Desktop is deliberately NOT browsed — on the test VM it holds the transfer files
+# (d.txt, the bundle), which should not appear on camera. Paths are SINGLE-quoted so the
+# backslashes stay literal (YAML processes escapes only inside double quotes). %USERPROFILE%
+# expands in the Explorer address bar.
+name: file_admin
+weight: 1
+params:
+  # Folders that are reliably NON-EMPTY on a fresh VM, so the browse always shows a full list on
+  # camera (a fresh snapshot's Documents/Downloads/Pictures are empty, which looks weak). The home
+  # folder (%USERPROFILE%) always shows the standard subfolders, and Program Files / Windows are
+  # always full. If you populate your own user folders before recording, you can add them back.
+  paths:
+    - '%USERPROFILE%'
+    - 'C:\Program Files'
+    - 'C:\Windows'
+plan:
+  # Open Explorer (Win+E). Title is usually the folder name, so no fixed window to expect.
+  - skill: open_explorer
+  # Skim whatever opened first (Home / Quick access). Arrow + scroll only — never opens an item.
+  - skill: browse_items
+    args: {steps_range: [3, 6]}
+  # Go to a folder and look around.
+  - skill: explorer_navigate
+    args: {path: "{paths}"}
+  - skill: browse_items
+    args: {steps_range: [3, 7]}
+  # Then another folder.
+  - skill: explorer_navigate
+    args: {path: "{paths}"}
+  - skill: browse_items
+    args: {steps_range: [2, 6]}
+  # Close the window. No save prompt in Explorer, so no confirming Enter.
+  - skill: close_app
+    args: {method: alt_f4, confirm_close: false}
